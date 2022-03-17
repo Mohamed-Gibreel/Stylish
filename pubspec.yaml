@@ -1,0 +1,47 @@
+name: stylish
+description: A Very Good Project created by Very Good CLI.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  bloc: ^8.0.3
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_screenutil: ^5.3.1
+  flutter_svg: ^1.0.3
+  intl: ^0.17.0
+
+dev_dependencies:
+  bloc_test: ^9.0.3
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^2.4.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - assets/onboarding/
+    - assets/authentication/
+    - assets/homepage/
+    - assets/products/
+  fonts:
+    - family: Gordita
+      fonts:
+        - asset: fonts/gordita/Gordita-Thin.otf
+          weight: 200
+        - asset: fonts/gordita/Gordita-Light.otf
+          weight: 300
+        - asset: fonts/gordita/Gordita-Regular.otf
+          weight: 400
+        - asset: fonts/gordita/Gordita-Medium.otf
+          weight: 500
+        - asset: fonts/gordita/Gordita-Bold.otf
+          weight: 700

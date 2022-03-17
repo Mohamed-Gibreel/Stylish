@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+  "counterAppBarTitle": "Counter",
+  "explore": "Explore",
+  "bestOutfitForYou": "Best outfit for you",
+  "searchItems": "Search items...",
+  "dress": "Dress",
+  "shirt": "Shirt",
+  "pants": "Pants",
+  "tShirt": "T-Shirt",
+  "newArrival": "New Arrival",
+  "seeAll": "See All",
+  "chooseProduct": "Choose Product",
+  "chooseProductDesc": "A product is the item offered for sale.\n A product can be a service or an item. It can be physical or in virtual or cyber form",
+  "makePayment": "Make payment",
+  "makePaymentDesc": "Payment is the transfer of money\n services in exchange product or Payments typically made terms agreed",
+  "getYourOrder": "Get Your Order",
+  "getYourOrderDesc": "Business or commerce an order is a stated intention either spoken to engage in a commercial transaction specific products",
+  "getStarted": "Get Started",
+  "next": "Next",
+  "skip": "Skip"
+}
