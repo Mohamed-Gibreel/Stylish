@@ -13,6 +13,7 @@ class ThirdOnboarding extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
@@ -30,39 +31,44 @@ class ThirdOnboarding extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: 55.h,
-            ),
-            Image.asset(
-              'assets/onboarding/onboarding-1.png',
-              width: 325.w,
-              height: 325.h,
-            ),
-            SizedBox(
-              height: 40.h,
-            ),
-            Text(
-              l10n.getYourOrder,
-              style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 16.h,
-            ),
-            SizedBox(
-              width: 323.w,
-              child: Text(
-                l10n.getYourOrderDesc,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  height: 1.3.sp,
-                  color: Colors.black.withOpacity(.5),
-                  fontWeight: FontWeight.w400,
+            Column(
+              children: [
+                SizedBox(
+                  height: 55.h,
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 35.h,
+                Image.asset(
+                  'assets/onboarding/onboarding-1.png',
+                  width: 325.w,
+                  height: 325.h,
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                Text(
+                  l10n.getYourOrder,
+                  style:
+                      TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                SizedBox(
+                  width: 323.w,
+                  child: Text(
+                    l10n.getYourOrderDesc,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      height: 1.3.sp,
+                      color: Colors.black.withOpacity(.5),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 35.h,
+                ),
+              ],
             ),
             GestureDetector(
               onTap: () {

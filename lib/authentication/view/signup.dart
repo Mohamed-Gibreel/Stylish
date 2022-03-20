@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:stylish/util/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:stylish/util/constants.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   Color getCheckColor(Set<MaterialState> states) {
     const interactiveStates = <MaterialState>{
       MaterialState.pressed,
@@ -27,342 +27,349 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            children: [
-              SizedBox(height: 55.h),
-              SvgPicture.asset('assets/authentication/logo.svg'),
-              // Image.asset(
-              //   'assets/authentication/logo.png',
-              //   width: 54.w,
-              //   height: 62.h,
-              // ),
-              SizedBox(
-                height: 38.h,
-              ),
-              Text(
-                'Sign Up',
-                style: TextStyle(
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.w400,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Column(
+              children: [
+                SizedBox(height: 55.h),
+                SvgPicture.asset('assets/authentication/logo.svg'),
+                // Image.asset(
+                //   'assets/authentication/logo.png',
+                //   width: 54.w,
+                //   height: 62.h,
+                // ),
+                SizedBox(
+                  height: 38.h,
                 ),
-              ),
-              SizedBox(
-                height: 35.h,
-              ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.fromLTRB(8.w, 6.h, 0, 6.h),
-                height: 60.h,
-                decoration: BoxDecoration(
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(.1),
-                      blurRadius: 1,
-                    )
-                  ],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.r),
+                Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 48.w,
-                      height: 45.h,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                        vertical: 12.h,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        color: Constants.primaryColor.withOpacity(.1),
-                      ),
-                      // SvgPicture.asset('assets/authentication/logo.svg'),
-                      child: SvgPicture.asset(
-                        'assets/authentication/profile.svg',
-                        width: 24.w,
-                        height: 24.h,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Name',
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
+                SizedBox(
+                  height: 35.h,
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.fromLTRB(8.w, 6.h, 0, 6.h),
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(.1),
+                        blurRadius: 1,
+                      )
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 48.w,
+                        height: 45.h,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 12.h,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Constants.primaryColor.withOpacity(.1),
+                        ),
+                        // SvgPicture.asset('assets/authentication/logo.svg'),
+                        child: SvgPicture.asset(
+                          'assets/authentication/profile.svg',
+                          width: 24.w,
+                          height: 24.h,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10.5.h,
-              ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.fromLTRB(8.w, 6.h, 0, 6.h),
-                height: 60.h,
-                decoration: BoxDecoration(
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(.1),
-                      blurRadius: 1,
-                    )
-                  ],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 48.w,
-                      height: 45.h,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                        vertical: 12.h,
+                      SizedBox(
+                        width: 10.w,
                       ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        color: Constants.primaryColor.withOpacity(.1),
-                      ),
-                      // SvgPicture.asset('assets/authentication/logo.svg'),
-                      child: SvgPicture.asset(
-                        'assets/authentication/message.svg',
-                        width: 24.w,
-                        height: 24.h,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Email',
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
+                      Expanded(
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: 'Name',
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 11.h,
-              ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.fromLTRB(8.w, 6.h, 0, 6.h),
-                height: 60.h,
-                decoration: BoxDecoration(
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(.1),
-                      blurRadius: 1,
-                    )
-                  ],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.r),
+                SizedBox(
+                  height: 10.5.h,
                 ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 48.w,
-                      height: 45.h,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                        vertical: 12.h,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        color: Constants.primaryColor.withOpacity(.1),
-                      ),
-                      // SvgPicture.asset('assets/authentication/logo.svg'),
-                      child: SvgPicture.asset(
-                        'assets/authentication/lock.svg',
-                        width: 24.w,
-                        height: 24.h,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Password',
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.fromLTRB(8.w, 6.h, 0, 6.h),
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(.1),
+                        blurRadius: 1,
+                      )
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 48.w,
+                        height: 45.h,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 12.h,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Constants.primaryColor.withOpacity(.1),
+                        ),
+                        // SvgPicture.asset('assets/authentication/logo.svg'),
+                        child: SvgPicture.asset(
+                          'assets/authentication/message.svg',
+                          width: 24.w,
+                          height: 24.h,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 17.h,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Row(
-                  children: [
-                    Container(
-                      constraints: BoxConstraints(maxHeight: 18.h),
-                      child: Checkbox(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        fillColor:
-                            MaterialStateColor.resolveWith(getCheckColor),
-                        value: termsChecked,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.r),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: 'Email',
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                          ),
                         ),
-                        onChanged: (value) {
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 11.h,
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.fromLTRB(8.w, 6.h, 0, 6.h),
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(.1),
+                        blurRadius: 1,
+                      )
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 48.w,
+                        height: 45.h,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 12.h,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Constants.primaryColor.withOpacity(.1),
+                        ),
+                        // SvgPicture.asset('assets/authentication/logo.svg'),
+                        child: SvgPicture.asset(
+                          'assets/authentication/lock.svg',
+                          width: 24.w,
+                          height: 24.h,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: 'Password',
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 17.h,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Row(
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(maxHeight: 18.h),
+                        child: Checkbox(
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          fillColor:
+                              MaterialStateColor.resolveWith(getCheckColor),
+                          value: termsChecked,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(2.r),
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              termsChecked = value ?? false;
+                            });
+                          },
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
                           setState(() {
-                            termsChecked = value ?? false;
+                            termsChecked = !termsChecked;
                           });
                         },
+                        child: Text(
+                          'I accept all the Terms & Conditions',
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(133.r),
+                    color: Constants.primaryColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Sign up",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.sp,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          termsChecked = !termsChecked;
-                        });
-                      },
-                      child: Text(
-                        'I accept all the Terms & Conditions',
-                        style: TextStyle(
-                            fontSize: 12.sp, fontWeight: FontWeight.w400),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.5.h,
+                ),
+                Row(
+                  children: [
+                    const Expanded(
+                      child: Divider(
+                        height: 1,
+                        color: Color.fromRGBO(35, 46, 36, 0.6),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 25.w,
+                    ),
+                    Text(
+                      'Or',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 25.w,
+                    ),
+                    const Expanded(
+                      child: Divider(
+                        height: 1,
+                        color: Color.fromRGBO(35, 46, 36, 0.6),
                       ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              Container(
-                width: double.infinity,
-                height: 60.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(133.r),
-                  color: Constants.primaryColor,
+                SizedBox(
+                  height: 24.5.h,
                 ),
-                child: Center(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: 70.w,
+                      height: 70.h,
+                      decoration: BoxDecoration(
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(.1),
+                            blurRadius: 2,
+                          )
+                        ],
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/authentication/google.svg',
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 70.w,
+                      height: 70.h,
+                      decoration: BoxDecoration(
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(.1),
+                            blurRadius: 2,
+                          )
+                        ],
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/authentication/facebook.svg',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 27.5.h,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute<Widget>(
+                    //     builder: (context) => SignUp(),
+                    //   ),
+                    // );
+                  },
                   child: Text(
-                    "Sign up",
+                    "Already have an account? Log in",
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                     ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 20.5.h,
-              ),
-              Row(
-                children: [
-                  const Expanded(
-                    child: Divider(
-                      height: 1,
-                      color: Color.fromRGBO(35, 46, 36, 0.6),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 25.w,
-                  ),
-                  Text(
-                    'Or',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12.sp,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 25.w,
-                  ),
-                  const Expanded(
-                    child: Divider(
-                      height: 1,
-                      color: Color.fromRGBO(35, 46, 36, 0.6),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 24.5.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    width: 70.w,
-                    height: 70.h,
-                    decoration: BoxDecoration(
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(.1),
-                          blurRadius: 2,
-                        )
-                      ],
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        'assets/authentication/google.svg',
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 70.w,
-                    height: 70.h,
-                    decoration: BoxDecoration(
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(.1),
-                          blurRadius: 2,
-                        )
-                      ],
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        'assets/authentication/facebook.svg',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 27.5.h,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute<Widget>(
-                  //     builder: (context) => SignUp(),
-                  //   ),
-                  // );
-                },
-                child: Text(
-                  "Already have an account? Log in",
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                  ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

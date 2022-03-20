@@ -18,11 +18,15 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage>
     with SingleTickerProviderStateMixin {
+  //Controllers
   late AnimationController animationController;
+
+  //Variables
   bool isCollapsed = false;
   bool showSearchPage = false;
   bool showHomePage = true;
   bool showHomePageText = true;
+
   @override
   void initState() {
     animationController = AnimationController(
@@ -36,6 +40,119 @@ class _HomepageState extends State<Homepage>
   void dispose() {
     animationController.dispose();
     super.dispose();
+  }
+
+  AppBar _customAppBar() {
+    return AppBar(
+      shape: ContinuousRectangleBorder(
+        borderRadius: isCollapsed
+            ? BorderRadius.only(
+                topLeft: Radius.circular(30.r),
+                topRight: Radius.circular(30.r),
+              )
+            : BorderRadius.zero,
+      ),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      elevation: 0,
+      leadingWidth: 38.w,
+      leading: GestureDetector(
+        onTap: () {
+          if (mounted) {
+            if (isCollapsed) {
+              animationController.reverse();
+            } else {
+              animationController.forward();
+            }
+            isCollapsed = !isCollapsed;
+            setState(() {});
+          }
+        },
+        child: Padding(
+          padding: EdgeInsets.only(left: 20.w),
+          child: const Icon(
+            Icons.menu,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.location_on_outlined,
+            color: Colors.black,
+            size: 16.h,
+          ),
+          SizedBox(
+            width: 5.w,
+          ),
+          Text(
+            'Abu Dhabi',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w400,
+              fontSize: 14.sp,
+            ),
+          )
+        ],
+      ),
+      actions: [
+        Padding(
+          padding: EdgeInsets.only(right: 20.w),
+          child: Align(
+            child: Container(
+              width: 42.w,
+              height: 38.h,
+              decoration: BoxDecoration(
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(.1),
+                    blurRadius: 1,
+                  )
+                ],
+                borderRadius: BorderRadius.circular(5.r),
+                color: Colors.white,
+              ),
+              child: Center(
+                child: Stack(
+                  children: [
+                    const Icon(
+                      Icons.notifications,
+                      color: Colors.grey,
+                    ),
+                    Positioned(
+                      right: 0,
+                      child: Container(
+                        width: 10.w,
+                        height: 10.h,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 2.w,
+                          vertical: 2.h,
+                        ),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Container(
+                          constraints: BoxConstraints(
+                            maxHeight: 1.h,
+                            maxWidth: 1.w,
+                          ),
+                          decoration: const BoxDecoration(
+                            color: Constants.primaryColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 
   @override
@@ -107,120 +224,8 @@ class _HomepageState extends State<Homepage>
                             : null,
                       ),
                       child: Scaffold(
-                        // extendBodyBehindAppBar: true,
-                        // extendBody: true`
                         backgroundColor: Colors.transparent,
-                        appBar: AppBar(
-                          shape: ContinuousRectangleBorder(
-                            borderRadius: isCollapsed
-                                ? BorderRadius.only(
-                                    topLeft: Radius.circular(30.r),
-                                    topRight: Radius.circular(30.r),
-                                  )
-                                : BorderRadius.zero,
-                          ),
-                          backgroundColor:
-                              Theme.of(context).scaffoldBackgroundColor,
-                          elevation: 0,
-                          leadingWidth: 38.w,
-                          leading: GestureDetector(
-                            onTap: () {
-                              if (mounted) {
-                                if (isCollapsed) {
-                                  animationController.reverse();
-                                } else {
-                                  animationController.forward();
-                                }
-                                isCollapsed = !isCollapsed;
-                                setState(() {});
-                              }
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 20.w),
-                              child: const Icon(
-                                Icons.menu,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.location_on_outlined,
-                                color: Colors.black,
-                                size: 16.h,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                'Abu Dhabi',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14.sp,
-                                ),
-                              )
-                            ],
-                          ),
-                          actions: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 20.w),
-                              child: Align(
-                                child: Container(
-                                  width: 42.w,
-                                  height: 38.h,
-                                  decoration: BoxDecoration(
-                                    boxShadow: <BoxShadow>[
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(.1),
-                                        blurRadius: 1,
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(5.r),
-                                    color: Colors.white,
-                                  ),
-                                  child: Center(
-                                    child: Stack(
-                                      children: [
-                                        const Icon(
-                                          Icons.notifications,
-                                          color: Colors.grey,
-                                        ),
-                                        Positioned(
-                                          right: 0,
-                                          child: Container(
-                                            width: 10.w,
-                                            height: 10.h,
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 2.w,
-                                              vertical: 2.h,
-                                            ),
-                                            decoration: const BoxDecoration(
-                                              color: Colors.white,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Container(
-                                              constraints: BoxConstraints(
-                                                maxHeight: 1.h,
-                                                maxWidth: 1.w,
-                                              ),
-                                              decoration: const BoxDecoration(
-                                                color: Constants.primaryColor,
-                                                shape: BoxShape.circle,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                        appBar: _customAppBar(),
                         body: AnimatedContainer(
                           duration: const Duration(microseconds: 400),
                           decoration: BoxDecoration(
@@ -339,10 +344,10 @@ class _HomepageState extends State<Homepage>
                                 //   setState(() {});
                                 // },
                                 // opacity: showHomePage ? 0 : 1,
-                                opacity: 1,
+                                opacity: showHomePage ? 1 : 0,
                                 duration: const Duration(milliseconds: 400),
                                 child: Visibility(
-                                  visible: true,
+                                  visible: showHomePageText,
                                   // visible: !showHomePage,
                                   child: Column(
                                     crossAxisAlignment:
