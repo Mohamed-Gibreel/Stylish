@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:stylish/l10n/l10n.dart';
 import 'package:stylish/modules/homepage/view/components/bottom_app_bar.dart';
+import 'package:stylish/modules/homepage/view/components/custom_app_bar.dart';
 import 'package:stylish/modules/homepage/view/components/filter_card.dart';
 import 'package:stylish/modules/homepage/view/components/product_card.dart';
 import 'package:stylish/modules/homepage/view/components/search_bar.dart';
 import 'package:stylish/modules/homepage/view/components/sidebar.dart';
-import 'package:stylish/util/constants.dart';
+import 'package:stylish/modules/searchpage/searchpage.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -26,6 +26,7 @@ class _HomepageState extends State<Homepage>
   bool showSearchPage = false;
   bool showHomePage = true;
   bool showHomePageText = true;
+  bool hideExploreText = false;
 
   @override
   void initState() {
@@ -40,119 +41,6 @@ class _HomepageState extends State<Homepage>
   void dispose() {
     animationController.dispose();
     super.dispose();
-  }
-
-  AppBar _customAppBar() {
-    return AppBar(
-      shape: ContinuousRectangleBorder(
-        borderRadius: isCollapsed
-            ? BorderRadius.only(
-                topLeft: Radius.circular(30.r),
-                topRight: Radius.circular(30.r),
-              )
-            : BorderRadius.zero,
-      ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      elevation: 0,
-      leadingWidth: 38.w,
-      leading: GestureDetector(
-        onTap: () {
-          if (mounted) {
-            if (isCollapsed) {
-              animationController.reverse();
-            } else {
-              animationController.forward();
-            }
-            isCollapsed = !isCollapsed;
-            setState(() {});
-          }
-        },
-        child: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: const Icon(
-            Icons.menu,
-            color: Colors.black,
-          ),
-        ),
-      ),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.location_on_outlined,
-            color: Colors.black,
-            size: 16.h,
-          ),
-          SizedBox(
-            width: 5.w,
-          ),
-          Text(
-            'Abu Dhabi',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w400,
-              fontSize: 14.sp,
-            ),
-          )
-        ],
-      ),
-      actions: [
-        Padding(
-          padding: EdgeInsets.only(right: 20.w),
-          child: Align(
-            child: Container(
-              width: 42.w,
-              height: 38.h,
-              decoration: BoxDecoration(
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(.1),
-                    blurRadius: 1,
-                  )
-                ],
-                borderRadius: BorderRadius.circular(5.r),
-                color: Colors.white,
-              ),
-              child: Center(
-                child: Stack(
-                  children: [
-                    const Icon(
-                      Icons.notifications,
-                      color: Colors.grey,
-                    ),
-                    Positioned(
-                      right: 0,
-                      child: Container(
-                        width: 10.w,
-                        height: 10.h,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 2.w,
-                          vertical: 2.h,
-                        ),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Container(
-                          constraints: BoxConstraints(
-                            maxHeight: 1.h,
-                            maxWidth: 1.w,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Constants.primaryColor,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        )
-      ],
-    );
   }
 
   @override
@@ -225,7 +113,28 @@ class _HomepageState extends State<Homepage>
                       ),
                       child: Scaffold(
                         backgroundColor: Colors.transparent,
-                        appBar: _customAppBar(),
+                        appBar: CustomAppBar(
+                          shape: ContinuousRectangleBorder(
+                            borderRadius: isCollapsed
+                                ? BorderRadius.only(
+                                    topLeft: Radius.circular(30.r),
+                                    topRight: Radius.circular(30.r),
+                                  )
+                                : BorderRadius.zero,
+                          ),
+                          leadingWidgetCb: () {
+                            if (mounted) {
+                              if (isCollapsed) {
+                                animationController.reverse();
+                              } else {
+                                animationController.forward();
+                              }
+                              isCollapsed = !isCollapsed;
+                              setState(() {});
+                            }
+                          },
+                          leadingWidgetIcon: Icons.menu,
+                        ),
                         body: AnimatedContainer(
                           duration: const Duration(microseconds: 400),
                           decoration: BoxDecoration(
@@ -259,8 +168,9 @@ class _HomepageState extends State<Homepage>
                                   },
                                   duration: const Duration(milliseconds: 400),
                                   opacity: showHomePage ? 1 : 0,
+                                  // visible: showHomePageText,
                                   child: Visibility(
-                                    visible: showHomePageText,
+                                    visible: !hideExploreText,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -292,168 +202,126 @@ class _HomepageState extends State<Homepage>
                                   ),
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                  horizontal: 20.w,
-                                ),
-                                width: double.infinity,
-                                height: 55.h,
-                                padding: EdgeInsets.only(left: 20.w),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15.r),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          showSearchPage = !showSearchPage;
-                                          showHomePage = !showHomePage;
-                                          setState(() {});
-                                        },
-                                        child: const SearchBar(
-                                          enabled: false,
-                                        ),
-                                      ),
+                              GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: () {
+                                  Navigator.of(context).push<SearchPage>(
+                                    MaterialPageRoute(
+                                      builder: (context) => const SearchPage(),
                                     ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    Container(
-                                      width: 47.w,
-                                      height: 43.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                        color: Constants.primaryColor,
-                                      ),
-                                      child: Center(
-                                        child: SvgPicture.asset(
-                                          'assets/homepage/filter.svg',
-                                        ),
-                                      ),
-                                    )
-                                  ],
+                                  );
+                                },
+                                child: const IgnorePointer(
+                                  child: Hero(
+                                    tag: 'search-bar',
+                                    child: SearchBar(),
+                                  ),
                                 ),
                               ),
                               SizedBox(height: 25.h),
-                              AnimatedOpacity(
-                                // onEnd: () {
-                                //   showSearchPage = !showSearchPage;
-                                //   setState(() {});
-                                // },
-                                // opacity: showHomePage ? 0 : 1,
-                                opacity: showHomePage ? 1 : 0,
-                                duration: const Duration(milliseconds: 400),
-                                child: Visibility(
-                                  visible: showHomePageText,
-                                  // visible: !showHomePage,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
+                              Visibility(
+                                visible: showHomePageText,
+                                // visible: !showHomePage,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 20.w,
+                                        ),
+                                        FilterCard(
+                                          filterImage:
+                                              'assets/homepage/dress.svg',
+                                          filterText: l10n.dress,
+                                        ),
+                                        SizedBox(
+                                          width: 17.w,
+                                        ),
+                                        FilterCard(
+                                          filterImage:
+                                              'assets/homepage/shirt.svg',
+                                          filterText: l10n.shirt,
+                                        ),
+                                        SizedBox(
+                                          width: 17.w,
+                                        ),
+                                        FilterCard(
+                                          filterImage:
+                                              'assets/homepage/pants.svg',
+                                          filterText: l10n.pants,
+                                        ),
+                                        SizedBox(
+                                          width: 17.w,
+                                        ),
+                                        FilterCard(
+                                          filterImage:
+                                              'assets/homepage/t-shirt.svg',
+                                          filterText: l10n.tShirt,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 40.h,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            l10n.newArrival,
+                                            style: TextStyle(
+                                              fontSize: 20.sp,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          Text(
+                                            l10n.seeAll,
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color:
+                                                  Colors.black.withOpacity(.5),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    SizedBox(
+                                      height: 190.h,
+                                      child: ListView(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
                                         children: [
                                           SizedBox(
                                             width: 20.w,
                                           ),
-                                          FilterCard(
-                                            filterImage:
-                                                'assets/homepage/dress.svg',
-                                            filterText: l10n.dress,
+                                          const ProductCard(
+                                            icon: 'assets/products/shirt-1.png',
+                                            price: 265,
+                                            title: 'Long Sleeve Shirts',
                                           ),
-                                          SizedBox(
-                                            width: 17.w,
+                                          const ProductCard(
+                                            icon: 'assets/products/shirt-1.png',
+                                            price: 165,
+                                            title: 'Casual Nolin',
                                           ),
-                                          FilterCard(
-                                            filterImage:
-                                                'assets/homepage/shirt.svg',
-                                            filterText: l10n.shirt,
-                                          ),
-                                          SizedBox(
-                                            width: 17.w,
-                                          ),
-                                          FilterCard(
-                                            filterImage:
-                                                'assets/homepage/pants.svg',
-                                            filterText: l10n.pants,
-                                          ),
-                                          SizedBox(
-                                            width: 17.w,
-                                          ),
-                                          FilterCard(
-                                            filterImage:
-                                                'assets/homepage/t-shirt.svg',
-                                            filterText: l10n.tShirt,
+                                          const ProductCard(
+                                            icon: 'assets/products/shirt-1.png',
+                                            price: 165,
+                                            title: 'Curved Hem Shirts',
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
-                                        height: 40.h,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 20.w,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              l10n.newArrival,
-                                              style: TextStyle(
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                            Text(
-                                              l10n.seeAll,
-                                              style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black
-                                                    .withOpacity(.5),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      SizedBox(
-                                        height: 190.h,
-                                        child: ListView(
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          children: [
-                                            SizedBox(
-                                              width: 20.w,
-                                            ),
-                                            const ProductCard(
-                                              icon:
-                                                  'assets/products/shirt-1.png',
-                                              price: 265,
-                                              title: 'Long Sleeve Shirts',
-                                            ),
-                                            const ProductCard(
-                                              icon:
-                                                  'assets/products/shirt-1.png',
-                                              price: 165,
-                                              title: 'Casual Nolin',
-                                            ),
-                                            const ProductCard(
-                                              icon:
-                                                  'assets/products/shirt-1.png',
-                                              price: 165,
-                                              title: 'Curved Hem Shirts',
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
