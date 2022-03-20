@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/l10n/l10n.dart';
-import 'package:stylish/onboarding/view/second-onboarding.dart';
+import 'package:stylish/modules/onboarding/view/third-onboarding.dart';
 import 'package:stylish/util/constants.dart';
 
-class Onboarding extends StatelessWidget {
-  const Onboarding({Key? key}) : super(key: key);
+class SecondOnboarding extends StatelessWidget {
+  const SecondOnboarding({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +20,13 @@ class Onboarding extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('1/3', style: TextStyle(fontSize: 16.sp)),
+                  Text('2/3', style: TextStyle(fontSize: 16.sp)),
                   Text(
                     l10n.skip,
                     style: TextStyle(
                       fontSize: 16.sp,
                     ),
                   ),
-                  // const Icon(Icons.close)
                 ],
               ),
             ),
@@ -35,7 +34,7 @@ class Onboarding extends StatelessWidget {
               height: 55.h,
             ),
             Image.asset(
-              'assets/onboarding/onboarding-3.png',
+              'assets/onboarding/onboarding-2.png',
               width: 325.w,
               height: 325.h,
             ),
@@ -43,11 +42,8 @@ class Onboarding extends StatelessWidget {
               height: 40.h,
             ),
             Text(
-              l10n.chooseProduct,
-              style: TextStyle(
-                fontSize: 22.sp,
-                fontWeight: FontWeight.bold,
-              ),
+              l10n.makePayment,
+              style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 16.h,
@@ -55,7 +51,7 @@ class Onboarding extends StatelessWidget {
             SizedBox(
               width: 323.w,
               child: Text(
-                l10n.chooseProductDesc,
+                l10n.makePaymentDesc,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14.sp,
@@ -71,8 +67,8 @@ class Onboarding extends StatelessWidget {
             InkWell(
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute<SecondOnboarding>(
-                    builder: (context) => const SecondOnboarding(),
+                  MaterialPageRoute<ThirdOnboarding>(
+                    builder: (context) => const ThirdOnboarding(),
                   ),
                 );
               },
@@ -90,10 +86,14 @@ class Onboarding extends StatelessWidget {
                       l10n.next,
                       style: TextStyle(fontSize: 16.sp, color: Colors.white),
                     ),
+                    Icon(
+                      Icons.chevron_right_rounded,
+                      color: Colors.white.withOpacity(.5),
+                    ),
                     const Icon(
                       Icons.chevron_right_rounded,
                       color: Colors.white,
-                    )
+                    ),
                   ],
                 ),
               ),

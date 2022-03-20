@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/l10n/l10n.dart';
-import 'package:stylish/onboarding/onboarding.dart';
+import 'package:stylish/modules/onboarding/view/onboarding.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:stylish/homepage/view/components/bottom_nav_bar_item.dart';
+import 'package:stylish/modules/homepage/view/components/bottom_nav_bar_item.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
   const CustomBottomAppBar({Key? key}) : super(key: key);
@@ -8,7 +8,7 @@ class CustomBottomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      clipBehavior: Clip.hardEdge,
+      // clipBehavior: Clip.hardEdge,
       height: 95.h,
       decoration: BoxDecoration(
         color: Colors.white,

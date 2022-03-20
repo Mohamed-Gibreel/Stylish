@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stylish/authentication/authentication.dart';
-import 'package:stylish/homepage/homepage.dart';
+import 'package:stylish/modules/homepage/view/homepage.dart';
 import 'package:stylish/util/constants.dart';
 
 class LoginScreen extends StatelessWidget {

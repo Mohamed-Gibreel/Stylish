@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:stylish/homepage/models/sidebar_item_model.dart';
-import 'package:stylish/homepage/view/components/Sidebar.dart';
+import 'package:stylish/modules/homepage/models/sidebar_item_model.dart';
 
 import 'package:stylish/util/constants.dart';
 
