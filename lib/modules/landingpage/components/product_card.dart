@@ -5,12 +5,14 @@ class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
     required this.icon,
+    this.heroTag,
     required this.price,
     required this.title,
   }) : super(key: key);
   final String icon;
   final int price;
   final String title;
+  final String? heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,10 @@ class ProductCard extends StatelessWidget {
               color: const Color(0xFFFFFAF6),
               borderRadius: BorderRadius.circular(15.r),
             ),
-            child: Image.asset(icon),
+            child: Hero(
+              tag: heroTag ?? UniqueKey(),
+              child: Image.asset(icon),
+            ),
           ),
           Expanded(
             child: Row(

@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/l10n/l10n.dart';
+import 'package:stylish/modules/navigation/cubit/navigation_cubit.dart';
 import 'package:stylish/modules/onboarding/view/third-onboarding.dart';
 import 'package:stylish/util/constants.dart';
 
-class SecondOnboarding extends StatelessWidget {
+class SecondOnboarding extends StatefulWidget {
   const SecondOnboarding({Key? key}) : super(key: key);
+
+  @override
+  State<SecondOnboarding> createState() => _SecondOnboardingState();
+}
+
+class _SecondOnboardingState extends State<SecondOnboarding> {
+  @override
+  void dispose() {
+    // BlocProvider.of<NavigationCubit>(context).close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +85,12 @@ class SecondOnboarding extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<ThirdOnboarding>(
-                    builder: (context) => const ThirdOnboarding(),
-                  ),
-                );
+                Navigator.of(context).pushNamed('/thirdOnboarding');
+                // Navigator.of(context).push(
+                //   MaterialPageRoute<ThirdOnboarding>(
+                //     builder: (context) => const ThirdOnboarding(),
+                //   ),
+                // );
               },
               child: Container(
                 width: 218.w,

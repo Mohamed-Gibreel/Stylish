@@ -263,7 +263,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   child: Center(
                     child: Text(
-                      "Sign up",
+                      'Sign up',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.sp,
@@ -355,14 +355,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute<Widget>(
-                    //     builder: (context) => SignUp(),
-                    //   ),
-                    // );
                   },
                   child: Text(
-                    "Already have an account? Log in",
+                    'Already have an account? Log in',
                     style: TextStyle(
                       fontSize: 14.sp,
                     ),

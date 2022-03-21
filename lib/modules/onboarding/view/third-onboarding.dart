@@ -72,11 +72,10 @@ class ThirdOnboarding extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute<LoginScreen>(
-                    builder: (ctx) => const LoginScreen(),
-                  ),
-                  (Route<dynamic> route) => false,
+                // Navigator.of(context).pushNamedAndRemoveUntil(
+                Navigator.of(context).pushNamed(
+                  '/login',
+                  // (Route<dynamic> route) => false,
                 );
               },
               child: Container(

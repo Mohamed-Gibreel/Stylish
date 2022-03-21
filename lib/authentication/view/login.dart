@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:stylish/authentication/authentication.dart';
-import 'package:stylish/modules/homepage/view/homepage.dart';
 import 'package:stylish/util/constants.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -164,17 +162,16 @@ class LoginScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(133.r),
                       ),
                       onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute<Widget>(
-                            builder: (context) => const Homepage(),
-                          ),
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landingPage',
+                          (route) => false,
                         );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Log in",
+                            'Log in',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16.sp,
@@ -268,11 +265,12 @@ class LoginScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute<Widget>(
-                        builder: (context) => const SignUpScreen(),
-                      ),
-                    );
+                    Navigator.of(context).pushNamed('/signUp');
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute<Widget>(
+                    //     builder: (context) => const SignUpScreen(),
+                    //   ),
+                    // );
                   },
                   child: Text(
                     "Don't have an account? Sign up",

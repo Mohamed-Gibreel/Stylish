@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:stylish/modules/homepage/models/sidebar_item_model.dart';
-import 'package:stylish/modules/homepage/view/components/sidebar_item.dart';
+import 'package:stylish/modules/landingpage/landingpage.dart';
 
 class Sidebar extends StatefulWidget {
   const Sidebar({Key? key}) : super(key: key);

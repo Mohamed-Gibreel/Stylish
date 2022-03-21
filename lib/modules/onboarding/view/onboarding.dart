@@ -14,7 +14,6 @@ class Onboarding extends StatelessWidget {
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0.w),
@@ -28,7 +27,6 @@ class Onboarding extends StatelessWidget {
                       fontSize: 16.sp,
                     ),
                   ),
-                  // const Icon(Icons.close)
                 ],
               ),
             ),
@@ -75,11 +73,12 @@ class Onboarding extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<SecondOnboarding>(
-                    builder: (context) => const SecondOnboarding(),
-                  ),
-                );
+                Navigator.of(context).pushNamed('/secondOnboarding');
+                // Navigator.of(context).push(
+                //   MaterialPageRoute<SecondOnboarding>(
+                //     builder: (context) => const SecondOnboarding(),
+                //   ),
+                // );
               },
               child: Container(
                 width: 218.w,

@@ -1,0 +1,1 @@
+export 'views/product.dart';

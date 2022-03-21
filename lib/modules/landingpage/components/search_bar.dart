@@ -5,7 +5,8 @@ import 'package:stylish/l10n/l10n.dart';
 import 'package:stylish/util/constants.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  const SearchBar({Key? key, this.filterCb}) : super(key: key);
+  final VoidCallback? filterCb;
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +43,19 @@ class SearchBar extends StatelessWidget {
             SizedBox(
               width: 10.w,
             ),
-            Container(
-              width: 47.w,
-              height: 43.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.r),
-                color: Constants.primaryColor,
-              ),
-              child: Center(
-                child: SvgPicture.asset(
-                  'assets/homepage/filter.svg',
+            GestureDetector(
+              onTap: filterCb,
+              child: Container(
+                width: 47.w,
+                height: 43.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  color: Constants.primaryColor,
+                ),
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/homepage/filter.svg',
+                  ),
                 ),
               ),
             )
