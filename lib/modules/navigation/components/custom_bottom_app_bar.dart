@@ -27,55 +27,59 @@ class CustomBottomAppBar extends StatelessWidget {
       child: BlocBuilder<NavigationCubit, NavigationState>(
         builder: (context, state) => DefaultTabController(
           length: 4,
-          child: TabBar(
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: Constants.primaryColor,
-            onTap: (index) {
-              switch (index) {
-                case 0:
-                  BlocProvider.of<NavigationCubit>(context)
-                      .setNavBarItem(NavigationItem.home);
-                  break;
-                case 1:
-                  BlocProvider.of<NavigationCubit>(context)
-                      .setNavBarItem(NavigationItem.favourite);
-                  break;
-                case 2:
-                  BlocProvider.of<NavigationCubit>(context)
-                      .setNavBarItem(NavigationItem.cart);
-                  break;
-                case 3:
-                  BlocProvider.of<NavigationCubit>(context)
-                      .setNavBarItem(NavigationItem.profile);
-                  break;
-              }
-            },
-            indicator: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: Constants.primaryColor,
-                  width: 3.w,
+          child: Theme(
+            data: ThemeData(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+            ),
+            child: TabBar(
+              indicatorSize: TabBarIndicatorSize.label,
+              indicatorColor: Constants.primaryColor,
+              overlayColor:
+                  MaterialStateProperty.all<Color>(Colors.transparent),
+              onTap: (index) {
+                switch (index) {
+                  case 0:
+                    BlocProvider.of<NavigationCubit>(context)
+                        .setNavBarItem(NavigationItem.home);
+                    break;
+                  case 1:
+                    BlocProvider.of<NavigationCubit>(context)
+                        .setNavBarItem(NavigationItem.favourite);
+                    break;
+                  case 2:
+                    BlocProvider.of<NavigationCubit>(context)
+                        .setNavBarItem(NavigationItem.cart);
+                    break;
+                  case 3:
+                    BlocProvider.of<NavigationCubit>(context)
+                        .setNavBarItem(NavigationItem.profile);
+                    break;
+                }
+              },
+              indicator: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Constants.primaryColor,
+                    width: 3.w,
+                  ),
                 ),
               ),
+              tabs: [
+                CustomBottomNavBarItem(
+                  icon: 'assets/homepage/profile.svg',
+                ),
+                CustomBottomNavBarItem(
+                  icon: 'assets/homepage/heart-bottom-nav-bar.svg',
+                ),
+                CustomBottomNavBarItem(
+                  icon: 'assets/homepage/buy.svg',
+                ),
+                CustomBottomNavBarItem(
+                  icon: 'assets/homepage/profile.svg',
+                )
+              ],
             ),
-            tabs: [
-              CustomBottomNavBarItem(
-                icon: 'assets/homepage/profile.svg',
-                active: state.navbarItem == NavigationItem.home,
-              ),
-              CustomBottomNavBarItem(
-                icon: 'assets/homepage/heart-bottom-nav-bar.svg',
-                active: state.navbarItem == NavigationItem.favourite,
-              ),
-              CustomBottomNavBarItem(
-                icon: 'assets/homepage/buy.svg',
-                active: state.navbarItem == NavigationItem.cart,
-              ),
-              CustomBottomNavBarItem(
-                icon: 'assets/homepage/profile.svg',
-                active: state.navbarItem == NavigationItem.profile,
-              )
-            ],
           ),
         ),
       ),

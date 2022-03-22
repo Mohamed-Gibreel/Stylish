@@ -178,6 +178,7 @@ class _LandingPageState extends State<LandingPage>
                               if (mounted) setState(() {});
                             },
                             child: TabBarView(
+                              physics: const NeverScrollableScrollPhysics(),
                               controller: _tabController,
                               children: [
                                 const Homepage(),

@@ -4,9 +4,14 @@ import 'package:stylish/l10n/l10n.dart';
 import 'package:stylish/modules/cart/cart.dart';
 import 'package:stylish/util/constants.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
 
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
