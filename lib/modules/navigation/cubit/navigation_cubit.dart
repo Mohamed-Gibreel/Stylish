@@ -9,6 +9,7 @@ class NavigationCubit extends Cubit<NavigationState> {
       : super(
           const NavigationState(0, 'Home', NavigationItem.home),
         );
+
   void setNavBarItem(NavigationItem navbarItem) {
     switch (navbarItem) {
       case NavigationItem.home:

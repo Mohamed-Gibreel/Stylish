@@ -28,19 +28,16 @@ class CustomBottomNavBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60.h,
-      child: Column(
-        children: [
-          Container(
-            height: 8.h,
-            width: 13.w,
-            margin: EdgeInsets.only(bottom: 18.h),
-            decoration: active ? activeDecoration() : null,
-          ),
-          SvgPicture.asset(icon),
-        ],
-      ),
+    return Column(
+      children: [
+        Container(
+          height: 8.h,
+          width: 13.w,
+          margin: EdgeInsets.only(bottom: 18.h),
+          // decoration: active ? activeDecoration() : null,
+        ),
+        SvgPicture.asset(icon),
+      ],
     );
   }
 }

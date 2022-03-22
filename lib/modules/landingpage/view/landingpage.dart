@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,15 +18,17 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   //Controllers
   late AnimationController animationController;
+  late TabController _tabController;
 
   //Variables
   bool isCollapsed = false;
 
   @override
   void initState() {
+    _tabController = TabController(vsync: this, length: 4);
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
@@ -35,6 +39,7 @@ class _LandingPageState extends State<LandingPage>
   @override
   void dispose() {
     animationController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -167,12 +172,21 @@ class _LandingPageState extends State<LandingPage>
                                     ),
                                   ),
                                 ),
-                          body: [
-                            const Homepage(),
-                            const FavouriteScreen(),
-                            const CartScreen(),
-                            Text(state.navbarItem.name),
-                          ][state.index],
+                          body: BlocListener<NavigationCubit, NavigationState>(
+                            listener: (context, state) {
+                              _tabController.index = state.index;
+                              if (mounted) setState(() {});
+                            },
+                            child: TabBarView(
+                              controller: _tabController,
+                              children: [
+                                const Homepage(),
+                                const FavouriteScreen(),
+                                const CartScreen(),
+                                Text(state.navbarItem.name),
+                              ],
+                            ),
+                          ),
                           extendBody: true,
                           bottomNavigationBar: const CustomBottomAppBar(),
                         ),
