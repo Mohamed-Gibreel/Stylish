@@ -1,11 +1,3 @@
-// Copyright (c) 2022, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
-// import 'package:stylish/counter/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,6 +8,7 @@ import 'package:stylish/modules/checkout/checkout.dart';
 import 'package:stylish/modules/favourite/views/favourite.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
 import 'package:stylish/modules/myorders/views/my_orders.dart';
+import 'package:stylish/modules/mywallet/mywallet.dart';
 import 'package:stylish/modules/navigation/cubit/navigation_cubit.dart';
 import 'package:stylish/modules/onboarding/onboarding.dart';
 import 'package:stylish/modules/product/product.dart';
@@ -63,6 +56,7 @@ class App extends StatelessWidget {
             '/favouritesPage': (context) => const FavouriteScreen(
                   newPage: true,
                 ),
+            '/myWalletPage': (context) => const MyWalletScreen()
           },
         ),
       ),

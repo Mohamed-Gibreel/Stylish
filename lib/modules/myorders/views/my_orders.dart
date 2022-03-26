@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
+import 'package:stylish/modules/myorders/my_orders.dart';
 import 'package:stylish/util/constants.dart';
 
 class MyOrdersScreen extends StatefulWidget {
@@ -17,10 +18,6 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-    // _tabController.addListener(() {
-    //   activeIndex = _tabController.index;
-    //   if (mounted) setState(() {});
-    // });
     super.initState();
   }
 
@@ -28,82 +25,6 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
   void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
-
-  Widget _completedItem(String name, String date, String icon, int price) {
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          height: 92.h,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: 15.w,
-            vertical: 10.h,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 84.w,
-                    height: 73.h,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 5.w,
-                      vertical: 5.h,
-                    ),
-                    margin: EdgeInsets.only(right: 20.w),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.r),
-                      color: const Color.fromRGBO(62, 66, 41, 0.1),
-                    ),
-                    child: Image.asset(
-                      icon,
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        name,
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(.5),
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 6.h,
-                      ),
-                      Text(
-                        r'$' + price.toString(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Text(
-                date,
-                style: TextStyle(
-                  color: Colors.black.withOpacity(.5),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 13.h,
-        ),
-      ],
-    );
   }
 
   @override
@@ -168,23 +89,23 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
                       SizedBox(
                         height: 20.h,
                       ),
-                      _completedItem(
-                        'Henley Shirts',
-                        'Today',
-                        'assets/products/shirt-3.png',
-                        250,
+                      const CompletedOrderItem(
+                        name: 'Henley Shirts',
+                        date: 'Today',
+                        icon: 'assets/products/shirt-3.png',
+                        price: 250,
                       ),
-                      _completedItem(
-                        'Causal Shirts',
-                        '20 Jan’2021',
-                        'assets/products/shirt-2.png',
-                        145,
+                      const CompletedOrderItem(
+                        name: 'Causal Shirts',
+                        date: '20 Jan’2021',
+                        icon: 'assets/products/shirt-2.png',
+                        price: 145,
                       ),
-                      _completedItem(
-                        'Casual Nolin',
-                        '20 Mar’2021',
-                        'assets/products/shirt-4.png',
-                        225,
+                      const CompletedOrderItem(
+                        name: 'Casual Nolin',
+                        date: '20 Mar’2021',
+                        icon: 'assets/products/shirt-4.png',
+                        price: 225,
                       ),
                     ],
                   ),

@@ -21,7 +21,10 @@ class SidebarItem extends StatelessWidget {
         Navigator.of(context).pushNamed('/myOrdersPage');
         break;
       case 'My favourites':
-        Navigator.of(context).pushNamed('/fav ouritesPage');
+        Navigator.of(context).pushNamed('/favouritesPage');
+        break;
+      case 'Wallet':
+        Navigator.of(context).pushNamed('/myWalletPage');
         break;
       default:
         break;
