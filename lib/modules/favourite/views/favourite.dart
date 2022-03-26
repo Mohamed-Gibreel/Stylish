@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/modules/favourite/favourite.dart';
+import 'package:stylish/modules/landingpage/landingpage.dart';
 
 class FavouriteScreen extends StatelessWidget {
-  const FavouriteScreen({Key? key}) : super(key: key);
+  const FavouriteScreen({Key? key, this.newPage = false}) : super(key: key);
+  final bool newPage;
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _pageContent() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -19,6 +20,7 @@ class FavouriteScreen extends StatelessWidget {
               // No clue on how to set height of grid item other of this.
               childAspectRatio: .8725.h / 1.1.h,
               crossAxisSpacing: 18.w,
+              mainAxisSpacing: 16.h,
               children: const [
                 FavouriteCard(),
                 FavouriteCard(),
@@ -39,5 +41,24 @@ class FavouriteScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return newPage
+        ? Scaffold(
+            appBar: CustomAppBar(
+              title: const Text(
+                'Favourite',
+                style: TextStyle(color: Colors.black),
+              ),
+              leadingWidgetIcon: Icons.arrow_back_ios_new,
+              leadingWidgetCb: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            body: _pageContent(),
+          )
+        : _pageContent();
   }
 }

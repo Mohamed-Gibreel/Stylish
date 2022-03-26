@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +14,7 @@ class CustomBottomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 85.h,
-      padding: EdgeInsets.only(bottom: 25.h),
+      height: Platform.isAndroid ? 75.h : 85.h,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: <BoxShadow>[

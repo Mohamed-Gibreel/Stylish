@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +7,7 @@ import 'package:stylish/modules/homepage/homepage.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
 import 'package:stylish/modules/navigation/cubit/navigation_cubit.dart';
 import 'package:stylish/modules/navigation/navigation.dart';
+import 'package:stylish/modules/profile/profile.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -94,7 +93,7 @@ class _LandingPageState extends State<LandingPage>
                     if (isCollapsed) {
                       animationController.reverse();
                       isCollapsed = !isCollapsed;
-                      setState(() {});
+                      if (mounted) setState(() {});
                     }
                   },
                   child: IgnorePointer(
@@ -159,7 +158,7 @@ class _LandingPageState extends State<LandingPage>
                                         animationController.forward();
                                       }
                                       isCollapsed = !isCollapsed;
-                                      setState(() {});
+                                      if (mounted) setState(() {});
                                     }
                                   },
                                   leadingWidgetIcon: Icons.menu,
@@ -180,11 +179,11 @@ class _LandingPageState extends State<LandingPage>
                             child: TabBarView(
                               physics: const NeverScrollableScrollPhysics(),
                               controller: _tabController,
-                              children: [
-                                const Homepage(),
-                                const FavouriteScreen(),
-                                const CartScreen(),
-                                Text(state.navbarItem.name),
+                              children: const [
+                                Homepage(),
+                                FavouriteScreen(),
+                                CartScreen(),
+                                ProfileScreen(),
                               ],
                             ),
                           ),

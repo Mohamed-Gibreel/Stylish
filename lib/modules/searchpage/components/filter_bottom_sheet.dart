@@ -187,7 +187,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   onChanged: (value) {
                     if (mounted) {
                       priceRange = value;
-                      setState(() {});
+                      if (mounted) setState(() {});
                     }
                   },
                   labels: RangeLabels(
@@ -234,7 +234,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                         ? endNumber += ' Km'
                         : endNumber += ' m';
                     distanceRange = value;
-                    setState(() {});
+                    if (mounted) setState(() {});
                   },
                   labels: RangeLabels(
                     startNumber,

@@ -13,11 +13,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/authentication/authentication.dart';
 import 'package:stylish/l10n/l10n.dart';
 import 'package:stylish/modules/checkout/checkout.dart';
+import 'package:stylish/modules/favourite/views/favourite.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
+import 'package:stylish/modules/myorders/views/my_orders.dart';
 import 'package:stylish/modules/navigation/cubit/navigation_cubit.dart';
 import 'package:stylish/modules/onboarding/onboarding.dart';
 import 'package:stylish/modules/product/product.dart';
 import 'package:stylish/modules/searchpage/searchpage.dart';
+import 'package:stylish/modules/settings/settings.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -55,6 +58,11 @@ class App extends StatelessWidget {
             '/productPage': (context) => const ProductScreen(),
             '/checkout': (context) => const CheckoutScreen(),
             '/completedOrder': (context) => const CompletedOrder(),
+            '/settingsPage': (context) => const SettingsScreen(),
+            '/myOrdersPage': (context) => const MyOrdersScreen(),
+            '/favouritesPage': (context) => const FavouriteScreen(
+                  newPage: true,
+                ),
           },
         ),
       ),

@@ -24,6 +24,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       shape: shape,
       backgroundColor: backgroundColor,
       elevation: 0,
+      centerTitle: true,
       leading: Padding(
         padding: EdgeInsets.only(left: 12.w),
         child: GestureDetector(

@@ -230,17 +230,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(2.r),
                           ),
                           onChanged: (value) {
-                            setState(() {
-                              termsChecked = value ?? false;
-                            });
+                            if (mounted) setState(() {});
+                            termsChecked = value ?? false;
                           },
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          setState(() {
-                            termsChecked = !termsChecked;
-                          });
+                          termsChecked = !termsChecked;
+                          if (mounted) setState(() {});
                         },
                         child: Text(
                           'I accept all the Terms & Conditions',

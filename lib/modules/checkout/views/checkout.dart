@@ -73,11 +73,7 @@ class CheckoutScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50.r),
                           ),
-                          onChanged: (value) {
-                            // setState(() {
-                            //   termsChecked = value ?? false;
-                            // });
-                          },
+                          onChanged: (_) {},
                         ),
                       ),
                       SizedBox(
@@ -133,11 +129,7 @@ class CheckoutScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50.r),
                           ),
-                          onChanged: (value) {
-                            // setState(() {
-                            //   termsChecked = value ?? false;
-                            // });
-                          },
+                          onChanged: (_) {},
                         ),
                       ),
                       SizedBox(
