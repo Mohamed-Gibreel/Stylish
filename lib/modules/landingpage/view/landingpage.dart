@@ -115,7 +115,11 @@ class _LandingPageState extends State<LandingPage>
                               ]
                             : null,
                       ),
-                      child: BlocBuilder<NavigationCubit, NavigationState>(
+                      child: BlocConsumer<NavigationCubit, NavigationState>(
+                        listener: (context, state) {
+                          _tabController.index = state.index;
+                          if (mounted) setState(() {});
+                        },
                         builder: (context, state) => Scaffold(
                           backgroundColor: Colors.transparent,
                           appBar: state.navbarItem.name == 'home'
@@ -171,21 +175,15 @@ class _LandingPageState extends State<LandingPage>
                                     ),
                                   ),
                                 ),
-                          body: BlocListener<NavigationCubit, NavigationState>(
-                            listener: (context, state) {
-                              _tabController.index = state.index;
-                              if (mounted) setState(() {});
-                            },
-                            child: TabBarView(
-                              physics: const NeverScrollableScrollPhysics(),
-                              controller: _tabController,
-                              children: const [
-                                Homepage(),
-                                FavouriteScreen(),
-                                CartScreen(),
-                                ProfileScreen(),
-                              ],
-                            ),
+                          body: TabBarView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            controller: _tabController,
+                            children: const [
+                              Homepage(),
+                              FavouriteScreen(),
+                              CartScreen(),
+                              ProfileScreen(),
+                            ],
                           ),
                           extendBody: true,
                           bottomNavigationBar: const CustomBottomAppBar(),

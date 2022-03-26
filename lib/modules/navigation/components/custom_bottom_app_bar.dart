@@ -66,7 +66,7 @@ class CustomBottomAppBar extends StatelessWidget {
                   ),
                 ),
               ),
-              tabs: [
+              tabs: const [
                 CustomBottomNavBarItem(
                   icon: 'assets/homepage/profile.svg',
                 ),
