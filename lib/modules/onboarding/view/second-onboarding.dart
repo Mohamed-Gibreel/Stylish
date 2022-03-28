@@ -83,11 +83,6 @@ class _SecondOnboardingState extends State<SecondOnboarding> {
             InkWell(
               onTap: () {
                 Navigator.of(context).pushNamed('/thirdOnboarding');
-                // Navigator.of(context).push(
-                //   MaterialPageRoute<ThirdOnboarding>(
-                //     builder: (context) => const ThirdOnboarding(),
-                //   ),
-                // );
               },
               child: Container(
                 width: 218.w,
@@ -99,17 +94,28 @@ class _SecondOnboardingState extends State<SecondOnboarding> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      l10n.next,
-                      style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 3.h,
+                      ),
+                      child: Text(
+                        l10n.next,
+                        style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                      ),
                     ),
-                    Icon(
-                      Icons.chevron_right_rounded,
-                      color: Colors.white.withOpacity(.5),
+                    SizedBox(
+                      width: 10.w,
+                      child: Icon(
+                        Icons.chevron_right_rounded,
+                        color: Colors.white.withOpacity(.5),
+                      ),
                     ),
-                    const Icon(
-                      Icons.chevron_right_rounded,
-                      color: Colors.white,
+                    SizedBox(
+                      width: 10.w,
+                      child: const Icon(
+                        Icons.chevron_right_rounded,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),

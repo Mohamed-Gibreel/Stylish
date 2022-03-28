@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/l10n/l10n.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
+import 'package:stylish/modules/product/cubit/product_cubit.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -123,63 +125,40 @@ class Homepage extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            SizedBox(
-              height: 190.h,
-              child: ListView(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                children: [
-                  SizedBox(
-                    width: 20.w,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed('/productPage');
-                    },
-                    child: const ProductCard(
-                      heroTag: 'shirt-1',
-                      icon: 'assets/products/shirt-5.png',
-                      price: 265,
-                      title: 'Long Sleeve Shirt',
-                      bgColor: 'FFFAF6',
-                      opacity: .56,
-                    ),
-                  ),
-                  const ProductCard(
-                    icon: 'assets/products/shirt-6.png',
-                    price: 165,
-                    title: 'Casual Henley Shirt',
-                    // bgColor: 'EFEFF2',
-                  ),
-                  const ProductCard(
-                    icon: 'assets/products/shirt-4.png',
-                    price: 165,
-                    title: 'Curved Hem Shirt',
-                    bgColor: 'EDFDF4',
-                    opacity: .4,
-                  ),
-                  const ProductCard(
-                    icon: 'assets/products/shirt-3.png',
-                    price: 165,
-                    title: 'Curved Hem Shirt',
-                    bgColor: '8E8F86',
-                    opacity: .15,
-                  ),
-                  const ProductCard(
-                    icon: 'assets/products/shirt-1.png',
-                    price: 165,
-                    title: 'Curved Hem Shirt',
-                    // bgColor: 'EFEFF2',
-                    opacity: .15,
-                  ),
-                  const ProductCard(
-                    icon: 'assets/products/shirt-2.png',
-                    price: 165,
-                    title: 'Casual Nolin',
-                    bgColor: 'DDFEF9',
-                    opacity: .29,
-                  ),
-                ],
+            BlocBuilder<ProductCubit, ProductState>(
+              builder: (context, state) => SizedBox(
+                height: 190.h,
+                child: state.products.isNotEmpty
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: state.products.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => Padding(
+                          padding: index == 0
+                              ? EdgeInsets.only(left: 20.w)
+                              : EdgeInsets.zero,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                '/productPage',
+                                arguments: state.products[index],
+                              );
+                            },
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: ProductCard(
+                                heroTag: state.products[index].uid,
+                                icon: state.products[index].image,
+                                price: state.products[index].price,
+                                title: state.products[index].name,
+                                bgColor: state.products[index].bgColor,
+                                opacity: state.products[index].bgOpacity,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : const Text('Products is empty'),
               ),
             ),
           ],

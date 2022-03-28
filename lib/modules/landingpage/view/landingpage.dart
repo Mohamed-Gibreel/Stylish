@@ -176,6 +176,7 @@ class _LandingPageState extends State<LandingPage>
                                   ),
                                 ),
                           body: TabBarView(
+                            key: UniqueKey(),
                             physics: const NeverScrollableScrollPhysics(),
                             controller: _tabController,
                             children: const [

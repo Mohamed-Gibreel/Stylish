@@ -73,11 +73,6 @@ class Onboarding extends StatelessWidget {
             InkWell(
               onTap: () {
                 Navigator.of(context).pushNamed('/secondOnboarding');
-                // Navigator.of(context).push(
-                //   MaterialPageRoute<SecondOnboarding>(
-                //     builder: (context) => const SecondOnboarding(),
-                //   ),
-                // );
               },
               child: Container(
                 width: 218.w,
@@ -89,9 +84,12 @@ class Onboarding extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      l10n.next,
-                      style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                    Padding(
+                      padding: EdgeInsets.only(top: 3.h),
+                      child: Text(
+                        l10n.next,
+                        style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                      ),
                     ),
                     const Icon(
                       Icons.chevron_right_rounded,

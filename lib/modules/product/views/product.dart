@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/l10n/l10n.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
+import 'package:stylish/modules/product/model/product_model.dart';
 import 'package:stylish/util/constants.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -9,6 +10,7 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Product?;
     final l10n = context.l10n;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -36,14 +38,15 @@ class ProductScreen extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              color: const Color.fromARGB(15, 146, 146, 146),
+              color: Color(int.parse(args?.bgColor ?? 'EFEFF2', radix: 16))
+                  .withOpacity(args?.bgOpacity ?? .5),
               alignment: Alignment.topCenter,
               // color: Colors.red,
               child: SafeArea(
                 child: Hero(
-                  tag: 'shirt-1',
+                  tag: args?.uid ?? 'shirt-1',
                   child: Image.asset(
-                    'assets/products/shirt-1.png',
+                    args?.image ?? 'assets/products/shirt-1.png',
                     width: 272.w,
                     height: 300.h,
                   ),
@@ -73,7 +76,7 @@ class ProductScreen extends StatelessWidget {
                           SizedBox(
                             width: 145.w,
                             child: Text(
-                              'Casual Henley Shirts',
+                              args?.name ?? 'Casual Henley Shirts',
                               style: TextStyle(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w500,
@@ -81,7 +84,7 @@ class ProductScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            r'$175',
+                            '\$${args?.price}',
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,

@@ -11,6 +11,7 @@ import 'package:stylish/modules/myorders/views/my_orders.dart';
 import 'package:stylish/modules/mywallet/mywallet.dart';
 import 'package:stylish/modules/navigation/cubit/navigation_cubit.dart';
 import 'package:stylish/modules/onboarding/onboarding.dart';
+import 'package:stylish/modules/product/cubit/product_cubit.dart';
 import 'package:stylish/modules/product/product.dart';
 import 'package:stylish/modules/searchpage/searchpage.dart';
 import 'package:stylish/modules/settings/settings.dart';
@@ -20,8 +21,16 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _navigationCubit = NavigationCubit();
-    return BlocProvider(
-      create: (_) => _navigationCubit,
+    final _productsCubit = ProductCubit();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => _navigationCubit,
+        ),
+        BlocProvider(
+          create: (_) => _productsCubit,
+        ),
+      ],
       child: ScreenUtilInit(
         minTextAdapt: true,
         splitScreenMode: true,

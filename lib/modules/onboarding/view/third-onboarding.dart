@@ -87,21 +87,33 @@ class ThirdOnboarding extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      l10n.getStarted,
-                      style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                    Padding(
+                      padding: EdgeInsets.only(top: 3.h),
+                      child: Text(
+                        l10n.getStarted,
+                        style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                      ),
                     ),
-                    Icon(
-                      Icons.chevron_right_rounded,
-                      color: Colors.white.withOpacity(.5),
+                    SizedBox(
+                      width: 10.w,
+                      child: Icon(
+                        Icons.chevron_right_rounded,
+                        color: Colors.white.withOpacity(.5),
+                      ),
                     ),
-                    Icon(
-                      Icons.chevron_right_rounded,
-                      color: Colors.white.withOpacity(.5),
+                    SizedBox(
+                      width: 10.w,
+                      child: Icon(
+                        Icons.chevron_right_rounded,
+                        color: Colors.white.withOpacity(.5),
+                      ),
                     ),
-                    const Icon(
-                      Icons.chevron_right_rounded,
-                      color: Colors.white,
+                    SizedBox(
+                      width: 10.w,
+                      child: const Icon(
+                        Icons.chevron_right_rounded,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),

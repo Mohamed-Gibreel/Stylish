@@ -1,0 +1,17 @@
+{
+  "name": "Long Sleeve Shirt",
+  "price": 265,
+  "bgColor": "FFFAF6",
+  "bgOpacity": 0.56,
+  "description": "A Henley shirt is a collarless pullover shirt, by a round neckline and a placket about 3 to 5 inches (8 to 13 cm) long and usually having 2–5 buttons.",
+  "colors": [
+    {
+      "color": "EDFDF4",
+      "productImage": "assets/products/shirt-1.png"
+    },
+    {
+      "color": "8E8F86",
+      "productImage": "assets/products/shirt-1.png"
+    }
+  ]
+}
