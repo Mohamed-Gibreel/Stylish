@@ -12,19 +12,28 @@ class Sidebar extends StatefulWidget {
 
 class _SidebarState extends State<Sidebar> {
   List<SideBarItemModel> sidebarItems = [
-    SideBarItemModel(
+    const SideBarItemModel(
       title: 'My favourites',
       icon: 'assets/homepage/heart.svg',
     ),
-    SideBarItemModel(title: 'Wallet', icon: 'assets/homepage/wallet.svg'),
-    SideBarItemModel(title: 'My orders', icon: 'assets/homepage/bag.svg'),
-    SideBarItemModel(title: 'About us', icon: 'assets/homepage/document.svg'),
-    SideBarItemModel(
+    const SideBarItemModel(title: 'Wallet', icon: 'assets/homepage/wallet.svg'),
+    const SideBarItemModel(title: 'My orders', icon: 'assets/homepage/bag.svg'),
+    const SideBarItemModel(
+      title: 'About us',
+      icon: 'assets/homepage/document.svg',
+    ),
+    const SideBarItemModel(
       title: 'Privacy policy',
       icon: 'assets/homepage/lock.svg',
     ),
-    SideBarItemModel(title: 'Settings', icon: 'assets/homepage/setting.svg'),
-    SideBarItemModel(title: 'Log out', icon: 'assets/homepage/logout.svg'),
+    const SideBarItemModel(
+      title: 'Settings',
+      icon: 'assets/homepage/setting.svg',
+    ),
+    const SideBarItemModel(
+      title: 'Log out',
+      icon: 'assets/homepage/logout.svg',
+    ),
   ];
   @override
   Widget build(BuildContext context) {

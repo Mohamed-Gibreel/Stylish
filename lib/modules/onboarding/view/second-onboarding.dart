@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/l10n/l10n.dart';
-import 'package:stylish/modules/navigation/cubit/navigation_cubit.dart';
-import 'package:stylish/modules/onboarding/view/third-onboarding.dart';
 import 'package:stylish/util/constants.dart';
 
 class SecondOnboarding extends StatefulWidget {

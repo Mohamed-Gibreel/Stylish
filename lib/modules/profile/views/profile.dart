@@ -57,7 +57,9 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       'Mohamed Gibreel',
                       style: TextStyle(
-                          fontSize: 24.sp, fontWeight: FontWeight.w500),
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     SizedBox(
                       height: 4.h,

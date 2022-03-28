@@ -6,11 +6,15 @@ class ProductCard extends StatelessWidget {
     Key? key,
     required this.icon,
     this.heroTag,
+    this.bgColor = 'EFEFF2',
+    this.opacity = 1,
     required this.price,
     required this.title,
   }) : super(key: key);
   final String icon;
   final int price;
+  final double opacity;
+  final String bgColor;
   final String title;
   final String? heroTag;
 
@@ -32,7 +36,7 @@ class ProductCard extends StatelessWidget {
             height: 133.h,
             width: 142.w,
             decoration: BoxDecoration(
-              color: const Color(0xFFFFFAF6),
+              color: Color(int.parse(bgColor, radix: 16)).withOpacity(opacity),
               borderRadius: BorderRadius.circular(15.r),
             ),
             child: Hero(

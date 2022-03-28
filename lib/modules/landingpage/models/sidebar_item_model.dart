@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/widgets.dart';
 
+@immutable
 class SideBarItemModel {
-  SideBarItemModel({
+  const SideBarItemModel({
     required this.title,
     required this.icon,
   });
@@ -15,8 +17,8 @@ class SideBarItemModel {
 
   factory SideBarItemModel.fromJson(String source) =>
       SideBarItemModel.fromMap(json.decode(source) as Map<String, dynamic>);
-  String title;
-  String icon;
+  final String title;
+  final String icon;
 
   SideBarItemModel copyWith({
     String? title,

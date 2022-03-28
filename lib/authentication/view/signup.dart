@@ -243,7 +243,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: Text(
                           'I accept all the Terms & Conditions',
                           style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.w400),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ],
