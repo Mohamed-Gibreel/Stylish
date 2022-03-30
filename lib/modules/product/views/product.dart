@@ -34,7 +34,7 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   List<ColorOptions> colorOptions = [];
   Product? product;
-  late bool isLiked = false;
+  bool isLiked = false;
   @override
   void initState() {
     // mapColors();
@@ -97,7 +97,7 @@ class _ProductScreenState extends State<ProductScreen> {
         actionButtons: [
           //TODO: Find a better way to center the heart, padding is not recommended.
           Padding(
-            padding: EdgeInsets.only(right: 20.w),
+            padding: EdgeInsets.only(right: 25.w),
             child: Container(
               width: 44.w,
               height: 44.h,

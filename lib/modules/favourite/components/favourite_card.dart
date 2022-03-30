@@ -1,9 +1,44 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:like_button/like_button.dart';
+import 'package:stylish/modules/favourite/cubit/favourite_cubit.dart';
+import 'package:stylish/modules/product/product.dart';
 
-class FavouriteCard extends StatelessWidget {
-  const FavouriteCard({Key? key}) : super(key: key);
+class FavouriteCard extends StatefulWidget {
+  const FavouriteCard({Key? key, required this.product}) : super(key: key);
+  final Product product;
+
+  @override
+  State<FavouriteCard> createState() => _FavouriteCardState();
+}
+
+class _FavouriteCardState extends State<FavouriteCard> {
+  bool isLiked = false;
+
+  // ignore: avoid_positional_boolean_parameters
+  Future<bool> onLikeButtonTapped(bool isLiked) async {
+    final addFavourite = !isLiked;
+    if (addFavourite) {
+      BlocProvider.of<FavouriteCubit>(context)
+          .addProductToFavorites(widget.product);
+    } else {
+      BlocProvider.of<FavouriteCubit>(context)
+          .removeProductFromFavorites(widget.product);
+    }
+    return !isLiked;
+  }
+
+  @override
+  void didChangeDependencies() {
+    isLiked = BlocProvider.of<FavouriteCubit>(context)
+        .favourites
+        .contains(widget.product);
+    if (mounted && isLiked) setState(() {});
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,35 +65,47 @@ class FavouriteCard extends StatelessWidget {
                 ),
                 padding: EdgeInsets.symmetric(vertical: 5.h),
                 child: Image.asset(
-                  'assets/products/shirt-1.png',
+                  widget.product.image,
                 ),
               ),
               Positioned(
                 right: 5.w,
                 top: 5.h,
                 child: Container(
-                  height: 25.h,
-                  width: 25.w,
                   decoration: const BoxDecoration(
-                    color: Colors.white,
                     shape: BoxShape.circle,
+                    color: Colors.white,
                   ),
-                  child: const Icon(
-                    CupertinoIcons.heart,
-                    size: 18,
-                    color: Colors.red,
+                  padding: EdgeInsets.only(left: 2.5.w, top: 5.h),
+                  child: LikeButton(
+                    isLiked: isLiked,
+                    onTap: onLikeButtonTapped,
+                    size: 15.w,
+                    padding: EdgeInsets.zero,
+                    likeBuilder: (bool isLiked) {
+                      return isLiked
+                          ? SvgPicture.asset(
+                              'assets/products/heart.svg',
+                              height: 15.h,
+                            )
+                          : Icon(
+                              CupertinoIcons.heart,
+                              color: Colors.grey,
+                              size: 15.w,
+                            );
+                    },
                   ),
                 ),
               ),
             ],
           ),
-          const Text('Long Sleeve Shirts'),
+          Text(widget.product.name),
           SizedBox(
             height: 7.h,
           ),
-          const Text(
-            r'$165',
-            style: TextStyle(fontWeight: FontWeight.w500),
+          Text(
+            '\$${widget.product.price}',
+            style: const TextStyle(fontWeight: FontWeight.w500),
           )
         ],
       ),
