@@ -64,8 +64,11 @@ class _FavouriteCardState extends State<FavouriteCard> {
                   color: const Color(0xFFFFFCFA),
                 ),
                 padding: EdgeInsets.symmetric(vertical: 5.h),
-                child: Image.asset(
-                  widget.product.image,
+                child: Hero(
+                  tag: widget.product.uid,
+                  child: Image.asset(
+                    widget.product.image,
+                  ),
                 ),
               ),
               Positioned(

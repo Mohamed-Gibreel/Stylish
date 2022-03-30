@@ -159,9 +159,7 @@ class Homepage extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
-                    // : const Text('Products is empty'),
-                    ,
+                    ),
                   );
                 } else if (state is LoadingProducts) {
                   return Padding(

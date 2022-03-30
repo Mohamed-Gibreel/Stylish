@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,10 +6,15 @@ import 'package:stylish/modules/favourite/cubit/favourite_cubit.dart';
 import 'package:stylish/modules/favourite/favourite.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
 
-class FavouriteScreen extends StatelessWidget {
+class FavouriteScreen extends StatefulWidget {
   const FavouriteScreen({Key? key, this.newPage = false}) : super(key: key);
   final bool newPage;
 
+  @override
+  State<FavouriteScreen> createState() => _FavouriteScreenState();
+}
+
+class _FavouriteScreenState extends State<FavouriteScreen> {
   Widget _pageContent(BuildContext ctx) {
     final favouriteCubit = ctx.read<FavouriteCubit>();
     return Column(
@@ -27,13 +33,50 @@ class FavouriteScreen extends StatelessWidget {
                     mainAxisSpacing: 16.h,
                     children: favouriteCubit.favourites
                         .map(
-                          (e) => FavouriteCard(
-                            product: e,
+                          (e) => GestureDetector(
+                            onTap: () {
+                              Navigator.of(ctx)
+                                  .pushNamed(
+                                '/productPage',
+                                arguments: e,
+                              )
+                                  .then((_) {
+                                if (mounted) setState(() {});
+                              });
+                            },
+                            child: FavouriteCard(
+                              product: e,
+                            ),
                           ),
                         )
                         .toList(),
                   )
-                : const Text('Empty'),
+                : Center(
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Please click on the',
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                          WidgetSpan(
+                            child: Icon(
+                              CupertinoIcons.heart_fill,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          TextSpan(
+                            text:
+                                'icon when viewing a product to add the item to your favourites list',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
           ),
         ),
       ],
@@ -42,7 +85,7 @@ class FavouriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return newPage
+    return widget.newPage
         ? Scaffold(
             appBar: CustomAppBar(
               title: const Text(

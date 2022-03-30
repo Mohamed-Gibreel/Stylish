@@ -300,7 +300,7 @@ class _ProductScreenState extends State<ProductScreen> {
               : Container(
                   decoration: BoxDecoration(
                     color: Constants.primaryColor,
-                    borderRadius: BorderRadius.circular(50.r),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                   height: 55.h,
                   width: 250.w,
