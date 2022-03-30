@@ -358,38 +358,44 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 20.h,
+              // SizedBox(
+              //   height: 20.h,
+              // ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: MediaQuery.of(context).viewPadding.bottom > 0 ? 0 : 10.h,
+          ),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/completedOrder',
+                (route) => false,
+              );
+            },
+            child: Container(
+              width: 230.w,
+              height: 55.h,
+              // margin: EdgeInsets.only(bottom: 20.h),
+              decoration: BoxDecoration(
+                color: Constants.primaryColor,
+                borderRadius: BorderRadius.circular(50.r),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/completedOrder',
-                    (route) => false,
-                  );
-                },
-                child: Center(
-                  child: Container(
-                    width: 230.w,
-                    height: 55.h,
-                    // margin: EdgeInsets.only(bottom: 20.h),
-                    decoration: BoxDecoration(
-                      color: Constants.primaryColor,
-                      borderRadius: BorderRadius.circular(50.r),
-                    ),
-                    child: Center(
-                      child: Text(
-                        l10n.swipeForPayment,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
+              child: Center(
+                child: Text(
+                  l10n.swipeForPayment,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),

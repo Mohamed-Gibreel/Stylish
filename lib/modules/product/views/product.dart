@@ -154,7 +154,10 @@ class _ProductScreenState extends State<ProductScreen> {
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(45.r),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(45.r),
+                    topRight: Radius.circular(45.r),
+                  ),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -272,48 +275,53 @@ class _ProductScreenState extends State<ProductScreen> {
           ],
         ),
       ),
+      backgroundColor: Colors.white,
       bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 20.w,
-            vertical: MediaQuery.of(context).viewPadding.bottom > 0 ? 0 : 10.h,
+        child: Container(
+          color: Colors.white,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.w,
+              vertical:
+                  MediaQuery.of(context).viewPadding.bottom > 0 ? 0 : 10.h,
+            ),
+            child: colorOptions.isEmpty
+                ? Container(
+                    width: double.infinity,
+                    height: 55.h,
+                    decoration: BoxDecoration(
+                      color: Colors.redAccent,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Out of stock :(',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      color: Constants.primaryColor,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    height: 55.h,
+                    width: 250.w,
+                    child: Center(
+                      child: Text(
+                        l10n.addToCart,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
           ),
-          child: colorOptions.isEmpty
-              ? Container(
-                  width: double.infinity,
-                  height: 55.h,
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Out of stock :(',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                )
-              : Container(
-                  decoration: BoxDecoration(
-                    color: Constants.primaryColor,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  height: 55.h,
-                  width: 250.w,
-                  child: Center(
-                    child: Text(
-                      l10n.addToCart,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
         ),
       ),
     );
