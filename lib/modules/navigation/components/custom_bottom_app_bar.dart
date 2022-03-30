@@ -28,16 +28,12 @@ class CustomBottomAppBar extends StatelessWidget {
       child: BlocBuilder<NavigationCubit, NavigationState>(
         builder: (context, state) => DefaultTabController(
           length: 4,
-          child: Theme(
-            data: ThemeData(
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent,
-            ),
+          child: Material(
+            borderRadius: BorderRadius.circular(20.r),
+            clipBehavior: Clip.hardEdge,
             child: TabBar(
               indicatorSize: TabBarIndicatorSize.label,
               indicatorColor: Constants.primaryColor,
-              overlayColor:
-                  MaterialStateProperty.all<Color>(Colors.transparent),
               onTap: (index) {
                 switch (index) {
                   case 0:
