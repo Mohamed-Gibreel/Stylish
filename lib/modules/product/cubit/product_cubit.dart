@@ -6,13 +6,13 @@ import 'package:uuid/uuid.dart';
 part './product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
-  ProductCubit() : super(const ProductState([])) {
-    getAllProducts();
+  ProductCubit() : super(LoadingProducts()) {
+    Future.delayed(const Duration(seconds: 3), getAllProducts);
   }
 
   void getAllProducts() {
     emit(
-      ProductState([
+      LoadedProducts([
         Product(
           uid: const Uuid().v4(),
           name: 'Curved Hem Shirt',
@@ -21,7 +21,7 @@ class ProductCubit extends Cubit<ProductState> {
           image: 'assets/products/shirt-1.png',
           bgOpacity: .15,
           description: 'description',
-          colors: [],
+          colors: const ['8E8F86', 'DDFEF9'],
         ),
         Product(
           uid: const Uuid().v4(),
@@ -30,7 +30,7 @@ class ProductCubit extends Cubit<ProductState> {
           name: 'Casual Henley Shirt',
           bgColor: 'EFEFF2',
           description: 'description',
-          colors: [],
+          colors: const [],
           bgOpacity: .5,
         ),
         Product(
@@ -41,7 +41,7 @@ class ProductCubit extends Cubit<ProductState> {
           bgColor: 'EDFDF4',
           bgOpacity: .4,
           description: 'description',
-          colors: [],
+          colors: const [],
         ),
         Product(
           uid: const Uuid().v4(),
@@ -51,7 +51,7 @@ class ProductCubit extends Cubit<ProductState> {
           bgColor: '8E8F86',
           bgOpacity: .15,
           description: 'description',
-          colors: [],
+          colors: const [],
         ),
         Product(
           uid: const Uuid().v4(),
@@ -60,7 +60,7 @@ class ProductCubit extends Cubit<ProductState> {
           name: 'Curved Hem Shirt',
           bgColor: 'EFEFF2',
           bgOpacity: .15,
-          colors: [],
+          colors: const [],
           description: 'description',
         ),
         Product(
@@ -71,7 +71,7 @@ class ProductCubit extends Cubit<ProductState> {
           bgColor: 'DDFEF9',
           bgOpacity: .29,
           description: 'description',
-          colors: [],
+          colors: const [],
         ),
       ]),
     );

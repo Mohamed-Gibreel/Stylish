@@ -1,16 +1,90 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:like_button/like_button.dart';
 import 'package:stylish/l10n/l10n.dart';
+import 'package:stylish/modules/favourite/cubit/favourite_cubit.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
 import 'package:stylish/modules/product/model/product_model.dart';
 import 'package:stylish/util/constants.dart';
 
-class ProductScreen extends StatelessWidget {
+class ColorOptions {
+  ColorOptions({required this.color, required this.isSelected});
+  String color;
+  bool isSelected;
+
+  set selected(bool value) {
+    isSelected = value;
+  }
+
+  bool get selected {
+    return isSelected;
+  }
+}
+
+class ProductScreen extends StatefulWidget {
   const ProductScreen({Key? key}) : super(key: key);
 
   @override
+  State<ProductScreen> createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
+  List<ColorOptions> colorOptions = [];
+  Product? product;
+  late bool isLiked = false;
+  @override
+  void initState() {
+    // mapColors();
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    product = ModalRoute.of(context)!.settings.arguments as Product?;
+    isLiked =
+        BlocProvider.of<FavouriteCubit>(context).favourites.contains(product);
+    mapColors();
+    if (mounted && isLiked) setState(() {});
+    super.didChangeDependencies();
+  }
+
+  void mapColors() {
+    colorOptions = (product?.colors ?? [])
+        .map(
+          (color) => ColorOptions(
+            color: color,
+            isSelected: false,
+          ),
+        )
+        .toList();
+    if (colorOptions.isNotEmpty) colorOptions.first.selected = true;
+    if (mounted) setState(() {});
+  }
+
+  // ignore: avoid_positional_boolean_parameters
+  Future<bool> onLikeButtonTapped(bool isLiked) async {
+    final addFavourite = !isLiked;
+    if (addFavourite && product != null) {
+      BlocProvider.of<FavouriteCubit>(context).addProductToFavorites(product!);
+    } else {
+      if (product != null) {
+        BlocProvider.of<FavouriteCubit>(context)
+            .removeProductFromFavorites(product!);
+      }
+    }
+    return !isLiked;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Product?;
     final l10n = context.l10n;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -21,11 +95,31 @@ class ProductScreen extends StatelessWidget {
         },
         leadingWidgetIcon: Icons.arrow_back_ios_new,
         actionButtons: [
+          //TODO: Find a better way to center the heart, padding is not recommended.
           Padding(
             padding: EdgeInsets.only(right: 20.w),
-            child: const Icon(
-              Icons.heart_broken,
-              color: Colors.black,
+            child: Container(
+              width: 44.w,
+              height: 44.h,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              padding: EdgeInsets.only(left: 2.5.w, top: 5.h),
+              child: LikeButton(
+                isLiked: isLiked,
+                onTap: onLikeButtonTapped,
+                size: 25.w,
+                padding: EdgeInsets.zero,
+                likeBuilder: (bool isLiked) {
+                  return isLiked
+                      ? SvgPicture.asset('assets/products/heart.svg')
+                      : const Icon(
+                          CupertinoIcons.heart_fill,
+                          color: Colors.grey,
+                        );
+                },
+              ),
             ),
           )
         ],
@@ -38,15 +132,15 @@ class ProductScreen extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              color: Color(int.parse(args?.bgColor ?? 'EFEFF2', radix: 16))
-                  .withOpacity(args?.bgOpacity ?? .5),
+              color: Color(int.parse(product?.bgColor ?? 'EFEFF2', radix: 16))
+                  .withOpacity(product?.bgOpacity ?? .5),
               alignment: Alignment.topCenter,
               // color: Colors.red,
               child: SafeArea(
                 child: Hero(
-                  tag: args?.uid ?? 'shirt-1',
+                  tag: product?.uid ?? 'shirt-1',
                   child: Image.asset(
-                    args?.image ?? 'assets/products/shirt-1.png',
+                    product?.image ?? 'assets/products/shirt-1.png',
                     width: 272.w,
                     height: 300.h,
                   ),
@@ -76,7 +170,7 @@ class ProductScreen extends StatelessWidget {
                           SizedBox(
                             width: 145.w,
                             child: Text(
-                              args?.name ?? 'Casual Henley Shirts',
+                              product?.name ?? 'Casual Henley Shirts',
                               style: TextStyle(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w500,
@@ -84,7 +178,7 @@ class ProductScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '\$${args?.price}',
+                            '\$${product?.price}',
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
@@ -114,75 +208,61 @@ class ProductScreen extends StatelessWidget {
                       SizedBox(
                         height: 18.h,
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            width: 26.w,
-                            height: 26.h,
-                            margin: EdgeInsets.only(right: 9.w),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 2.w,
-                              vertical: 2.h,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 2.w,
-                                color: Constants.primaryColor,
-                              ),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFBEE8EA),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 26.w,
-                            height: 26.h,
-                            margin: EdgeInsets.only(right: 9.w),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Color(0xFF141B4A),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 26.w,
-                            height: 26.h,
-                            margin: EdgeInsets.only(right: 9.w),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFF4E5C3),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Center(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Constants.primaryColor,
-                            borderRadius: BorderRadius.circular(50.r),
-                          ),
-                          height: 55.h,
-                          width: 250.w,
-                          child: Center(
-                            child: Text(
-                              l10n.addToCart,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                      if (colorOptions.isNotEmpty)
+                        Row(
+                          children: colorOptions
+                              .map(
+                                (colorOption) => GestureDetector(
+                                  onTap: () {
+                                    for (final color in colorOptions) {
+                                      color.selected = false;
+                                    }
+                                    colorOption.selected = true;
+                                    if (mounted) setState(() {});
+                                  },
+                                  child: Container(
+                                    width: 26.w,
+                                    height: 26.h,
+                                    margin: EdgeInsets.only(right: 9.w),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 2.w,
+                                      vertical: 2.h,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      border: colorOption.selected
+                                          ? Border.all(
+                                              width: 2.w,
+                                              color: Constants.primaryColor,
+                                            )
+                                          : null,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        // color: Color(0xFFBEE8EA),
+                                        color: Color(
+                                          int.parse(
+                                            colorOption.color,
+                                            radix: 16,
+                                          ),
+                                        ).withOpacity(1),
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        )
+                      else
+                        Text(
+                          'No colors available',
+                          style: TextStyle(
+                            fontSize: 12.sp,
                           ),
                         ),
+                      SizedBox(
+                        height: 20.h,
                       ),
                     ],
                   ),
@@ -190,6 +270,50 @@ class ProductScreen extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: MediaQuery.of(context).viewPadding.bottom > 0 ? 0 : 10.h,
+          ),
+          child: colorOptions.isEmpty
+              ? Container(
+                  width: double.infinity,
+                  height: 55.h,
+                  decoration: BoxDecoration(
+                    color: Colors.redAccent,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Out of stock :(',
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                )
+              : Container(
+                  decoration: BoxDecoration(
+                    color: Constants.primaryColor,
+                    borderRadius: BorderRadius.circular(50.r),
+                  ),
+                  height: 55.h,
+                  width: 250.w,
+                  child: Center(
+                    child: Text(
+                      l10n.addToCart,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
         ),
       ),
     );

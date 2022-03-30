@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -126,41 +127,57 @@ class Homepage extends StatelessWidget {
               height: 20.h,
             ),
             BlocBuilder<ProductCubit, ProductState>(
-              builder: (context, state) => SizedBox(
-                height: 190.h,
-                child: state.products.isNotEmpty
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.products.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => Padding(
-                          padding: index == 0
-                              ? EdgeInsets.only(left: 20.w)
-                              : EdgeInsets.zero,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pushNamed(
-                                '/productPage',
-                                arguments: state.products[index],
-                              );
-                            },
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: ProductCard(
-                                heroTag: state.products[index].uid,
-                                icon: state.products[index].image,
-                                price: state.products[index].price,
-                                title: state.products[index].name,
-                                bgColor: state.products[index].bgColor,
-                                opacity: state.products[index].bgOpacity,
-                              ),
+              builder: (context, state) {
+                if (state is LoadedProducts) {
+                  return SizedBox(
+                    height: 190.h,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.products.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => Padding(
+                        padding: index == 0
+                            ? EdgeInsets.only(left: 20.w)
+                            : EdgeInsets.zero,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              '/productPage',
+                              arguments: state.products[index],
+                            );
+                          },
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: ProductCard(
+                              heroTag: state.products[index].uid,
+                              icon: state.products[index].image,
+                              price: state.products[index].price,
+                              title: state.products[index].name,
+                              bgColor: state.products[index].bgColor,
+                              opacity: state.products[index].bgOpacity,
                             ),
                           ),
                         ),
-                      )
-                    : const Text('Products is empty'),
-              ),
-            ),
+                      ),
+                    )
+                    // : const Text('Products is empty'),
+                    ,
+                  );
+                } else if (state is LoadingProducts) {
+                  return Padding(
+                    padding: EdgeInsets.only(left: 20.w),
+                    child: SizedBox(
+                      height: 190.h,
+                      child: const CupertinoActivityIndicator(),
+                    ),
+                  );
+                } else {
+                  return SizedBox(
+                    height: 190.h,
+                  );
+                }
+              },
+            )
           ],
         ),
       ],

@@ -20,14 +20,12 @@ class _LandingPageState extends State<LandingPage>
     with TickerProviderStateMixin {
   //Controllers
   late AnimationController animationController;
-  late TabController _tabController;
 
   //Variables
   bool isCollapsed = false;
 
   @override
   void initState() {
-    _tabController = TabController(vsync: this, length: 4);
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
@@ -38,7 +36,6 @@ class _LandingPageState extends State<LandingPage>
   @override
   void dispose() {
     animationController.dispose();
-    _tabController.dispose();
     super.dispose();
   }
 
@@ -115,11 +112,7 @@ class _LandingPageState extends State<LandingPage>
                               ]
                             : null,
                       ),
-                      child: BlocConsumer<NavigationCubit, NavigationState>(
-                        listener: (context, state) {
-                          _tabController.index = state.index;
-                          if (mounted) setState(() {});
-                        },
+                      child: BlocBuilder<NavigationCubit, NavigationState>(
                         builder: (context, state) => Scaffold(
                           backgroundColor: Colors.transparent,
                           appBar: state.navbarItem.name == 'home'
@@ -175,17 +168,12 @@ class _LandingPageState extends State<LandingPage>
                                     ),
                                   ),
                                 ),
-                          body: TabBarView(
-                            key: UniqueKey(),
-                            physics: const NeverScrollableScrollPhysics(),
-                            controller: _tabController,
-                            children: const [
-                              Homepage(),
-                              FavouriteScreen(),
-                              CartScreen(),
-                              ProfileScreen(),
-                            ],
-                          ),
+                          body: const [
+                            Homepage(),
+                            FavouriteScreen(),
+                            CartScreen(),
+                            ProfileScreen(),
+                          ][state.index],
                           extendBody: true,
                           bottomNavigationBar: const CustomBottomAppBar(),
                         ),

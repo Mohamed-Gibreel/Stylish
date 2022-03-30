@@ -3,17 +3,17 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class Color {
-  const Color({
+class CustomColor {
+  const CustomColor({
     required this.color,
     required this.productImage,
   });
 
-  factory Color.fromJson(String source) =>
-      Color.fromMap(json.decode(source) as Map<String, String>);
+  factory CustomColor.fromJson(String source) =>
+      CustomColor.fromMap(json.decode(source) as Map<String, String>);
 
-  factory Color.fromMap(Map<String, String> map) {
-    return Color(
+  factory CustomColor.fromMap(Map<String, String> map) {
+    return CustomColor(
       color: map['color'] ?? '',
       productImage: map['productImage'] ?? '',
     );
@@ -22,11 +22,11 @@ class Color {
   final String color;
   final String productImage;
 
-  Color copyWith({
+  CustomColor copyWith({
     String? color,
     String? productImage,
   }) {
-    return Color(
+    return CustomColor(
       color: color ?? this.color,
       productImage: productImage ?? this.productImage,
     );
@@ -49,7 +49,7 @@ class Color {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Color &&
+    return other is CustomColor &&
         other.color == color &&
         other.productImage == productImage;
   }

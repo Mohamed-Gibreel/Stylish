@@ -22,26 +22,35 @@ class Product {
       Product.fromMap(json.decode(source) as Map<String, dynamic>);
 
   factory Product.fromMap(Map<String, dynamic> map) {
-    //TODO: Check if this try catch is working, and ask if its the correct place to place logic
     try {
       ui.Color(int.parse(map['bgColor'] as String, radix: 16));
     } catch (e) {
       map['bgColor'] = 'EFEFF2';
     }
+    final validatedColors = <String>[];
+    for (var color in map['colors'] as List<String>) {
+      try {
+        ui.Color(int.parse(map['bgColor'] as String, radix: 16));
+        validatedColors.add(color);
+      } catch (e) {
+        color = '8E8F86';
+      }
+    }
     return Product(
-      uid: map['uid'] as String,
-      name: map['name'] as String,
-      price: map['price'] as int,
-      image: map['image'] as String,
-      bgColor: map['bgColor'] as String,
-      bgOpacity: map['bgOpacity'] as double,
-      description: map['description'] as String,
-      colors: List<Color>.from(
-        (map['colors'] as List<dynamic>).map<Color>(
-          (dynamic x) => Color.fromJson(x as String),
-        ),
-      ),
-    );
+        uid: map['uid'] as String,
+        name: map['name'] as String,
+        price: map['price'] as int,
+        image: map['image'] as String,
+        bgColor: map['bgColor'] as String,
+        bgOpacity: map['bgOpacity'] as double,
+        description: map['description'] as String,
+        colors: validatedColors
+        // colors: List<Color>.from(
+        //   (map['colors'] as List<dynamic>).map<Color>(
+        //     (dynamic x) => Color.fromJson(x as String),
+        //   ),
+        // ),
+        );
   }
 
   final String uid;
@@ -51,7 +60,8 @@ class Product {
   final String image;
   final double bgOpacity;
   final String description;
-  final List<Color> colors;
+  // final List<Color> colors;
+  final List<String> colors;
 
   Product copyWith({
     String? uid,
@@ -61,7 +71,8 @@ class Product {
     String? bgColor,
     double? bgOpacity,
     String? description,
-    List<Color>? colors,
+    // List<Color>? colors,
+    List<String>? colors,
   }) {
     return Product(
       uid: uid ?? this.uid,

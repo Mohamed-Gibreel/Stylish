@@ -5,13 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/authentication/authentication.dart';
 import 'package:stylish/l10n/l10n.dart';
 import 'package:stylish/modules/checkout/checkout.dart';
+import 'package:stylish/modules/favourite/cubit/favourite_cubit.dart';
 import 'package:stylish/modules/favourite/views/favourite.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
 import 'package:stylish/modules/myorders/views/my_orders.dart';
 import 'package:stylish/modules/mywallet/mywallet.dart';
 import 'package:stylish/modules/navigation/cubit/navigation_cubit.dart';
 import 'package:stylish/modules/onboarding/onboarding.dart';
-import 'package:stylish/modules/product/cubit/product_cubit.dart';
 import 'package:stylish/modules/product/product.dart';
 import 'package:stylish/modules/searchpage/searchpage.dart';
 import 'package:stylish/modules/settings/settings.dart';
@@ -22,6 +22,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     final _navigationCubit = NavigationCubit();
     final _productsCubit = ProductCubit();
+    final _favouritesCubit = FavouriteCubit();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -29,6 +30,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => _productsCubit,
+        ),
+        BlocProvider(
+          create: (_) => _favouritesCubit,
         ),
       ],
       child: ScreenUtilInit(
