@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:like_button/like_button.dart';
 import 'package:stylish/l10n/l10n.dart';
+import 'package:stylish/modules/cart/cart.dart';
+import 'package:stylish/modules/cart/model/cart_item_model.dart';
 import 'package:stylish/modules/favourite/cubit/favourite_cubit.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
 import 'package:stylish/modules/product/model/product_model.dart';
@@ -33,17 +35,18 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   List<ColorOptions> colorOptions = [];
-  Product? product;
+  ProductModel? product;
   bool isLiked = false;
+  late CartItemModel cartItem;
   @override
   void initState() {
-    // mapColors();
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    product = ModalRoute.of(context)!.settings.arguments as Product?;
+    product = ModalRoute.of(context)!.settings.arguments as ProductModel?;
+    cartItem = CartItemModel(product: product!, quantity: 1);
     isLiked =
         BlocProvider.of<FavouriteCubit>(context).favourites.contains(product);
     mapColors();
@@ -311,12 +314,23 @@ class _ProductScreenState extends State<ProductScreen> {
                     ),
                     height: 55.h,
                     width: 250.w,
-                    child: Center(
-                      child: Text(
-                        l10n.addToCart,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                    child: Material(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(10.r),
+                      clipBehavior: Clip.hardEdge,
+                      child: InkWell(
+                        onTap: () {
+                          BlocProvider.of<CartCubit>(context)
+                              .addProductToCart(cartItem);
+                        },
+                        child: Center(
+                          child: Text(
+                            l10n.addToCart,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                       ),
                     ),

@@ -9,7 +9,7 @@ class LoadingProducts extends ProductState {
 
 class LoadedProducts extends ProductState {
   LoadedProducts(this.products);
-  final List<Product> products;
+  final List<ProductModel> products;
   @override
   List<Object> get props => [products];
 }

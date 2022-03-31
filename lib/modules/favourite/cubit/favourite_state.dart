@@ -9,9 +9,9 @@ class InitialFavouriteState extends FavouriteState {
 
 class AddedFavouriteItem extends FavouriteState {
   AddedFavouriteItem(this.favourites);
-  final List<Product> favourites;
+  final List<ProductModel> favourites;
   AddedFavouriteItem copyWith({
-    required List<Product> favourites,
+    required List<ProductModel> favourites,
   }) {
     return AddedFavouriteItem(favourites);
   }
@@ -23,12 +23,12 @@ class AddedFavouriteItem extends FavouriteState {
 class RemovedFavouriteItem extends FavouriteState {
   RemovedFavouriteItem(this.favourites);
   RemovedFavouriteItem copyWith({
-    required List<Product> favourites,
+    required List<ProductModel> favourites,
   }) {
     return RemovedFavouriteItem(favourites);
   }
 
-  final List<Product> favourites;
+  final List<ProductModel> favourites;
   @override
   List<Object?> get props => [favourites];
 }

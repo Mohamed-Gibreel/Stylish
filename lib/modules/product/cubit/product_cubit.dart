@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stylish/modules/product/model/product_model.dart';
+import 'package:stylish/modules/product/product.dart';
 import 'package:uuid/uuid.dart';
 
 part './product_state.dart';
@@ -13,7 +13,7 @@ class ProductCubit extends Cubit<ProductState> {
   void getAllProducts() {
     emit(
       LoadedProducts([
-        Product(
+        ProductModel(
           uid: const Uuid().v4(),
           name: 'Curved Hem Shirt',
           price: 1165,
@@ -23,7 +23,7 @@ class ProductCubit extends Cubit<ProductState> {
           description: 'description',
           colors: const ['8E8F86', 'DDFEF9'],
         ),
-        Product(
+        ProductModel(
           uid: const Uuid().v4(),
           image: 'assets/products/shirt-6.png',
           price: 165,
@@ -33,7 +33,7 @@ class ProductCubit extends Cubit<ProductState> {
           colors: const [],
           bgOpacity: .5,
         ),
-        Product(
+        ProductModel(
           uid: const Uuid().v4(),
           image: 'assets/products/shirt-4.png',
           price: 165,
@@ -43,7 +43,7 @@ class ProductCubit extends Cubit<ProductState> {
           description: 'description',
           colors: const [],
         ),
-        Product(
+        ProductModel(
           uid: const Uuid().v4(),
           image: 'assets/products/shirt-3.png',
           price: 165,
@@ -53,7 +53,7 @@ class ProductCubit extends Cubit<ProductState> {
           description: 'description',
           colors: const [],
         ),
-        Product(
+        ProductModel(
           uid: const Uuid().v4(),
           image: 'assets/products/shirt-1.png',
           price: 165,
@@ -63,7 +63,7 @@ class ProductCubit extends Cubit<ProductState> {
           colors: const [],
           description: 'description',
         ),
-        Product(
+        ProductModel(
           uid: const Uuid().v4(),
           image: 'assets/products/shirt-2.png',
           price: 165,

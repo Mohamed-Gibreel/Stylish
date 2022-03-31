@@ -8,14 +8,14 @@ part 'favourite_state.dart';
 class FavouriteCubit extends Cubit<FavouriteState> {
   FavouriteCubit() : super(InitialFavouriteState());
 
-  List<Product> favourites = [];
+  List<ProductModel> favourites = [];
 
-  void addProductToFavorites(Product product) {
+  void addProductToFavorites(ProductModel product) {
     favourites.add(product);
     emit(AddedFavouriteItem([...favourites]));
   }
 
-  void removeProductFromFavorites(Product product) {
+  void removeProductFromFavorites(ProductModel product) {
     final foundProduct = favourites.indexOf(product);
     favourites.removeAt(foundProduct);
     emit(RemovedFavouriteItem([...favourites]));

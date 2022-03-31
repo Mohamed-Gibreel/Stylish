@@ -4,13 +4,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/authentication/authentication.dart';
 import 'package:stylish/l10n/l10n.dart';
+import 'package:stylish/modules/cart/cart.dart';
 import 'package:stylish/modules/checkout/checkout.dart';
-import 'package:stylish/modules/favourite/cubit/favourite_cubit.dart';
-import 'package:stylish/modules/favourite/views/favourite.dart';
+import 'package:stylish/modules/favourite/favourite.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
-import 'package:stylish/modules/myorders/views/my_orders.dart';
+import 'package:stylish/modules/myorders/my_orders.dart';
 import 'package:stylish/modules/mywallet/mywallet.dart';
-import 'package:stylish/modules/navigation/cubit/navigation_cubit.dart';
+import 'package:stylish/modules/navigation/navigation.dart';
 import 'package:stylish/modules/onboarding/onboarding.dart';
 import 'package:stylish/modules/product/product.dart';
 import 'package:stylish/modules/searchpage/searchpage.dart';
@@ -23,6 +23,7 @@ class App extends StatelessWidget {
     final _navigationCubit = NavigationCubit();
     final _productsCubit = ProductCubit();
     final _favouritesCubit = FavouriteCubit();
+    final _cartCubit = CartCubit();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -33,6 +34,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => _favouritesCubit,
+        ),
+        BlocProvider(
+          create: (_) => _cartCubit,
         ),
       ],
       child: ScreenUtilInit(

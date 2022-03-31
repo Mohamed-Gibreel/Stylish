@@ -9,7 +9,7 @@ import 'package:stylish/modules/product/product.dart';
 
 class FavouriteCard extends StatefulWidget {
   const FavouriteCard({Key? key, required this.product}) : super(key: key);
-  final Product product;
+  final ProductModel product;
 
   @override
   State<FavouriteCard> createState() => _FavouriteCardState();

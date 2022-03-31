@@ -5,7 +5,6 @@ import 'package:stylish/modules/cart/cart.dart';
 import 'package:stylish/modules/favourite/favourite.dart';
 import 'package:stylish/modules/homepage/homepage.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
-import 'package:stylish/modules/navigation/cubit/navigation_cubit.dart';
 import 'package:stylish/modules/navigation/navigation.dart';
 import 'package:stylish/modules/profile/profile.dart';
 

@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as ui;
 
-import 'package:stylish/modules/product/model/color_model.dart';
-
 @immutable
-class Product {
-  const Product({
+class ProductModel {
+  const ProductModel({
     required this.uid,
     required this.name,
     required this.price,
@@ -18,10 +16,10 @@ class Product {
     required this.colors,
   });
 
-  factory Product.fromJson(String source) =>
-      Product.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ProductModel.fromJson(String source) =>
+      ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  factory Product.fromMap(Map<String, dynamic> map) {
+  factory ProductModel.fromMap(Map<String, dynamic> map) {
     try {
       ui.Color(int.parse(map['bgColor'] as String, radix: 16));
     } catch (e) {
@@ -36,21 +34,22 @@ class Product {
         color = '8E8F86';
       }
     }
-    return Product(
-        uid: map['uid'] as String,
-        name: map['name'] as String,
-        price: map['price'] as int,
-        image: map['image'] as String,
-        bgColor: map['bgColor'] as String,
-        bgOpacity: map['bgOpacity'] as double,
-        description: map['description'] as String,
-        colors: validatedColors
-        // colors: List<Color>.from(
-        //   (map['colors'] as List<dynamic>).map<Color>(
-        //     (dynamic x) => Color.fromJson(x as String),
-        //   ),
-        // ),
-        );
+    return ProductModel(
+      uid: map['uid'] as String,
+      name: map['name'] as String,
+      price: map['price'] as int,
+      image: map['image'] as String,
+      bgColor: map['bgColor'] as String,
+      bgOpacity: map['bgOpacity'] as double,
+      description: map['description'] as String,
+      colors: validatedColors
+      // colors: List<Color>.from(
+      //   (map['colors'] as List<dynamic>).map<Color>(
+      //     (dynamic x) => Color.fromJson(x as String),
+      //   ),
+      // ),
+      ,
+    );
   }
 
   final String uid;
@@ -63,7 +62,7 @@ class Product {
   // final List<Color> colors;
   final List<String> colors;
 
-  Product copyWith({
+  ProductModel copyWith({
     String? uid,
     String? name,
     String? image,
@@ -74,7 +73,7 @@ class Product {
     // List<Color>? colors,
     List<String>? colors,
   }) {
-    return Product(
+    return ProductModel(
       uid: uid ?? this.uid,
       name: name ?? this.name,
       image: image ?? this.image,
@@ -95,7 +94,8 @@ class Product {
       ..addAll(<String, dynamic>{'bgOpacity': bgOpacity})
       ..addAll(<String, dynamic>{'description': description})
       ..addAll(
-        <String, dynamic>{'colors': colors.map((x) => x.toString()).toList()},
+        // <String, dynamic>{'colors': colors.map((x) => x.toString()).toList()}
+        <String, dynamic>{'colors': colors.map((x) => x).toList()},
       );
 
     return result;
@@ -112,7 +112,7 @@ class Product {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Product &&
+    return other is ProductModel &&
         other.name == name &&
         other.price == price &&
         other.image == image &&
