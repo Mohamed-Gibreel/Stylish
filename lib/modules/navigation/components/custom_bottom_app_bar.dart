@@ -65,15 +65,19 @@ class CustomBottomAppBar extends StatelessWidget {
               tabs: const [
                 CustomBottomNavBarItem(
                   icon: 'assets/homepage/profile.svg',
+                  type: 'home',
                 ),
                 CustomBottomNavBarItem(
                   icon: 'assets/homepage/heart-bottom-nav-bar.svg',
+                  type: 'favourite',
                 ),
                 CustomBottomNavBarItem(
                   icon: 'assets/homepage/buy.svg',
+                  type: 'cart',
                 ),
                 CustomBottomNavBarItem(
                   icon: 'assets/homepage/profile.svg',
+                  type: 'home',
                 )
               ],
             ),
