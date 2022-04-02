@@ -9,11 +9,16 @@ import 'package:stylish/modules/cart/cart.dart';
 import 'package:stylish/modules/cart/model/cart_item_model.dart';
 import 'package:stylish/modules/favourite/cubit/favourite_cubit.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
-import 'package:stylish/modules/product/model/product_model.dart';
+import 'package:stylish/modules/product/product.dart';
 import 'package:stylish/util/constants.dart';
 
 class ColorOptions {
-  ColorOptions({required this.color, required this.isSelected});
+  ColorOptions({
+    required this.productColor,
+    required this.color,
+    required this.isSelected,
+  });
+  ProductColor productColor;
   String color;
   bool isSelected;
 
@@ -38,6 +43,7 @@ class _ProductScreenState extends State<ProductScreen> {
   ProductModel? product;
   bool isLiked = false;
   late CartItemModel cartItem;
+  bool isInCart = false;
   @override
   void initState() {
     super.initState();
@@ -46,7 +52,6 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   void didChangeDependencies() {
     product = ModalRoute.of(context)!.settings.arguments as ProductModel?;
-    cartItem = CartItemModel(product: product!, quantity: 1);
     isLiked =
         BlocProvider.of<FavouriteCubit>(context).favourites.contains(product);
     mapColors();
@@ -55,16 +60,32 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   void mapColors() {
-    colorOptions = (product?.colors ?? [])
-        .map(
-          (color) => ColorOptions(
-            color: color.color,
-            isSelected: false,
-          ),
-        )
-        .toList();
-    if (colorOptions.isNotEmpty) colorOptions.first.selected = true;
-    if (mounted) setState(() {});
+    if ((product?.colors ?? []).isNotEmpty) {
+      colorOptions = (product?.colors ?? [])
+          .map(
+            (color) => ColorOptions(
+              productColor: color,
+              color: color.color,
+              isSelected: false,
+            ),
+          )
+          .toList();
+      if (colorOptions.isNotEmpty) colorOptions.first.selected = true;
+      cartItem = CartItemModel(
+        product: product!,
+        quantity: 1,
+        selectedColor: colorOptions.first.productColor,
+      );
+      isInCart = BlocProvider.of<CartCubit>(context)
+          .cart
+          .where(
+            (item) =>
+                item.product.uid == cartItem.product.uid &&
+                item.selectedColor == cartItem.selectedColor,
+          )
+          .isNotEmpty;
+      if (mounted) setState(() {});
+    }
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -86,9 +107,77 @@ class _ProductScreenState extends State<ProductScreen> {
     super.dispose();
   }
 
+  Widget _addToCart() {
+    final l10n = context.l10n;
+    return Container(
+      decoration: BoxDecoration(
+        color: Constants.primaryColor,
+        borderRadius: BorderRadius.circular(10.r),
+      ),
+      height: 55.h,
+      // width: 250.w,
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(10.r),
+        clipBehavior: Clip.hardEdge,
+        child: InkWell(
+          onTap: () {
+            for (final selectedColor in colorOptions) {
+              if (selectedColor.isSelected) {
+                cartItem.selectedColor = selectedColor.productColor;
+              }
+            }
+            BlocProvider.of<CartCubit>(context).addProductToCart(cartItem);
+            isInCart = BlocProvider.of<CartCubit>(context)
+                .cart
+                .where(
+                  (item) =>
+                      item.product.uid == cartItem.product.uid &&
+                      item.selectedColor == cartItem.selectedColor,
+                )
+                .isNotEmpty;
+            if (mounted) setState(() {});
+          },
+          child: Center(
+            child: Text(
+              l10n.addToCart,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _alreadyInCart() {
+    return Container(
+      height: 55.w,
+      // width: 250.w,
+      decoration: BoxDecoration(
+        color: Colors.green,
+        borderRadius: BorderRadius.circular(10.r),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(CupertinoIcons.shopping_cart, color: Colors.white),
+          SizedBox(
+            width: 10.w,
+          ),
+          const Text(
+            'Item added to cart',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomAppBar(
@@ -224,6 +313,20 @@ class _ProductScreenState extends State<ProductScreen> {
                                       color.selected = false;
                                     }
                                     colorOption.selected = true;
+                                    cartItem = cartItem.copyWith(
+                                      selectedColor: colorOption.productColor,
+                                    );
+                                    isInCart =
+                                        BlocProvider.of<CartCubit>(context)
+                                            .cart
+                                            .where(
+                                              (item) =>
+                                                  item.product.uid ==
+                                                      cartItem.product.uid &&
+                                                  item.selectedColor ==
+                                                      cartItem.selectedColor,
+                                            )
+                                            .isNotEmpty;
                                     if (mounted) setState(() {});
                                   },
                                   child: Container(
@@ -307,33 +410,16 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     ),
                   )
-                : Container(
-                    decoration: BoxDecoration(
-                      color: Constants.primaryColor,
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                    height: 55.h,
-                    width: 250.w,
-                    child: Material(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(10.r),
-                      clipBehavior: Clip.hardEdge,
-                      child: InkWell(
-                        onTap: () {
-                          BlocProvider.of<CartCubit>(context)
-                              .addProductToCart(cartItem);
-                        },
-                        child: Center(
-                          child: Text(
-                            l10n.addToCart,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                // : isInCart
+                //     ? _alreadyInCart()
+                //     : _addToCart(),
+                : AnimatedCrossFade(
+                    firstChild: _alreadyInCart(),
+                    secondChild: _addToCart(),
+                    crossFadeState: isInCart
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                    duration: const Duration(milliseconds: 400),
                   ),
           ),
         ),

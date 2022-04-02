@@ -6,12 +6,15 @@ class CartItemModel {
   CartItemModel({
     required this.product,
     required this.quantity,
+    required this.selectedColor,
   });
 
   factory CartItemModel.fromMap(Map<String, dynamic> map) {
     return CartItemModel(
       product: ProductModel.fromMap(map['product'] as Map<String, dynamic>),
       quantity: (map['quantity'] ?? 0) as int,
+      selectedColor:
+          ProductColor.fromMap(map['selectedColor'] as Map<String, dynamic>),
     );
   }
 
@@ -20,6 +23,7 @@ class CartItemModel {
 
   ProductModel product;
   int quantity;
+  ProductColor selectedColor;
 
   set count(int quantity) {
     this.quantity = quantity;
@@ -32,17 +36,20 @@ class CartItemModel {
   CartItemModel copyWith({
     ProductModel? product,
     int? quantity,
+    ProductColor? selectedColor,
   }) {
     return CartItemModel(
       product: product ?? this.product,
       quantity: quantity ?? this.quantity,
+      selectedColor: selectedColor ?? this.selectedColor,
     );
   }
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{
       'product': product.toMap(),
-      'quantity': quantity
+      'quantity': quantity,
+      'selectedColor': selectedColor.toMap()
     };
 
     return result;
@@ -51,7 +58,8 @@ class CartItemModel {
   String toJson() => json.encode(toMap());
 
   @override
-  String toString() => 'CartItemModel(product: $product, quantity: $quantity)';
+  String toString() =>
+      'CartItemModel(product: $product, quantity: $quantity, selectedColor: $selectedColor)';
 
   @override
   bool operator ==(Object other) {
@@ -59,9 +67,11 @@ class CartItemModel {
 
     return other is CartItemModel &&
         other.product == product &&
-        other.quantity == quantity;
+        other.quantity == quantity &&
+        other.selectedColor == selectedColor;
   }
 
   @override
-  int get hashCode => product.hashCode ^ quantity.hashCode;
+  int get hashCode =>
+      product.hashCode ^ quantity.hashCode ^ selectedColor.hashCode;
 }
