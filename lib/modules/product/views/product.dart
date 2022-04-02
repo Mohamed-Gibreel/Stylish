@@ -116,7 +116,6 @@ class _ProductScreenState extends State<ProductScreen> {
         color: Constants.primaryColor,
         borderRadius: BorderRadius.circular(10.r),
       ),
-      // width: 250.w,
       child: Material(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(10.r),

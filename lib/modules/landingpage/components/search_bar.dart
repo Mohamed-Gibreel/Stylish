@@ -5,17 +5,16 @@ import 'package:stylish/l10n/l10n.dart';
 import 'package:stylish/util/constants.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key, this.filterCb}) : super(key: key);
+  const SearchBar({Key? key, this.filterCb, this.editingController})
+      : super(key: key);
   final VoidCallback? filterCb;
+  final TextEditingController? editingController;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Material(
       child: Container(
-        margin: EdgeInsets.symmetric(
-          horizontal: 20.w,
-        ),
         width: double.infinity,
         height: 55.h,
         padding: EdgeInsets.only(left: 20.w),
@@ -29,6 +28,7 @@ class SearchBar extends StatelessWidget {
               child: TextFormField(
                 textAlign: TextAlign.left,
                 cursorHeight: 15.h,
+                controller: editingController,
                 decoration: InputDecoration(
                   hintStyle: TextStyle(height: 1.4.h),
                   focusColor: Colors.red,

@@ -52,10 +52,13 @@ class Homepage extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed('/searchPage');
           },
-          child: const IgnorePointer(
-            child: Hero(
-              tag: 'search-bar',
-              child: SearchBar(),
+          child: IgnorePointer(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 20.w),
+              child: const Hero(
+                tag: 'search-bar',
+                child: SearchBar(),
+              ),
             ),
           ),
         ),
