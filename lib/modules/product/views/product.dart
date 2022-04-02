@@ -109,12 +109,13 @@ class _ProductScreenState extends State<ProductScreen> {
 
   Widget _addToCart() {
     final l10n = context.l10n;
+
     return Container(
+      height: 55.h,
       decoration: BoxDecoration(
         color: Constants.primaryColor,
         borderRadius: BorderRadius.circular(10.r),
       ),
-      height: 55.h,
       // width: 250.w,
       child: Material(
         color: Colors.transparent,
@@ -154,7 +155,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   Widget _alreadyInCart() {
     return Container(
-      height: 55.w,
+      height: 55.h,
       // width: 250.w,
       decoration: BoxDecoration(
         color: Colors.green,
