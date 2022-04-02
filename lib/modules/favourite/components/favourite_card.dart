@@ -43,8 +43,8 @@ class _FavouriteCardState extends State<FavouriteCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 290.h,
-      width: 155.w,
+      // height: 290.h,
+      // width: 155.w,
       padding: EdgeInsets.fromLTRB(5.w, 5.h, 5.w, 0.h),
       decoration: BoxDecoration(
         color: Colors.white,

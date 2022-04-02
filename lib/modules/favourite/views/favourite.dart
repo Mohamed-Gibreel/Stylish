@@ -26,8 +26,10 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                 ? GridView.count(
                     crossAxisCount: 2,
                     shrinkWrap: true,
-                    // No clue on how to set height of grid item other of this.
-                    childAspectRatio: .8725.h / 1.1.h,
+                    childAspectRatio: MediaQuery.of(context).size.width /
+                        (MediaQuery.of(context).size.height / 1.7),
+                    // childAspectRatio: 0.8,
+                    clipBehavior: Clip.none,
                     crossAxisSpacing: 18.w,
                     mainAxisSpacing: 16.h,
                     children: favouriteCubit.favourites

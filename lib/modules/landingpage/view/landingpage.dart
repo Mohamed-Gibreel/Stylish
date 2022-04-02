@@ -67,10 +67,10 @@ class _LandingPageState extends State<LandingPage>
                   final positonAnimation = RelativeRectTween(
                     begin: RelativeRect.fill,
                     end: RelativeRect.fromLTRB(
-                      0.35.w * screenWidth,
-                      0.h * screenHeight,
-                      -1.2.w * screenWidth,
-                      0.h * screenHeight,
+                      0.35 * screenWidth,
+                      0 * screenHeight,
+                      -1.2 * screenWidth,
+                      0 * screenHeight,
                     ),
                   ).animate(
                     CurvedAnimation(
@@ -82,6 +82,7 @@ class _LandingPageState extends State<LandingPage>
                     rect: positonAnimation,
                     child: ScaleTransition(scale: sizeAnimation, child: child),
                   );
+                  // return ScaleTransition(scale: sizeAnimation, child: child);
                 },
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
