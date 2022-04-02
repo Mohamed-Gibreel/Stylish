@@ -48,19 +48,14 @@ class _CustomBottomNavBarItemState extends State<CustomBottomNavBarItem> {
                 top: -10.h,
                 child: Center(
                   child: Container(
-                    // width: 15.w,
-                    // height: 15.h,
-
+                    height: 15.h,
+                    constraints: BoxConstraints(minWidth: 15.w),
                     decoration: BoxDecoration(
                       color: Constants.primaryColor,
-                      // shape: BoxShape.circle,
-                      borderRadius: BorderRadius.circular(10.r),
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(2.r),
                     ),
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 4.w,
-                      vertical: 2.h,
-                    ),
                     child: Text(
                       (indicatorValue).toString(),
                       style: TextStyle(fontSize: 10.sp),
