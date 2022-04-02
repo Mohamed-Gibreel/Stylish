@@ -56,7 +56,7 @@ class _CartScreenState extends State<CartScreen> {
                   children: [
                     Text('${l10n.subTotal} :'),
                     Text(
-                      context.read<CartCubit>().cartTotal.toString(),
+                      '\$${context.read<CartCubit>().cartTotal.toString()}',
                       // r'$250',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,

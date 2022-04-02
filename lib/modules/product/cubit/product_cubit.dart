@@ -11,18 +11,48 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   void getAllProducts() {
+    final rawProduct = ProductModel(
+      uid: const Uuid().v4(),
+      name: 'Curved Hem Shirt',
+      price: 1165,
+      bgColor: 'EDFDF4',
+      image: 'assets/products/shirt-1.png',
+      bgOpacity: .15,
+      description: 'description',
+      colors: const [
+        ProductColor(
+          color: '8E8F86',
+          productImage: 'assets/products/shirt-1.png',
+        ),
+        ProductColor(
+          color: 'DDFEF9',
+          productImage: 'assets/products/shirt-1.png',
+        ),
+      ],
+    ).toJson();
+    var testProduct = ProductModel.fromJson(rawProduct);
     emit(
       LoadedProducts([
-        ProductModel(
-          uid: const Uuid().v4(),
-          name: 'Curved Hem Shirt',
-          price: 1165,
-          bgColor: 'EDFDF4',
-          image: 'assets/products/shirt-1.png',
-          bgOpacity: .15,
-          description: 'description',
-          colors: const ['8E8F86', 'DDFEF9'],
-        ),
+        testProduct,
+        // ProductModel(
+        //   uid: const Uuid().v4(),
+        //   name: 'Curved Hem Shirt',
+        //   price: 1165,
+        //   bgColor: 'EDFDF4',
+        //   image: 'assets/products/shirt-1.png',
+        //   bgOpacity: .15,
+        //   description: 'description',
+        //   colors: const [
+        //     ProductColor(
+        //       color: '8E8F86',
+        //       productImage: 'assets/products/shirt-1.png',
+        //     ),
+        //     ProductColor(
+        //       color: 'DDFEF9',
+        //       productImage: 'assets/products/shirt-1.png',
+        //     ),
+        //   ],
+        // ),
         ProductModel(
           uid: const Uuid().v4(),
           image: 'assets/products/shirt-6.png',

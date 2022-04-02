@@ -58,7 +58,7 @@ class _ProductScreenState extends State<ProductScreen> {
     colorOptions = (product?.colors ?? [])
         .map(
           (color) => ColorOptions(
-            color: color,
+            color: color.color,
             isSelected: false,
           ),
         )

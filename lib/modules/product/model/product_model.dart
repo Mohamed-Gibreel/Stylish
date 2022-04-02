@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as ui;
+import 'package:stylish/modules/product/product.dart';
 
 @immutable
 class ProductModel {
@@ -25,13 +25,23 @@ class ProductModel {
     } catch (e) {
       map['bgColor'] = 'EFEFF2';
     }
-    final validatedColors = <String>[];
-    for (var color in map['colors'] as List<String>) {
+    final validatedColors = <ProductColor>[];
+    for (final color in map['colors']) {
       try {
-        ui.Color(int.parse(map['bgColor'] as String, radix: 16));
-        validatedColors.add(color);
+        Map<String, dynamic> newColor;
+        try {
+          newColor = json.decode(color.toString()) as Map<String, dynamic>;
+        } catch (_) {
+          newColor = color as Map<String, dynamic>;
+        }
+        final convertedColor = ProductColor.fromMap(newColor);
+        ui.Color(int.parse(convertedColor.color, radix: 16));
+        validatedColors.add(convertedColor);
       } catch (e) {
-        color = '8E8F86';
+        debugPrint('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
+        debugPrint('WRONG COLOR FORMAT');
+        debugPrint('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
+        // color.color = '8E8F86';
       }
     }
     return ProductModel(
@@ -59,8 +69,8 @@ class ProductModel {
   final String image;
   final double bgOpacity;
   final String description;
-  // final List<Color> colors;
-  final List<String> colors;
+  final List<ProductColor> colors;
+  // final List<String> colors;
 
   ProductModel copyWith({
     String? uid,
@@ -71,7 +81,7 @@ class ProductModel {
     double? bgOpacity,
     String? description,
     // List<Color>? colors,
-    List<String>? colors,
+    List<ProductColor>? colors,
   }) {
     return ProductModel(
       uid: uid ?? this.uid,
@@ -87,6 +97,7 @@ class ProductModel {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{}
+      ..addAll(<String, dynamic>{'uid': name})
       ..addAll(<String, dynamic>{'name': name})
       ..addAll(<String, dynamic>{'price': price})
       ..addAll(<String, dynamic>{'image': image})
