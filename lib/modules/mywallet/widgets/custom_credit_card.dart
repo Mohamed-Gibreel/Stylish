@@ -31,7 +31,6 @@ class CustomCreditCard extends StatelessWidget {
                 child: Container(
                   width: 100.w,
                   height: 100.h,
-                  // clipBehavior: Clip.hardEdge,
                   decoration: const BoxDecoration(
                     color: Color(0xFFFBACAD),
                     shape: BoxShape.circle,
