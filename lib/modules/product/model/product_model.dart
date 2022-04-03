@@ -11,6 +11,7 @@ class ProductModel {
     required this.price,
     required this.bgColor,
     required this.image,
+    required this.category,
     required this.bgOpacity,
     required this.description,
     required this.colors,
@@ -41,7 +42,6 @@ class ProductModel {
         debugPrint('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
         debugPrint('WRONG COLOR FORMAT');
         debugPrint('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
-        // color.color = '8E8F86';
       }
     }
     return ProductModel(
@@ -50,15 +50,10 @@ class ProductModel {
       price: map['price'] as int,
       image: map['image'] as String,
       bgColor: map['bgColor'] as String,
+      category: map['category'] as String,
       bgOpacity: map['bgOpacity'] as double,
       description: map['description'] as String,
-      colors: validatedColors
-      // colors: List<Color>.from(
-      //   (map['colors'] as List<dynamic>).map<Color>(
-      //     (dynamic x) => Color.fromJson(x as String),
-      //   ),
-      // ),
-      ,
+      colors: validatedColors,
     );
   }
 
@@ -69,8 +64,8 @@ class ProductModel {
   final String image;
   final double bgOpacity;
   final String description;
+  final String category;
   final List<ProductColor> colors;
-  // final List<String> colors;
 
   ProductModel copyWith({
     String? uid,
@@ -80,13 +75,14 @@ class ProductModel {
     String? bgColor,
     double? bgOpacity,
     String? description,
-    // List<Color>? colors,
+    String? category,
     List<ProductColor>? colors,
   }) {
     return ProductModel(
       uid: uid ?? this.uid,
       name: name ?? this.name,
       image: image ?? this.image,
+      category: category ?? this.category,
       price: price ?? this.price,
       bgColor: bgColor ?? this.bgColor,
       bgOpacity: bgOpacity ?? this.bgOpacity,
@@ -102,6 +98,7 @@ class ProductModel {
       ..addAll(<String, dynamic>{'price': price})
       ..addAll(<String, dynamic>{'image': image})
       ..addAll(<String, dynamic>{'bgColor': bgColor})
+      ..addAll(<String, dynamic>{'category': category})
       ..addAll(<String, dynamic>{'bgOpacity': bgOpacity})
       ..addAll(<String, dynamic>{'description': description})
       ..addAll(
@@ -116,7 +113,7 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'Product(name: $name, price: $price, bgColor: $bgColor, bgOpacity: $bgOpacity, description: $description, colors: $colors, image: $image)';
+    return 'Product(name: $name, price: $price, bgColor: $bgColor, bgOpacity: $bgOpacity, description: $description, colors: $colors, image: $image, category: $category)';
   }
 
   @override
@@ -128,6 +125,7 @@ class ProductModel {
         other.price == price &&
         other.image == image &&
         other.bgColor == bgColor &&
+        other.category == category &&
         other.bgOpacity == bgOpacity &&
         other.description == description &&
         listEquals(other.colors, colors);
@@ -139,6 +137,7 @@ class ProductModel {
         price.hashCode ^
         bgColor.hashCode ^
         image.hashCode ^
+        category.hashCode ^
         bgOpacity.hashCode ^
         description.hashCode ^
         colors.hashCode;

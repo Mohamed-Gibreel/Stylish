@@ -64,58 +64,68 @@ class CompletedOrder extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
-              GestureDetector(
-                onTap: () {
-                  BlocProvider.of<NavigationCubit>(context)
-                      .setNavBarItem(NavigationItem.home);
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/landingPage',
-                    (route) => false,
-                  );
-                },
-                child: Container(
-                  height: 55.h,
-                  width: 233.w,
-                  margin: EdgeInsets.only(bottom: 10.h),
-                  decoration: BoxDecoration(
-                    color: Constants.primaryColor,
-                    borderRadius: BorderRadius.circular(55.r),
-                  ),
-                  child: Center(
-                    child: Text(
-                      l10n.getYourReceipt,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.sp,
+              Container(
+                height: 55.h,
+                width: 233.w,
+                margin: EdgeInsets.only(bottom: 10.h),
+                decoration: BoxDecoration(
+                  color: Constants.primaryColor,
+                  borderRadius: BorderRadius.circular(55.r),
+                ),
+                clipBehavior: Clip.hardEdge,
+                child: Material(
+                  clipBehavior: Clip.hardEdge,
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      BlocProvider.of<NavigationCubit>(context)
+                          .setNavBarItem(NavigationItem.home);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/landingPage',
+                        (route) => false,
+                      );
+                    },
+                    child: Center(
+                      child: Text(
+                        l10n.getYourReceipt,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.sp,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  BlocProvider.of<NavigationCubit>(context)
-                      .setNavBarItem(NavigationItem.home);
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/landingPage',
-                    (route) => false,
-                  );
-                },
-                child: Container(
-                  height: 55.h,
-                  width: 233.w,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFE9E2),
-                    borderRadius: BorderRadius.circular(55.r),
-                  ),
-                  child: Center(
-                    child: Text(
-                      l10n.backToHome,
-                      style: TextStyle(
-                        color: const Color(0xFFF67952),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.sp,
+              Container(
+                height: 55.h,
+                width: 233.w,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFE9E2),
+                  borderRadius: BorderRadius.circular(55.r),
+                ),
+                clipBehavior: Clip.hardEdge,
+                child: Material(
+                  color: Colors.transparent,
+                  clipBehavior: Clip.hardEdge,
+                  child: InkWell(
+                    onTap: () {
+                      BlocProvider.of<NavigationCubit>(context)
+                          .setNavBarItem(NavigationItem.home);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/landingPage',
+                        (route) => false,
+                      );
+                    },
+                    child: Center(
+                      child: Text(
+                        l10n.backToHome,
+                        style: TextStyle(
+                          color: const Color(0xFFF67952),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.sp,
+                        ),
                       ),
                     ),
                   ),

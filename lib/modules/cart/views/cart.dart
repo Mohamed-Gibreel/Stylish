@@ -16,7 +16,6 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    // final _cartCubit = context.read<CartCubit>();
     final _cartCubit = BlocProvider.of<CartCubit>(context, listen: true);
     return Padding(
       padding:
@@ -66,20 +65,25 @@ class _CartScreenState extends State<CartScreen> {
                   ],
                 ),
                 Center(
-                  child: Container(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
                     height: 55.h,
                     decoration: BoxDecoration(
-                      color: Constants.primaryColor,
-                      borderRadius: BorderRadius.circular(50.r),
+                      color: _cartCubit.cart.isNotEmpty
+                          ? Constants.primaryColor
+                          : Colors.grey,
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                     child: Material(
                       color: Colors.transparent,
                       clipBehavior: Clip.hardEdge,
-                      borderRadius: BorderRadius.circular(50.r),
+                      borderRadius: BorderRadius.circular(10.r),
                       child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed('/checkout');
-                        },
+                        onTap: _cartCubit.cart.isNotEmpty
+                            ? () {
+                                Navigator.of(context).pushNamed('/checkout');
+                              }
+                            : () {},
                         child: Center(
                           child: Text(
                             l10n.checkout,

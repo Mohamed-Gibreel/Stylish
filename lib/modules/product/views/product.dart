@@ -40,7 +40,7 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   List<ColorOptions> colorOptions = [];
-  ProductModel? product;
+  late ProductModel product;
   bool isLiked = false;
   late CartItemModel cartItem;
   bool isInCart = false;
@@ -51,7 +51,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   void didChangeDependencies() {
-    product = ModalRoute.of(context)!.settings.arguments as ProductModel?;
+    product = ModalRoute.of(context)!.settings.arguments! as ProductModel;
     isLiked =
         BlocProvider.of<FavouriteCubit>(context).favourites.contains(product);
     mapColors();
@@ -60,8 +60,8 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   void mapColors() {
-    if ((product?.colors ?? []).isNotEmpty) {
-      colorOptions = (product?.colors ?? [])
+    if (product.colors.isNotEmpty) {
+      colorOptions = product.colors
           .map(
             (color) => ColorOptions(
               productColor: color,
@@ -72,7 +72,7 @@ class _ProductScreenState extends State<ProductScreen> {
           .toList();
       if (colorOptions.isNotEmpty) colorOptions.first.selected = true;
       cartItem = CartItemModel(
-        product: product!,
+        product: product,
         quantity: 1,
         selectedColor: colorOptions.first.productColor,
       );
@@ -91,12 +91,12 @@ class _ProductScreenState extends State<ProductScreen> {
   // ignore: avoid_positional_boolean_parameters
   Future<bool> onLikeButtonTapped(bool isLiked) async {
     final addFavourite = !isLiked;
-    if (addFavourite && product != null) {
-      BlocProvider.of<FavouriteCubit>(context).addProductToFavorites(product!);
+    if (addFavourite) {
+      BlocProvider.of<FavouriteCubit>(context).addProductToFavorites(product);
     } else {
       if (product != null) {
         BlocProvider.of<FavouriteCubit>(context)
-            .removeProductFromFavorites(product!);
+            .removeProductFromFavorites(product);
       }
     }
     return !isLiked;
@@ -224,17 +224,15 @@ class _ProductScreenState extends State<ProductScreen> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              color: Color(int.parse(product?.bgColor ?? 'EFEFF2', radix: 16))
-                  .withOpacity(product?.bgOpacity ?? .5),
+              color: Color(int.parse(product.bgColor, radix: 16))
+                  .withOpacity(product.bgOpacity),
               alignment: Alignment.topCenter,
-              // color: Colors.red,
               child: SafeArea(
                 child: Hero(
-                  tag: product?.uid ?? 'shirt-1',
+                  tag: product.uid,
                   child: Image.asset(
-                    product?.image ?? 'assets/products/shirt-1.png',
-                    width: 272.w,
-                    height: 300.h,
+                    product.image,
+                    height: 320.h,
                   ),
                 ),
               ),
@@ -242,10 +240,16 @@ class _ProductScreenState extends State<ProductScreen> {
             Positioned(
               bottom: 0,
               child: Container(
-                height: 365.h,
+                height: 325.h,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(.1),
+                      blurRadius: 10,
+                    )
+                  ],
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(45.r),
                     topRight: Radius.circular(45.r),
@@ -253,127 +257,133 @@ class _ProductScreenState extends State<ProductScreen> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: 145.w,
-                            child: Text(
-                              product?.name ?? 'Casual Henley Shirts',
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w500,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 25.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Text(
+                                product.name,
+                                style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
-                          ),
-                          Text(
-                            '\$${product?.price}',
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                '\$${product.price}',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Text(
+                          'A Henley shirt is a collarless pullover shirt, by a round neckline and a placket about 3 to 5 inches (8 to 13 cm) long and usually having 2–5 buttons.',
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(.5),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Text(
-                        'A Henley shirt is a collarless pullover shirt, by a round neckline and a placket about 3 to 5 inches (8 to 13 cm) long and usually having 2–5 buttons.',
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(.5),
                         ),
-                      ),
-                      SizedBox(
-                        height: 25.h,
-                      ),
-                      Text(
-                        'Colors',
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(.5),
-                          // fontWeight: FontWeight.w500,
+                        SizedBox(
+                          height: 25.h,
                         ),
-                      ),
-                      SizedBox(
-                        height: 18.h,
-                      ),
-                      if (colorOptions.isNotEmpty)
-                        Row(
-                          children: colorOptions
-                              .map(
-                                (colorOption) => GestureDetector(
-                                  onTap: () {
-                                    for (final color in colorOptions) {
-                                      color.selected = false;
-                                    }
-                                    colorOption.selected = true;
-                                    cartItem = cartItem.copyWith(
-                                      selectedColor: colorOption.productColor,
-                                    );
-                                    isInCart =
-                                        BlocProvider.of<CartCubit>(context)
-                                            .cart
-                                            .where(
-                                              (item) =>
-                                                  item.product.uid ==
-                                                      cartItem.product.uid &&
-                                                  item.selectedColor ==
-                                                      cartItem.selectedColor,
-                                            )
-                                            .isNotEmpty;
-                                    if (mounted) setState(() {});
-                                  },
-                                  child: Container(
-                                    width: 26.w,
-                                    height: 26.h,
-                                    margin: EdgeInsets.only(right: 9.w),
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 2.w,
-                                      vertical: 2.h,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: colorOption.selected
-                                          ? Border.all(
-                                              width: 2.w,
-                                              color: Constants.primaryColor,
-                                            )
-                                          : null,
-                                      shape: BoxShape.circle,
-                                    ),
+                        Text(
+                          'Colors',
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(.5),
+                            // fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 18.h,
+                        ),
+                        if (colorOptions.isNotEmpty)
+                          Row(
+                            children: colorOptions
+                                .map(
+                                  (colorOption) => GestureDetector(
+                                    onTap: () {
+                                      for (final color in colorOptions) {
+                                        color.selected = false;
+                                      }
+                                      colorOption.selected = true;
+                                      cartItem = cartItem.copyWith(
+                                        selectedColor: colorOption.productColor,
+                                      );
+                                      isInCart =
+                                          BlocProvider.of<CartCubit>(context)
+                                              .cart
+                                              .where(
+                                                (item) =>
+                                                    item.product.uid ==
+                                                        cartItem.product.uid &&
+                                                    item.selectedColor ==
+                                                        cartItem.selectedColor,
+                                              )
+                                              .isNotEmpty;
+                                      if (mounted) setState(() {});
+                                    },
                                     child: Container(
+                                      width: 26.w,
+                                      height: 26.h,
+                                      margin: EdgeInsets.only(right: 9.w),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 2.w,
+                                        vertical: 2.h,
+                                      ),
                                       decoration: BoxDecoration(
-                                        // color: Color(0xFFBEE8EA),
-                                        color: Color(
-                                          int.parse(
-                                            colorOption.color,
-                                            radix: 16,
-                                          ),
-                                        ).withOpacity(1),
+                                        border: colorOption.selected
+                                            ? Border.all(
+                                                width: 2.w,
+                                                color: Constants.primaryColor,
+                                              )
+                                            : null,
                                         shape: BoxShape.circle,
+                                      ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          // color: Color(0xFFBEE8EA),
+                                          color: Color(
+                                            int.parse(
+                                              colorOption.color,
+                                              radix: 16,
+                                            ),
+                                          ).withOpacity(1),
+                                          shape: BoxShape.circle,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )
-                              .toList(),
-                        )
-                      else
-                        Text(
-                          'No colors available',
-                          style: TextStyle(
-                            fontSize: 12.sp,
+                                )
+                                .toList(),
+                          )
+                        else
+                          Text(
+                            'No colors available',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                            ),
                           ),
+                        SizedBox(
+                          height: 20.h,
                         ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

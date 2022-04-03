@@ -2,19 +2,37 @@ part of './product_cubit.dart';
 
 abstract class ProductState extends Equatable {}
 
-class LoadingProducts extends ProductState {
+class ProductInitialState extends ProductState {
   @override
   List<Object> get props => [];
 }
 
-class LoadedProducts extends ProductState {
-  LoadedProducts(this.products);
-  final List<ProductModel> products;
+class ProductFetchInProgress extends ProductState {
   @override
-  List<Object> get props => [products];
+  List<Object> get props => [];
 }
 
-class ErrorState extends ProductState {
+class ProductFetchCompleted extends ProductState {
+  @override
+  List<Object> get props => [];
+}
+
+class ProductFetchError extends ProductState {
+  @override
+  List<Object> get props => [];
+}
+
+class ProductFilterInProgress extends ProductState {
+  @override
+  List<Object> get props => [];
+}
+
+class ProductFilterCompleted extends ProductState {
+  @override
+  List<Object> get props => [];
+}
+
+class ProductFilterError extends ProductState {
   @override
   List<Object> get props => [];
 }

@@ -49,9 +49,23 @@ class ProfileScreen extends StatelessWidget {
                       height: 135.h,
                       width: 135.w,
                       margin: EdgeInsets.symmetric(vertical: 22.h),
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(.1),
+                            blurRadius: 1,
+                          ),
+                        ],
                         shape: BoxShape.circle,
+                      ),
+                      child: Material(
+                        clipBehavior: Clip.hardEdge,
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Image.asset('assets/profile/user.png'),
+                        ),
                       ),
                     ),
                     Text(

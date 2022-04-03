@@ -48,9 +48,21 @@ class _SidebarState extends State<Sidebar> {
                 margin: EdgeInsets.only(right: 20.w),
                 width: 71.w,
                 height: 71.h,
-                decoration: const BoxDecoration(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.red,
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(.1),
+                      blurRadius: 10,
+                    ),
+                  ],
+                ),
+                child: Material(
+                  clipBehavior: Clip.hardEdge,
+                  child: InkWell(
+                      onTap: () {},
+                      child: Image.asset('assets/profile/user.png')),
                 ),
               ),
               Column(
@@ -67,11 +79,10 @@ class _SidebarState extends State<Sidebar> {
                     height: 7.h,
                   ),
                   Text(
-                    'Fashion designer',
+                    'Software engineer',
                     style: TextStyle(
                       color: Colors.black.withOpacity(.5),
                       fontSize: 14.sp,
-                      fontStyle: FontStyle.italic,
                     ),
                   ),
                 ],

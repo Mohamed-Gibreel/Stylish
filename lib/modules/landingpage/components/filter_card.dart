@@ -7,9 +7,11 @@ class FilterCard extends StatelessWidget {
     Key? key,
     required this.filterImage,
     required this.filterText,
+    required this.isSelected,
   }) : super(key: key);
   final String filterText;
   final String filterImage;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,14 @@ class FilterCard extends StatelessWidget {
       height: 75.h,
       width: 71.w,
       decoration: BoxDecoration(
+        color: isSelected ? Colors.white : Colors.transparent,
         borderRadius: BorderRadius.circular(15.r),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.grey.withOpacity(isSelected ? .1 : 0),
+            blurRadius: 5,
+          )
+        ],
         border: Border.all(
           color: Colors.black.withOpacity(.05),
         ),
