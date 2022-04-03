@@ -25,13 +25,19 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: backgroundColor,
       elevation: 0,
       centerTitle: true,
-      leading: Padding(
-        padding: EdgeInsets.only(left: 12.w),
-        child: GestureDetector(
-          onTap: leadingWidgetCb,
-          child: Icon(
-            leadingWidgetIcon,
-            color: Colors.black,
+      leading: Container(
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+        ),
+        clipBehavior: Clip.hardEdge,
+        child: Material(
+          clipBehavior: Clip.hardEdge,
+          child: InkWell(
+            onTap: leadingWidgetCb,
+            child: Icon(
+              leadingWidgetIcon,
+              color: Colors.black,
+            ),
           ),
         ),
       ),
