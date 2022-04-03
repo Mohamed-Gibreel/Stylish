@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
 import 'package:stylish/modules/product/model/removed_products.dart';
 import 'package:stylish/modules/product/product.dart';
@@ -11,7 +10,7 @@ part './product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
   ProductCubit() : super(ProductInitialState()) {
-    Future.delayed(const Duration(seconds: 3), getAllProducts);
+    Future.delayed(const Duration(seconds: 5), getAllProducts);
   }
 
   List<ProductModel> products = [];
@@ -23,7 +22,10 @@ class ProductCubit extends Cubit<ProductState> {
     List<ProductModel> oldProducts = const [],
   }) {
     _findIndexDifferences(newProducts, oldProducts).forEach((index) {
-      productListKey.currentState?.insertItem(index);
+      productListKey.currentState?.insertItem(
+        index,
+        duration: const Duration(milliseconds: 200),
+      );
     });
     _findIndexDifferences(oldProducts, newProducts).reversed.forEach((index) {
       final prodcut = oldProducts[index];
@@ -64,16 +66,18 @@ class ProductCubit extends Cubit<ProductState> {
     List<ProductModel> b = const [],
   ]) {
     final difference = a.toSet().difference(b.toSet());
-    return difference
-        .map<int>((reservation) => a.indexOf(reservation))
-        .toList();
+    return difference.map<int>((item) => a.indexOf(item)).toList();
   }
 
-  void getAllProducts() {
+  Future<void> getAllProducts() async {
     try {
       emit(
         ProductFetchInProgress(),
       );
+      emit(
+        ProductFetchCompleted(),
+      );
+      await Future.delayed(const Duration(seconds: 1), () {});
       products = [
         ProductModel(
           uid: const Uuid().v4(),
@@ -191,9 +195,7 @@ class ProductCubit extends Cubit<ProductState> {
           colors: const [],
         ),
       ];
-      emit(
-        ProductFetchCompleted(),
-      );
+      _findAndAnimateDifferences(products);
     } catch (e) {
       emit(ProductFetchError());
     }

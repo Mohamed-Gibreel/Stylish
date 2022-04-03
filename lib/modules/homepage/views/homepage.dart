@@ -149,42 +149,40 @@ class _HomepageState extends State<Homepage> {
                 ),
                 ..._filterOptions
                     .map(
-                      (filter) => Builder(builder: (context) {
-                        return Row(
-                          children: [
-                            Material(
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(15.r),
-                                splashColor: Colors.transparent,
-                                onTap: () {
-                                  final listWithoutSelected =
-                                      _filterOptions.where((f) => f != filter);
-                                  for (final filter in listWithoutSelected) {
-                                    filter.selected = false;
-                                  }
-                                  if (filter.selected == true) {
-                                    BlocProvider.of<ProductCubit>(context)
-                                        .removeFilter();
-                                  } else {
-                                    BlocProvider.of<ProductCubit>(context)
-                                        .filterProducts(filter.filterType);
-                                  }
-                                  filter.selected = !filter.selected;
-                                  if (mounted) setState(() {});
-                                },
-                                child: FilterCard(
-                                  filterImage: filter.filter.filterImage,
-                                  filterText: filter.filter.filterText,
-                                  isSelected: filter.selected,
-                                ),
+                      (filter) => Row(
+                        children: [
+                          Material(
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(15.r),
+                              splashColor: Colors.transparent,
+                              onTap: () {
+                                final listWithoutSelected =
+                                    _filterOptions.where((f) => f != filter);
+                                for (final filter in listWithoutSelected) {
+                                  filter.selected = false;
+                                }
+                                if (filter.selected == true) {
+                                  BlocProvider.of<ProductCubit>(context)
+                                      .removeFilter();
+                                } else {
+                                  BlocProvider.of<ProductCubit>(context)
+                                      .filterProducts(filter.filterType);
+                                }
+                                filter.selected = !filter.selected;
+                                if (mounted) setState(() {});
+                              },
+                              child: FilterCard(
+                                filterImage: filter.filter.filterImage,
+                                filterText: filter.filter.filterText,
+                                isSelected: filter.selected,
                               ),
                             ),
-                            SizedBox(
-                              width: 17.w,
-                            )
-                          ],
-                        );
-                      }),
+                          ),
+                          SizedBox(
+                            width: 17.w,
+                          )
+                        ],
+                      ),
                     )
                     .toList()
               ],

@@ -31,17 +31,20 @@ class _CartScreenState extends State<CartScreen> {
             height: 15.h,
           ),
           Expanded(
-            child: _cartCubit.cart.isNotEmpty
-                ? ListView(
-                    shrinkWrap: true,
-                    children: _cartCubit.cart
-                        .map((e) => CartItem(cartItem: e))
-                        .toList(),
-                  )
-                : const Center(
-                    child: Text('No items in cart'),
-                  ),
-          ),
+              child:
+                  // _cartCubit.cart.isNotEmpty
+                  //     ?
+                  AnimatedList(
+            shrinkWrap: true,
+            key: _cartCubit.cartListKey,
+            initialItemCount: _cartCubit.cart.length,
+            itemBuilder: (context, index, animation) =>
+                CartItem(cartItem: _cartCubit.cart[index]),
+          )
+              // : const Center(
+              //     child: Text('No items in cart'),
+              //   ),
+              ),
           Container(
             padding: EdgeInsets.only(top: 10.h),
             height: 110.h,
