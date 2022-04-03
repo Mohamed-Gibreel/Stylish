@@ -27,7 +27,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     crossAxisCount: 2,
                     shrinkWrap: true,
                     childAspectRatio: MediaQuery.of(context).size.width /
-                        (MediaQuery.of(context).size.height / 1.7),
+                        (MediaQuery.of(context).size.height / 1.5),
                     // childAspectRatio: 0.8,
                     clipBehavior: Clip.none,
                     crossAxisSpacing: 18.w,
