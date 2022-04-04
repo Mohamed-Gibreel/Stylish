@@ -3,90 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/l10n/l10n.dart';
+import 'package:stylish/modules/filter/filter.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
-import 'package:stylish/modules/product/cubit/product_cubit.dart';
 import 'package:stylish/modules/product/product.dart';
 
-class FilterOptions {
-  FilterOptions(this.filter, this.filterType, {required this.isSelected});
-  FilterCard filter;
-  String filterType;
-  bool isSelected;
-
-  set selected(bool value) {
-    isSelected = value;
-  }
-
-  bool get selected {
-    return isSelected;
-  }
-}
-
-class Homepage extends StatefulWidget {
+class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
 
   @override
-  State<Homepage> createState() => _HomepageState();
-}
-
-class _HomepageState extends State<Homepage> {
-  late List<FilterOptions> _filterOptions;
-  late List<ProductModel> filteredProducts;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    final l10n = context.l10n;
-    print("did change");
-    _filterOptions = [
-      FilterOptions(
-        FilterCard(
-          filterImage: 'assets/homepage/dress.svg',
-          filterText: l10n.dress,
-          isSelected: false,
-        ),
-        'dress',
-        isSelected: false,
-      ),
-      FilterOptions(
-        FilterCard(
-          filterImage: 'assets/homepage/shirt.svg',
-          filterText: l10n.shirt,
-          isSelected: false,
-        ),
-        'shirt',
-        isSelected: false,
-      ),
-      FilterOptions(
-        FilterCard(
-          filterImage: 'assets/homepage/pants.svg',
-          filterText: l10n.pants,
-          isSelected: false,
-        ),
-        'pants',
-        isSelected: false,
-      ),
-      FilterOptions(
-        FilterCard(
-          filterImage: 'assets/homepage/t-shirt.svg',
-          filterText: l10n.tShirt,
-          isSelected: false,
-        ),
-        't-shirt',
-        isSelected: false,
-      )
-    ];
-    filteredProducts = BlocProvider.of<ProductCubit>(context).products;
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    print("build called");
     final l10n = context.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,44 +72,46 @@ class _HomepageState extends State<Homepage> {
                 SizedBox(
                   width: 20.w,
                 ),
-                ..._filterOptions
-                    .map(
-                      (filter) => Row(
-                        children: [
-                          Material(
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(15.r),
-                              splashColor: Colors.transparent,
-                              onTap: () {
-                                final listWithoutSelected =
-                                    _filterOptions.where((f) => f != filter);
-                                for (final filter in listWithoutSelected) {
-                                  filter.selected = false;
-                                }
-                                if (filter.selected == true) {
-                                  BlocProvider.of<ProductCubit>(context)
-                                      .removeFilter();
-                                } else {
-                                  BlocProvider.of<ProductCubit>(context)
-                                      .filterProducts(filter.filterType);
-                                }
-                                filter.selected = !filter.selected;
-                                if (mounted) setState(() {});
-                              },
-                              child: FilterCard(
-                                filterImage: filter.filter.filterImage,
-                                filterText: filter.filter.filterText,
-                                isSelected: filter.selected,
+                BlocBuilder<FilterCubit, FilterState>(
+                  builder: (context, state) {
+                    if (state is FilterLoadingInProgess) {
+                      return const Text('Loading');
+                    } else {
+                      final state = BlocProvider.of<FilterCubit>(context);
+                      return Row(
+                        children: state.filters
+                            .map(
+                              (filter) => Container(
+                                margin: EdgeInsets.only(right: 17.w),
+                                child: Material(
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(15.r),
+                                    splashColor: Colors.transparent,
+                                    onTap: () {
+                                      if (filter.isSelected == true) {
+                                        BlocProvider.of<ProductCubit>(context)
+                                            .removeFilter();
+                                      } else {
+                                        BlocProvider.of<ProductCubit>(context)
+                                            .filterProducts(filter.name);
+                                      }
+                                      BlocProvider.of<FilterCubit>(context)
+                                          .selectFilter(filter);
+                                    },
+                                    child: FilterCard(
+                                      filterImage: filter.filterImage,
+                                      filterText: filter.filterText,
+                                      isSelected: filter.isSelected,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 17.w,
-                          )
-                        ],
-                      ),
-                    )
-                    .toList()
+                            )
+                            .toList(),
+                      );
+                    }
+                  },
+                ),
               ],
             ),
             SizedBox(

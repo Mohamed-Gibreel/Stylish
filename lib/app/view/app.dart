@@ -7,6 +7,7 @@ import 'package:stylish/modules/authentication/authentication.dart';
 import 'package:stylish/modules/cart/cart.dart';
 import 'package:stylish/modules/checkout/checkout.dart';
 import 'package:stylish/modules/favourite/favourite.dart';
+import 'package:stylish/modules/filter/cubit/filter_cubit.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
 import 'package:stylish/modules/myorders/my_orders.dart';
 import 'package:stylish/modules/mywallet/mywallet.dart';
@@ -24,6 +25,7 @@ class App extends StatelessWidget {
     final _productsCubit = ProductCubit();
     final _favouritesCubit = FavouriteCubit();
     final _cartCubit = CartCubit();
+    final _filterCubit = FilterCubit();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -37,6 +39,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => _cartCubit,
+        ),
+        BlocProvider(
+          create: (_) => _filterCubit,
         ),
       ],
       child: ScreenUtilInit(

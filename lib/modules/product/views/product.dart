@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:like_button/like_button.dart';
 import 'package:stylish/l10n/l10n.dart';
 import 'package:stylish/modules/cart/cart.dart';
-import 'package:stylish/modules/cart/model/cart_item_model.dart';
 import 'package:stylish/modules/favourite/cubit/favourite_cubit.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
 import 'package:stylish/modules/product/product.dart';
@@ -94,10 +93,8 @@ class _ProductScreenState extends State<ProductScreen> {
     if (addFavourite) {
       BlocProvider.of<FavouriteCubit>(context).addProductToFavorites(product);
     } else {
-      if (product != null) {
-        BlocProvider.of<FavouriteCubit>(context)
-            .removeProductFromFavorites(product);
-      }
+      BlocProvider.of<FavouriteCubit>(context)
+          .removeProductFromFavorites(product);
     }
     return !isLiked;
   }

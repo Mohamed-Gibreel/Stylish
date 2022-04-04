@@ -7,9 +7,11 @@ import 'package:stylish/modules/favourite/cubit/favourite_cubit.dart';
 import 'package:stylish/util/constants.dart';
 
 class CustomBottomNavBarItem extends StatefulWidget {
-  const CustomBottomNavBarItem(
-      {Key? key, required this.icon, required this.type})
-      : super(key: key);
+  const CustomBottomNavBarItem({
+    Key? key,
+    required this.icon,
+    required this.type,
+  }) : super(key: key);
   final String icon;
   final String type;
 
@@ -52,7 +54,6 @@ class _CustomBottomNavBarItemState extends State<CustomBottomNavBarItem> {
                     constraints: BoxConstraints(minWidth: 15.w),
                     decoration: BoxDecoration(
                       color: Constants.primaryColor,
-                      shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(2.r),
                     ),
                     alignment: Alignment.center,

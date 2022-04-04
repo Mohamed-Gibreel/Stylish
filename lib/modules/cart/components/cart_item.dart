@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/modules/cart/cart.dart';
-import 'package:stylish/modules/cart/model/cart_item_model.dart';
 
 class CartItem extends StatelessWidget {
   const CartItem({Key? key, required this.cartItem}) : super(key: key);

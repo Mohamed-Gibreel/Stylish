@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:stylish/modules/cart/components/cart_item.dart';
-import 'package:stylish/modules/cart/model/cart_item_model.dart';
+import 'package:stylish/modules/cart/cart.dart';
 
 part 'cart_state.dart';
 
@@ -43,7 +42,6 @@ class CartCubit extends Cubit<CartState> {
   }
 
   void addProductToCart(CartItemModel cartItem) {
-    final oldCart = [...cart];
     cart.add(cartItem);
     cartTotal += cartItem.product.price;
     _findAndAnimateDifferences(cart);
