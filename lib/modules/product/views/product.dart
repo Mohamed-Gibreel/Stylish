@@ -37,12 +37,14 @@ class ProductScreen extends StatefulWidget {
   State<ProductScreen> createState() => _ProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _ProductScreenState extends State<ProductScreen>
+    with SingleTickerProviderStateMixin {
   List<ColorOptions> colorOptions = [];
   late ProductModel product;
   bool isLiked = false;
   late CartItemModel cartItem;
   bool isInCart = false;
+  late TabController _tabController;
   @override
   void initState() {
     super.initState();
@@ -51,6 +53,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   void didChangeDependencies() {
     product = ModalRoute.of(context)!.settings.arguments! as ProductModel;
+    _tabController = TabController(length: product.colors.length, vsync: this);
     isLiked =
         BlocProvider.of<FavouriteCubit>(context).favourites.contains(product);
     mapColors();
@@ -106,7 +109,6 @@ class _ProductScreenState extends State<ProductScreen> {
 
   Widget _addToCart() {
     final l10n = context.l10n;
-
     return Container(
       height: 55.h,
       decoration: BoxDecoration(
@@ -152,7 +154,6 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget _alreadyInCart() {
     return Container(
       height: 55.h,
-      // width: 250.w,
       decoration: BoxDecoration(
         color: Colors.green,
         borderRadius: BorderRadius.circular(10.r),
@@ -184,22 +185,20 @@ class _ProductScreenState extends State<ProductScreen> {
         },
         leadingWidgetIcon: Icons.arrow_back_ios_new,
         actionButtons: [
-          //TODO: Find a better way to center the heart, padding is not recommended.
           Padding(
             padding: EdgeInsets.only(right: 25.w),
             child: Container(
-              width: 44.w,
-              height: 44.h,
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
               ),
-              padding: EdgeInsets.only(left: 2.5.w, top: 5.h),
               child: LikeButton(
                 isLiked: isLiked,
                 onTap: onLikeButtonTapped,
                 size: 25.w,
                 padding: EdgeInsets.zero,
+                likeCountPadding: EdgeInsets.zero,
                 likeBuilder: (bool isLiked) {
                   return isLiked
                       ? SvgPicture.asset('assets/products/heart.svg')
@@ -225,13 +224,34 @@ class _ProductScreenState extends State<ProductScreen> {
                   .withOpacity(product.bgOpacity),
               alignment: Alignment.topCenter,
               child: SafeArea(
-                child: Hero(
-                  tag: product.uid,
-                  child: Image.asset(
-                    product.image,
-                    height: 320.h,
-                  ),
-                ),
+                child: product.colors.isNotEmpty
+                    ? DefaultTabController(
+                        length: product.colors.length,
+                        child: SizedBox(
+                          height: 300.h,
+                          child: TabBarView(
+                            controller: _tabController,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: product.colors
+                                .map(
+                                  (color) => Hero(
+                                    tag: product.uid,
+                                    child: Image.asset(
+                                      color.productImage,
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      )
+                    : Hero(
+                        tag: product.uid,
+                        child: Image.asset(
+                          product.image,
+                          height: 300.h,
+                        ),
+                      ),
               ),
             ),
             Positioned(
@@ -318,6 +338,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                       for (final color in colorOptions) {
                                         color.selected = false;
                                       }
+                                      var index =
+                                          colorOptions.indexOf(colorOption);
+                                      _tabController.animateTo(index);
                                       colorOption.selected = true;
                                       cartItem = cartItem.copyWith(
                                         selectedColor: colorOption.productColor,
