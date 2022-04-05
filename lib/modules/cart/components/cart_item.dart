@@ -32,22 +32,29 @@ class CartItem extends StatelessWidget {
               color: const Color.fromRGBO(62, 66, 41, 0.1),
               borderRadius: BorderRadius.circular(15.r),
             ),
-            child: Image.asset(cartItem.product.image),
+            child: Image.asset(cartItem.selectedColor.productImage),
           ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: 20.h,
+                  child: Text(
+                    cartItem.product.name,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: Colors.black.withOpacity(.5),
+                    ),
+                  ),
+                ),
                 Text(
-                  cartItem.product.name,
+                  'Color: #${cartItem.selectedColor.color}',
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: Colors.black.withOpacity(.5),
                   ),
-                ),
-                SizedBox(
-                  height: 5.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
