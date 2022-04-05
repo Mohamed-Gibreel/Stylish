@@ -31,10 +31,7 @@ class _CartScreenState extends State<CartScreen> {
             height: 15.h,
           ),
           Expanded(
-            child:
-                // _cartCubit.cart.isNotEmpty
-                //     ?
-                AnimatedList(
+            child: AnimatedList(
               shrinkWrap: true,
               key: _cartCubit.cartListKey,
               initialItemCount: _cartCubit.cart.length,

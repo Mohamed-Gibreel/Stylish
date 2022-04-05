@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +19,7 @@ class FavouriteCard extends StatefulWidget {
 
 class _FavouriteCardState extends State<FavouriteCard> {
   bool isLiked = false;
-
+  final ScrollController _scrollController = ScrollController();
   // ignore: avoid_positional_boolean_parameters
   Future<bool> onLikeButtonTapped(bool isLiked) async {
     final addFavourite = !isLiked;
@@ -33,6 +35,21 @@ class _FavouriteCardState extends State<FavouriteCard> {
 
   @override
   void didChangeDependencies() {
+    const _duration = Duration(seconds: 1, milliseconds: 500);
+    Timer.periodic(_duration, (timer) async {
+      await _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: _duration,
+        curve: Curves.linearToEaseOut,
+      );
+      // const Duration(milliseconds: 400);
+      await _scrollController.animateTo(
+        _scrollController.position.minScrollExtent,
+        duration: _duration,
+        curve: Curves.linearToEaseOut,
+      );
+    });
+
     isLiked = BlocProvider.of<FavouriteCubit>(context)
         .favourites
         .contains(widget.product);
@@ -43,8 +60,6 @@ class _FavouriteCardState extends State<FavouriteCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 290.h,
-      // width: 155.w,
       padding: EdgeInsets.fromLTRB(5.w, 5.h, 5.w, 0.h),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -102,7 +117,13 @@ class _FavouriteCardState extends State<FavouriteCard> {
               ),
             ],
           ),
-          Text(widget.product.name),
+          SizedBox(
+            height: 35.h,
+            child: ListView(
+              controller: _scrollController,
+              children: [Center(child: Text(widget.product.name))],
+            ),
+          ),
           SizedBox(
             height: 7.h,
           ),

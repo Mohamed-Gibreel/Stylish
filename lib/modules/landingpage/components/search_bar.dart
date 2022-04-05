@@ -27,10 +27,11 @@ class SearchBar extends StatelessWidget {
             Expanded(
               child: TextFormField(
                 textAlign: TextAlign.left,
-                cursorHeight: 15.h,
+                cursorHeight: 20.h,
+                textAlignVertical: TextAlignVertical.center,
                 controller: editingController,
                 decoration: InputDecoration(
-                  hintStyle: TextStyle(height: 1.4.h),
+                  contentPadding: EdgeInsets.only(top: 5.h),
                   focusColor: Colors.red,
                   prefixIcon: const Icon(Icons.search),
                   hintText: l10n.searchItems,

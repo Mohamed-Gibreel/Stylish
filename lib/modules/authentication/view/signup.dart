@@ -40,11 +40,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 SizedBox(height: 55.h),
                 SvgPicture.asset('assets/authentication/logo.svg'),
-                // Image.asset(
-                //   'assets/authentication/logo.png',
-                //   width: 54.w,
-                //   height: 62.h,
-                // ),
                 SizedBox(
                   height: 38.h,
                 ),

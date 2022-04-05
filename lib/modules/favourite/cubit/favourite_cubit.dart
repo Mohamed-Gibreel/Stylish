@@ -4,7 +4,6 @@ import 'package:stylish/modules/product/product.dart';
 
 part 'favourite_state.dart';
 
-//TODO: Change [...favourites] to copy with.
 class FavouriteCubit extends Cubit<FavouriteState> {
   FavouriteCubit() : super(InitialFavouriteState());
 
