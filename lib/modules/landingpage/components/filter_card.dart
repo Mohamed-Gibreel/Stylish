@@ -15,11 +15,14 @@ class FilterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
       height: 75.h,
       width: 71.w,
       decoration: BoxDecoration(
-        color: isSelected ? Colors.white : Colors.transparent,
+        color: isSelected
+            ? Colors.white
+            : Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(15.r),
         boxShadow: <BoxShadow>[
           BoxShadow(

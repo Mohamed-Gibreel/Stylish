@@ -32,10 +32,18 @@ class _SecondOnboardingState extends State<SecondOnboarding> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('2/3', style: TextStyle(fontSize: 16.sp)),
-                  Text(
-                    l10n.skip,
-                    style: TextStyle(
-                      fontSize: 16.sp,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/login',
+                        (Route<dynamic> route) => false,
+                      );
+                    },
+                    child: Text(
+                      l10n.skip,
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                      ),
                     ),
                   ),
                 ],

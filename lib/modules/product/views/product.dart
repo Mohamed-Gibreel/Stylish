@@ -31,7 +31,8 @@ class ColorOptions {
 }
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({Key? key}) : super(key: key);
+  const ProductScreen({Key? key, required this.product}) : super(key: key);
+  final ProductModel product;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -52,7 +53,7 @@ class _ProductScreenState extends State<ProductScreen>
 
   @override
   void didChangeDependencies() {
-    product = ModalRoute.of(context)!.settings.arguments! as ProductModel;
+    product = widget.product;
     _tabController = TabController(length: product.colors.length, vsync: this);
     isLiked =
         BlocProvider.of<FavouriteCubit>(context).favourites.contains(product);
@@ -234,23 +235,17 @@ class _ProductScreenState extends State<ProductScreen>
                             physics: const NeverScrollableScrollPhysics(),
                             children: product.colors
                                 .map(
-                                  (color) => Hero(
-                                    tag: product.uid,
-                                    child: Image.asset(
-                                      color.productImage,
-                                    ),
+                                  (color) => Image.asset(
+                                    color.productImage,
                                   ),
                                 )
                                 .toList(),
                           ),
                         ),
                       )
-                    : Hero(
-                        tag: product.uid,
-                        child: Image.asset(
-                          product.image,
-                          height: 300.h,
-                        ),
+                    : Image.asset(
+                        product.image,
+                        height: 300.h,
                       ),
               ),
             ),
@@ -338,7 +333,7 @@ class _ProductScreenState extends State<ProductScreen>
                                       for (final color in colorOptions) {
                                         color.selected = false;
                                       }
-                                      var index =
+                                      final index =
                                           colorOptions.indexOf(colorOption);
                                       _tabController.animateTo(index);
                                       colorOption.selected = true;

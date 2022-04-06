@@ -106,7 +106,7 @@ class _LandingPageState extends State<LandingPage>
                             ? <BoxShadow>[
                                 BoxShadow(
                                   offset: Offset(-5.w, 100.h),
-                                  color: Colors.grey.withOpacity(.15),
+                                  color: Colors.grey.withOpacity(.25),
                                   blurRadius: 150,
                                 )
                               ]
@@ -174,7 +174,7 @@ class _LandingPageState extends State<LandingPage>
                             CartScreen(),
                             ProfileScreen(),
                           ][state.index],
-                          extendBody: true,
+                          // extendBody: true,
                           bottomNavigationBar: const CustomBottomAppBar(),
                         ),
                       ),

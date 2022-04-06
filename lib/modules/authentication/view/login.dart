@@ -1,11 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stylish/util/constants.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool obscureText = true;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -73,8 +80,10 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextFormField(
+                          initialValue: 'gibreel@email.com',
                           decoration: const InputDecoration(
                             hintText: 'Email',
+                            contentPadding: EdgeInsets.zero,
                             enabledBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
                           ),
@@ -125,12 +134,33 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextFormField(
+                          initialValue: 'password',
+                          obscureText: obscureText,
                           decoration: const InputDecoration(
                             hintText: 'Password',
                             enabledBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.zero,
                           ),
                         ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          obscureText = !obscureText;
+                          if (mounted) setState(() {});
+                        },
+                        child: obscureText
+                            ? const Icon(
+                                CupertinoIcons.eye_fill,
+                                color: Constants.primaryColor,
+                              )
+                            : const Icon(
+                                CupertinoIcons.eye_slash_fill,
+                                color: Constants.primaryColor,
+                              ),
+                      ),
+                      SizedBox(
+                        width: 15.w,
                       ),
                     ],
                   ),
@@ -266,11 +296,6 @@ class LoginScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).pushNamed('/signUp');
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute<Widget>(
-                    //     builder: (context) => const SignUpScreen(),
-                    //   ),
-                    // );
                   },
                   child: Text(
                     "Don't have an account? Sign up",

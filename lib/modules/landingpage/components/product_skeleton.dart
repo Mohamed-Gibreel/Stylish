@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:stylish/modules/product/product.dart';
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
+class ProdcutSkeleton extends StatelessWidget {
+  const ProdcutSkeleton({
     Key? key,
-    required this.product,
   }) : super(key: key);
-  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -27,37 +24,35 @@ class ProductCard extends StatelessWidget {
             height: 133.h,
             width: 142.w,
             decoration: BoxDecoration(
-              color: Color(int.parse(product.bgColor, radix: 16))
-                  .withOpacity(product.bgOpacity),
+              color: Colors.grey,
               borderRadius: BorderRadius.circular(15.r),
             ),
-            child: Image.asset(product.image),
           ),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 98.w,
-                  height: 36.h,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      product.name,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                      ),
+                Expanded(
+                  flex: 8,
+                  child: Container(
+                    height: 20.h,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                   ),
                 ),
-                Text(
-                  r'$' + product.price.toString(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.sp,
+                SizedBox(width: 10.w),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    height: 20.h,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           )

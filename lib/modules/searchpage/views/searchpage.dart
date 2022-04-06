@@ -69,20 +69,17 @@ class _SearchPageState extends State<SearchPage> {
             SizedBox(
               height: 20.h,
             ),
-            Hero(
-              tag: 'search-bar',
-              child: SearchBar(
-                editingController: searchController,
-                filterCb: () {
-                  showModalBottomSheet<FilterBottomSheet>(
-                    isScrollControlled: true,
-                    context: context,
-                    barrierColor: Colors.black.withOpacity(.7),
-                    backgroundColor: Colors.transparent,
-                    builder: (ctx) => const FilterBottomSheet(),
-                  );
-                },
-              ),
+            SearchBar(
+              editingController: searchController,
+              filterCb: () {
+                showModalBottomSheet<FilterBottomSheet>(
+                  isScrollControlled: true,
+                  context: context,
+                  barrierColor: Colors.black.withOpacity(.7),
+                  backgroundColor: Colors.transparent,
+                  builder: (ctx) => const FilterBottomSheet(),
+                );
+              },
             ),
             SizedBox(
               height: 20.h,
@@ -118,35 +115,36 @@ class _SearchPageState extends State<SearchPage> {
               height: 10.h,
             ),
             Expanded(
-                child: GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              childAspectRatio: MediaQuery.of(context).size.width /
-                  (MediaQuery.of(context).size.height / 1.5),
-              // childAspectRatio: 0.8,
-              clipBehavior: Clip.none,
-              crossAxisSpacing: 18.w,
-              mainAxisSpacing: 16.h,
-              children: favouriteCubit.favourites
-                  .map(
-                    (e) => GestureDetector(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(
-                          '/productPage',
-                          arguments: e,
-                        )
-                            .then((_) {
-                          if (mounted) setState(() {});
-                        });
-                      },
-                      child: FavouriteCard(
-                        product: e,
+              child: GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                childAspectRatio: MediaQuery.of(context).size.width /
+                    (MediaQuery.of(context).size.height / 1.5),
+                // childAspectRatio: 0.8,
+                clipBehavior: Clip.none,
+                crossAxisSpacing: 18.w,
+                mainAxisSpacing: 16.h,
+                children: favouriteCubit.favourites
+                    .map(
+                      (e) => GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(
+                            '/productPage',
+                            arguments: e,
+                          )
+                              .then((_) {
+                            if (mounted) setState(() {});
+                          });
+                        },
+                        child: FavouriteCard(
+                          product: e,
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
-            ))
+                    )
+                    .toList(),
+              ),
+            )
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +11,7 @@ import 'package:uuid/uuid.dart';
 part './product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
-  ProductCubit() : super(ProductInitialState()) {
+  ProductCubit() : super(ProductFetchInProgress()) {
     Future.delayed(const Duration(seconds: 5), getAllProducts);
   }
 
@@ -28,32 +30,22 @@ class ProductCubit extends Cubit<ProductState> {
       );
     });
     _findIndexDifferences(oldProducts, newProducts).reversed.forEach((index) {
-      final prodcut = oldProducts[index];
+      final product = oldProducts[index];
       productListKey.currentState?.removeItem(
         index,
         (context, animation) => SizeTransition(
           axis: Axis.horizontal,
           sizeFactor: animation,
-          child: FadeTransition(
-            opacity: animation,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushNamed(
-                  '/productPage',
-                  arguments: prodcut,
-                );
-              },
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: ProductCard(
-                  heroTag: prodcut.uid,
-                  icon: prodcut.image,
-                  price: prodcut.price,
-                  title: prodcut.name,
-                  bgColor: prodcut.bgColor,
-                  opacity: prodcut.bgOpacity,
-                ),
-              ),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                '/productPage',
+                arguments: product,
+              );
+            },
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: ProductCard(product: product),
             ),
           ),
         ),
@@ -74,10 +66,15 @@ class ProductCubit extends Cubit<ProductState> {
       emit(
         ProductFetchInProgress(),
       );
+      // Reasoning behind this logic:
+      // For the animated list to show the animation of products being inserted,
+      // the products list needs to be empty first which is only true if I emit
+      // ProductFetchCompleted state before adding to the product list.
+      // Check BlocBuilder Widget in homepage.dart to understand what is going.
       emit(
         ProductFetchCompleted(),
       );
-      await Future.delayed(const Duration(seconds: 1), () {});
+      await Future.delayed(const Duration(milliseconds: 100), () {});
       products = [
         ProductModel(
           uid: const Uuid().v4(),

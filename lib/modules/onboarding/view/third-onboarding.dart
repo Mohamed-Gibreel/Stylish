@@ -21,10 +21,18 @@ class ThirdOnboarding extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('3/3', style: TextStyle(fontSize: 16.sp)),
-                  Text(
-                    l10n.skip,
-                    style: TextStyle(
-                      fontSize: 16.sp,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/login',
+                        (Route<dynamic> route) => false,
+                      );
+                    },
+                    child: Text(
+                      l10n.skip,
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                      ),
                     ),
                   ),
                 ],
@@ -71,10 +79,9 @@ class ThirdOnboarding extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                // Navigator.of(context).pushNamedAndRemoveUntil(
-                Navigator.of(context).pushNamed(
+                Navigator.of(context).pushNamedAndRemoveUntil(
                   '/login',
-                  // (Route<dynamic> route) => false,
+                  (Route<dynamic> route) => false,
                 );
               },
               child: Container(

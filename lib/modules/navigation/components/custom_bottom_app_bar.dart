@@ -13,7 +13,7 @@ class CustomBottomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Platform.isAndroid ? 75.h : 85.h,
+      height: MediaQuery.of(context).padding.bottom == 0 ? 75.h : 85.h,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: <BoxShadow>[

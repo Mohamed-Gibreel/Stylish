@@ -16,6 +16,7 @@ import 'package:stylish/modules/onboarding/onboarding.dart';
 import 'package:stylish/modules/product/product.dart';
 import 'package:stylish/modules/searchpage/searchpage.dart';
 import 'package:stylish/modules/settings/settings.dart';
+import 'package:stylish/util/page_transition.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -62,24 +63,65 @@ class App extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLocales,
-          routes: {
-            '/': (context) => const Onboarding(),
-            '/secondOnboarding': (context) => const SecondOnboarding(),
-            '/thirdOnboarding': (context) => const ThirdOnboarding(),
-            '/login': (context) => const LoginScreen(),
-            '/signUp': (context) => const SignUpScreen(),
-            '/landingPage': (context) => const LandingPage(),
-            '/searchPage': (context) => const SearchPage(),
-            '/productPage': (context) => const ProductScreen(),
-            '/checkout': (context) => const CheckoutScreen(),
-            '/completedOrder': (context) => const CompletedOrder(),
-            '/settingsPage': (context) => const SettingsScreen(),
-            '/myOrdersPage': (context) => const MyOrdersScreen(),
-            '/favouritesPage': (context) => const FavouriteScreen(
-                  newPage: true,
-                ),
-            '/myWalletPage': (context) => const MyWalletScreen()
+          onGenerateRoute: (settings) {
+            switch (settings.name) {
+              case '/':
+                return CustomTransition(const Onboarding());
+              case '/secondOnboarding':
+                return CustomTransition(const SecondOnboarding());
+              case '/thirdOnboarding':
+                return CustomTransition(const ThirdOnboarding());
+              case '/login':
+                return CustomTransition(const LoginScreen());
+              case '/signUp':
+                return CustomTransition(const SignUpScreen());
+              case '/landingPage':
+                return CustomTransition(const LandingPage());
+              case '/searchPage':
+                return CustomTransition(const SearchPage());
+              case '/productPage':
+                return CustomTransition(
+                  ProductScreen(
+                    product: settings.arguments! as ProductModel,
+                  ),
+                );
+              case '/checkout':
+                return CustomTransition(const CheckoutScreen());
+              case '/completedOrder':
+                return CustomTransition(const CompletedOrder());
+              case '/settingsPage':
+                return CustomTransition(const SettingsScreen());
+              case '/myOrdersPage':
+                return CustomTransition(const MyOrdersScreen());
+              case '/favouritesPage':
+                return CustomTransition(
+                  const FavouriteScreen(
+                    newPage: true,
+                  ),
+                );
+              case '/myWalletPage':
+                return CustomTransition(const MyWalletScreen());
+            }
+            return null;
           },
+          // routes: {
+          // '/': (context) => const Onboarding(),
+          // '/secondOnboarding': (context) => const SecondOnboarding(),
+          // '/thirdOnboarding': (context) => const ThirdOnboarding(),
+          // '/login': (context) => const LoginScreen(),
+          // '/signUp': (context) => const SignUpScreen(),
+          // '/landingPage': (context) => const LandingPage(),
+          // '/searchPage': (context) => const SearchPage(),
+          // '/productPage': (context) => const ProductScreen(),
+          // '/checkout': (context) => const CheckoutScreen(),
+          // '/completedOrder': (context) => const CompletedOrder(),
+          // '/settingsPage': (context) => const SettingsScreen(),
+          // '/myOrdersPage': (context) => const MyOrdersScreen(),
+          // '/favouritesPage': (context) => const FavouriteScreen(
+          //       newPage: true,
+          //     ),
+          // '/myWalletPage': (context) => const MyWalletScreen()
+          // },
         ),
       ),
     );

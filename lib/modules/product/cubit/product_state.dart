@@ -21,18 +21,3 @@ class ProductFetchError extends ProductState {
   @override
   List<Object> get props => [];
 }
-
-class ProductFilterInProgress extends ProductState {
-  @override
-  List<Object> get props => [];
-}
-
-class ProductFilterCompleted extends ProductState {
-  @override
-  List<Object> get props => [];
-}
-
-class ProductFilterError extends ProductState {
-  @override
-  List<Object> get props => [];
-}

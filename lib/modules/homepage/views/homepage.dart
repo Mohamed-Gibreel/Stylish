@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,10 +55,7 @@ class Homepage extends StatelessWidget {
           child: IgnorePointer(
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 20.w),
-              child: const Hero(
-                tag: 'search-bar',
-                child: SearchBar(),
-              ),
+              child: const SearchBar(),
             ),
           ),
         ),
@@ -145,14 +141,30 @@ class Homepage extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            BlocBuilder<ProductCubit, ProductState>(
+            BlocConsumer<ProductCubit, ProductState>(
+              listener: (context, state) {
+                print("change happened");
+                // final state = context.watch<ProductCubit>();
+                // if (state.products.isEmpty) {
+                //   print("Emtpy");
+                // }
+              },
               builder: (context, state) {
                 if (state is ProductFetchInProgress) {
                   return Padding(
                     padding: EdgeInsets.only(left: 20.w),
                     child: SizedBox(
                       height: 190.h,
-                      child: const CupertinoActivityIndicator(),
+                      child: Row(
+                        children: [
+                          const ProdcutSkeleton(),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          const ProdcutSkeleton(),
+                          // ProdcutSkeleton(),
+                        ],
+                      ),
                     ),
                   );
                 } else if (state is ProductFetchCompleted) {
@@ -168,30 +180,21 @@ class Homepage extends StatelessWidget {
                           SizeTransition(
                         axis: Axis.horizontal,
                         sizeFactor: animation,
-                        child: FadeTransition(
-                          opacity: animation,
-                          child: Padding(
-                            padding: index == 0
-                                ? EdgeInsets.only(left: 20.w)
-                                : EdgeInsets.zero,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  '/productPage',
-                                  arguments: state.products[index],
-                                );
-                              },
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: ProductCard(
-                                  heroTag: state.products[index].uid,
-                                  icon: state.products[index].image,
-                                  price: state.products[index].price,
-                                  title: state.products[index].name,
-                                  bgColor: state.products[index].bgColor,
-                                  opacity: state.products[index].bgOpacity,
-                                ),
-                              ),
+                        child: Padding(
+                          padding: index == 0
+                              ? EdgeInsets.only(left: 20.w)
+                              : EdgeInsets.zero,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                '/productPage',
+                                arguments: state.products[index],
+                              );
+                            },
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child:
+                                  ProductCard(product: state.products[index]),
                             ),
                           ),
                         ),

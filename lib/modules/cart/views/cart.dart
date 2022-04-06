@@ -19,7 +19,7 @@ class _CartScreenState extends State<CartScreen> {
     final _cartCubit = BlocProvider.of<CartCubit>(context, listen: true);
     return Padding(
       padding:
-          EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h, bottom: 105.h),
+          EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h, bottom: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

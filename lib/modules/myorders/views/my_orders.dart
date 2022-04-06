@@ -110,17 +110,13 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: const Text('hehe'),
-                ),
+                const Center(child: Text('Coming Soon :)')),
               ],
             ),
           ),
           SizedBox(
             height: 30.h,
           ),
-          const Text('My orders screen'),
         ],
       ),
     );

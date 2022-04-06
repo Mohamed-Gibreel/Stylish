@@ -19,7 +19,6 @@ class FavouriteCard extends StatefulWidget {
 
 class _FavouriteCardState extends State<FavouriteCard> {
   bool isLiked = false;
-  final ScrollController _scrollController = ScrollController();
   // ignore: avoid_positional_boolean_parameters
   Future<bool> onLikeButtonTapped(bool isLiked) async {
     final addFavourite = !isLiked;
@@ -35,21 +34,6 @@ class _FavouriteCardState extends State<FavouriteCard> {
 
   @override
   void didChangeDependencies() {
-    const _duration = Duration(seconds: 1, milliseconds: 500);
-    Timer.periodic(_duration, (timer) async {
-      await _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: _duration,
-        curve: Curves.linearToEaseOut,
-      );
-      // const Duration(milliseconds: 400);
-      await _scrollController.animateTo(
-        _scrollController.position.minScrollExtent,
-        duration: _duration,
-        curve: Curves.linearToEaseOut,
-      );
-    });
-
     isLiked = BlocProvider.of<FavouriteCubit>(context)
         .favourites
         .contains(widget.product);
@@ -79,11 +63,8 @@ class _FavouriteCardState extends State<FavouriteCard> {
                   color: const Color(0xFFFFFCFA),
                 ),
                 padding: EdgeInsets.symmetric(vertical: 5.h),
-                child: Hero(
-                  tag: widget.product.uid,
-                  child: Image.asset(
-                    widget.product.image,
-                  ),
+                child: Image.asset(
+                  widget.product.image,
                 ),
               ),
               Positioned(
@@ -119,9 +100,9 @@ class _FavouriteCardState extends State<FavouriteCard> {
           ),
           SizedBox(
             height: 35.h,
-            child: ListView(
-              controller: _scrollController,
-              children: [Center(child: Text(widget.product.name))],
+            child: Text(
+              widget.product.name,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           SizedBox(
