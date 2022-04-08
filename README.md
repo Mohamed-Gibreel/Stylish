@@ -39,7 +39,6 @@
 - [About the Project](#star2-about-the-project)
   * [Tech Stack](#space_invader-tech-stack)
 - [Getting Started](#toolbox-getting-started)
-  * [Prerequisites](#bangbang-prerequisites)
   * [Run Locally](#running-run-locally)
 - [Roadmap](#compass-roadmap)
 - [Contributing](#wave-contributing)
@@ -79,15 +78,6 @@
 
 <!-- Getting Started -->
 ## :toolbox: Getting Started
-
-<!-- Prerequisites -->
-### :bangbang: Prerequisites
-
-This project uses BLoC for state mangement.
-
-```bash
- flutter pub get
-```
 
 <!-- Run Locally -->
 ### :running: Run Locally
