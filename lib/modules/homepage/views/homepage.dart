@@ -80,20 +80,24 @@ class Homepage extends StatelessWidget {
                               (filter) => Container(
                                 margin: EdgeInsets.only(right: 17.w),
                                 child: Material(
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(15.r),
-                                    splashColor: Colors.transparent,
-                                    onTap: () {
-                                      if (filter.isSelected == true) {
-                                        BlocProvider.of<ProductCubit>(context)
-                                            .removeFilter();
-                                      } else {
-                                        BlocProvider.of<ProductCubit>(context)
-                                            .filterProducts(filter.name);
-                                      }
-                                      BlocProvider.of<FilterCubit>(context)
-                                          .selectFilter(filter);
-                                    },
+                                  child: GestureDetector(
+                                    onTap: context.watch<ProductCubit>().state
+                                            is ProductFetchInProgress
+                                        ? null
+                                        : () {
+                                            if (filter.isSelected == true) {
+                                              BlocProvider.of<ProductCubit>(
+                                                context,
+                                              ).removeFilter();
+                                            } else {
+                                              BlocProvider.of<ProductCubit>(
+                                                context,
+                                              ).filterProducts(filter.name);
+                                            }
+                                            BlocProvider.of<FilterCubit>(
+                                              context,
+                                            ).selectFilter(filter);
+                                          },
                                     child: FilterCard(
                                       filterImage: filter.filterImage,
                                       filterText: filter.filterText,

@@ -14,7 +14,7 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   GlobalKey<AnimatedListState> cartListKey = GlobalKey();
-  List<CartItemModel> _cart = [];
+  final List<CartItemModel> _cart = [];
 
   @override
   void initState() {

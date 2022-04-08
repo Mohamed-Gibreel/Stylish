@@ -61,8 +61,9 @@ class _SidebarState extends State<Sidebar> {
                 child: Material(
                   clipBehavior: Clip.hardEdge,
                   child: InkWell(
-                      onTap: () {},
-                      child: Image.asset('assets/profile/user.png')),
+                    onTap: () {},
+                    child: Image.asset('assets/profile/user.png'),
+                  ),
                 ),
               ),
               Column(
