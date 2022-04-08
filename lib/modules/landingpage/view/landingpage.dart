@@ -40,6 +40,7 @@ class _LandingPageState extends State<LandingPage>
 
   @override
   Widget build(BuildContext context) {
+    final _navigationCubit = context.watch<NavigationCubit>();
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
@@ -82,7 +83,6 @@ class _LandingPageState extends State<LandingPage>
                     rect: positonAnimation,
                     child: ScaleTransition(scale: sizeAnimation, child: child),
                   );
-                  // return ScaleTransition(scale: sizeAnimation, child: child);
                 },
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -112,71 +112,84 @@ class _LandingPageState extends State<LandingPage>
                               ]
                             : null,
                       ),
-                      child: BlocBuilder<NavigationCubit, NavigationState>(
-                        builder: (context, state) => Scaffold(
-                          backgroundColor: Colors.transparent,
-                          appBar: state.navbarItem.name == 'home'
-                              ? CustomAppBar(
-                                  title: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.location_on_outlined,
-                                        color: Colors.black,
-                                        size: 16.h,
-                                      ),
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      Text(
-                                        'Abu Dhabi',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14.sp,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  actionButtons: const [NotificationButton()],
-                                  shape: ContinuousRectangleBorder(
-                                    borderRadius: isCollapsed
-                                        ? BorderRadius.only(
-                                            topLeft: Radius.circular(30.r),
-                                            topRight: Radius.circular(30.r),
-                                          )
-                                        : BorderRadius.zero,
-                                  ),
-                                  leadingWidgetCb: () {
-                                    if (mounted) {
-                                      if (isCollapsed) {
-                                        animationController.reverse();
-                                      } else {
-                                        animationController.forward();
-                                      }
-                                      isCollapsed = !isCollapsed;
-                                      if (mounted) setState(() {});
-                                    }
-                                  },
-                                  leadingWidgetIcon: Icons.menu,
-                                )
-                              : CustomAppBar(
-                                  title: Text(
-                                    state.navBarTitle,
-                                    style: const TextStyle(
+                      child: Scaffold(
+                        backgroundColor: Colors.transparent,
+                        appBar: _navigationCubit
+                                    .currentNavigation.navbarItem.name ==
+                                'home'
+                            ? CustomAppBar(
+                                title: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.location_on_outlined,
                                       color: Colors.black,
+                                      size: 16.h,
                                     ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Text(
+                                      'Abu Dhabi',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14.sp,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                actionButtons: const [NotificationButton()],
+                                shape: ContinuousRectangleBorder(
+                                  borderRadius: isCollapsed
+                                      ? BorderRadius.only(
+                                          topLeft: Radius.circular(30.r),
+                                          topRight: Radius.circular(30.r),
+                                        )
+                                      : BorderRadius.zero,
+                                ),
+                                leadingWidgetCb: () {
+                                  if (mounted) {
+                                    if (isCollapsed) {
+                                      animationController.reverse();
+                                    } else {
+                                      animationController.forward();
+                                    }
+                                    isCollapsed = !isCollapsed;
+                                    if (mounted) setState(() {});
+                                  }
+                                },
+                                leadingWidgetIcon: Icons.menu,
+                              )
+                            : CustomAppBar(
+                                title: Text(
+                                  _navigationCubit
+                                      .currentNavigation.navBarTitle,
+                                  style: const TextStyle(
+                                    color: Colors.black,
                                   ),
                                 ),
-                          body: const [
+                              ),
+                        body: AnimatedSwitcher(
+                          transitionBuilder:
+                              (Widget child, Animation<double> animation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
+
+                          duration: const Duration(milliseconds: 200),
+
+                          // child: _widgetOptions.elementAt(_selectedIndex)),
+                          child: const [
                             Homepage(),
                             FavouriteScreen(),
                             CartScreen(),
                             ProfileScreen(),
-                          ][state.index],
-                          // extendBody: true,
-                          bottomNavigationBar: const CustomBottomAppBar(),
-                        ),
+                          ][_navigationCubit.currentNavigation.index],
+                        ), // extendBody: true,
+                        bottomNavigationBar: const CustomBottomAppBar(),
                       ),
                     ),
                   ),

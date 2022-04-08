@@ -13,8 +13,11 @@ class ProductFetchInProgress extends ProductState {
 }
 
 class ProductFetchCompleted extends ProductState {
+  ProductFetchCompleted(this.products);
+  final List<ProductModel> products;
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [products];
 }
 
 class ProductFetchError extends ProductState {

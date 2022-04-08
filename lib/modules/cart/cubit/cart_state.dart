@@ -15,22 +15,27 @@ class AddedCartItem extends CartState {
 }
 
 class RemovedCartItem extends CartState {
-  RemovedCartItem(this.products);
-  final List<CartItemModel> products;
+  RemovedCartItem(this.product);
+  final CartItemModel product;
   @override
-  List<Object?> get props => [products];
+  List<Object?> get props => [product];
 }
 
 class IncrementedQuantityItem extends CartState {
-  IncrementedQuantityItem(this.products);
-  final List<CartItemModel> products;
+  IncrementedQuantityItem(this.product);
+  final CartItemModel product;
   @override
-  List<Object?> get props => [products];
+  List<Object?> get props => [product];
 }
 
 class DecrementedQuantityItem extends CartState {
   DecrementedQuantityItem(this.products);
-  final List<CartItemModel> products;
+  final CartItemModel products;
   @override
   List<Object?> get props => [products];
+}
+
+class ClearedClart extends CartState {
+  @override
+  List<Object?> get props => [];
 }

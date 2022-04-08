@@ -141,14 +141,7 @@ class Homepage extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            BlocConsumer<ProductCubit, ProductState>(
-              listener: (context, state) {
-                print("change happened");
-                // final state = context.watch<ProductCubit>();
-                // if (state.products.isEmpty) {
-                //   print("Emtpy");
-                // }
-              },
+            BlocBuilder<ProductCubit, ProductState>(
               builder: (context, state) {
                 if (state is ProductFetchInProgress) {
                   return Padding(
@@ -168,38 +161,47 @@ class Homepage extends StatelessWidget {
                     ),
                   );
                 } else if (state is ProductFetchCompleted) {
-                  final state = context.watch<ProductCubit>();
-                  return SizedBox(
-                    height: 190.h,
-                    child: AnimatedList(
-                      shrinkWrap: true,
-                      key: state.productListKey,
-                      initialItemCount: state.products.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index, animation) =>
-                          SizeTransition(
-                        axis: Axis.horizontal,
-                        sizeFactor: animation,
-                        child: Padding(
-                          padding: index == 0
-                              ? EdgeInsets.only(left: 20.w)
-                              : EdgeInsets.zero,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pushNamed(
-                                '/productPage',
-                                arguments: state.products[index],
-                              );
-                            },
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child:
-                                  ProductCard(product: state.products[index]),
-                            ),
-                          ),
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 190.h,
+                        child: AnimatedSwitcher(
+                          transitionBuilder:
+                              (Widget child, Animation<double> animation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
+
+                          duration: const Duration(milliseconds: 200),
+
+                          // child: _widgetOptions.elementAt(_selectedIndex)),
+                          child: state.products.isEmpty
+                              ? const Center(child: Text('No products to show'))
+                              : ListView.builder(
+                                  itemCount: state.products.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) => Padding(
+                                    padding: index == 0
+                                        ? EdgeInsets.only(left: 20.w)
+                                        : EdgeInsets.zero,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                          '/productPage',
+                                          arguments: state.products[index],
+                                        );
+                                      },
+                                      child: ProductCard(
+                                        product: state.products[index],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                         ),
                       ),
-                    ),
+                    ],
                   );
                 } else {
                   return SizedBox(

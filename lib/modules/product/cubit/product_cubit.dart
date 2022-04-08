@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stylish/modules/landingpage/landingpage.dart';
 import 'package:stylish/modules/product/model/removed_products.dart';
 import 'package:stylish/modules/product/product.dart';
 import 'package:uuid/uuid.dart';
@@ -17,64 +15,12 @@ class ProductCubit extends Cubit<ProductState> {
 
   List<ProductModel> products = [];
   List<RemovedProduct> removedProducts = [];
-  final GlobalKey<AnimatedListState> productListKey = GlobalKey();
-
-  void _findAndAnimateDifferences(
-    List<ProductModel> newProducts, {
-    List<ProductModel> oldProducts = const [],
-  }) {
-    _findIndexDifferences(newProducts, oldProducts).forEach((index) {
-      productListKey.currentState?.insertItem(
-        index,
-        duration: const Duration(milliseconds: 200),
-      );
-    });
-    _findIndexDifferences(oldProducts, newProducts).reversed.forEach((index) {
-      final product = oldProducts[index];
-      productListKey.currentState?.removeItem(
-        index,
-        (context, animation) => SizeTransition(
-          axis: Axis.horizontal,
-          sizeFactor: animation,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(
-                '/productPage',
-                arguments: product,
-              );
-            },
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: ProductCard(product: product),
-            ),
-          ),
-        ),
-      );
-    });
-  }
-
-  List<int> _findIndexDifferences(
-    List<ProductModel> a, [
-    List<ProductModel> b = const [],
-  ]) {
-    final difference = a.toSet().difference(b.toSet());
-    return difference.map<int>((item) => a.indexOf(item)).toList();
-  }
 
   Future<void> getAllProducts() async {
     try {
       emit(
         ProductFetchInProgress(),
       );
-      // Reasoning behind this logic:
-      // For the animated list to show the animation of products being inserted,
-      // the products list needs to be empty first which is only true if I emit
-      // ProductFetchCompleted state before adding to the product list.
-      // Check BlocBuilder Widget in homepage.dart to understand what is going.
-      emit(
-        ProductFetchCompleted(),
-      );
-      await Future.delayed(const Duration(milliseconds: 100), () {});
       products = [
         ProductModel(
           uid: const Uuid().v4(),
@@ -107,11 +53,11 @@ class ProductCubit extends Cubit<ProductState> {
           description: 'description',
           colors: const [
             ProductColor(
-              color: 'EFEFF2',
+              color: '000000',
               productImage: 'assets/products/jeans-3.png',
             ),
             ProductColor(
-              color: 'EFEFF2',
+              color: '3d85c6',
               productImage: 'assets/products/jeans-4.png',
             ),
           ],
@@ -127,11 +73,11 @@ class ProductCubit extends Cubit<ProductState> {
           description: 'description',
           colors: const [
             ProductColor(
-              color: 'EFEFF2',
+              color: '000000',
               productImage: 'assets/products/jeans-5.png',
             ),
             ProductColor(
-              color: 'EFEFF2',
+              color: '3d85c6',
               productImage: 'assets/products/jeans-6.png',
             ),
           ],
@@ -192,7 +138,9 @@ class ProductCubit extends Cubit<ProductState> {
           colors: const [],
         ),
       ];
-      _findAndAnimateDifferences(products);
+      emit(
+        ProductFetchCompleted(products),
+      );
     } catch (e) {
       emit(ProductFetchError());
     }
@@ -219,11 +167,12 @@ class ProductCubit extends Cubit<ProductState> {
         productsToRemoveWithoutIndex.add(product);
       }
     }
-    final oldList = [...products];
     products.removeWhere(
       productsToRemoveWithoutIndex.contains,
     );
-    _findAndAnimateDifferences(products, oldProducts: oldList);
+    emit(
+      ProductFetchCompleted(products),
+    );
   }
 
   void removeFilter() {
@@ -232,7 +181,7 @@ class ProductCubit extends Cubit<ProductState> {
       newList.insert(removedProduct.index, removedProduct.product);
     }
     removedProducts.clear();
-    _findAndAnimateDifferences(newList, oldProducts: products);
     products = [...newList];
+    emit(ProductFetchCompleted(products));
   }
 }

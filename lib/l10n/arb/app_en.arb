@@ -35,7 +35,7 @@
   "deliveryFee": "Delivery Fee",
   "total": "Total",
   "paymentMethod": "Payment Method",
-  "swipeForPayment": "Swipe for payment",
+  "placeOrder": "Place Order",
   "congratulation": "Congratulation!!!",
   "completedOrderDesc": "Payment is the transfer of money \nservices in exchange product or Payments",
   "getYourReceipt": "Get your receipt",

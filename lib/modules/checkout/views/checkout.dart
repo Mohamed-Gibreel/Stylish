@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/l10n/l10n.dart';
+import 'package:stylish/modules/cart/cubit/cart_cubit.dart';
 import 'package:stylish/modules/landingpage/landingpage.dart';
 import 'package:stylish/util/constants.dart';
 
@@ -373,22 +375,23 @@ class CheckoutScreen extends StatelessWidget {
           ),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
+              // Navigator.of(context).pushNamedAndRemoveUntil(
+              Navigator.of(context).pushNamed(
                 '/completedOrder',
-                (route) => false,
+                // (route) => false,
               );
+              BlocProvider.of<CartCubit>(context).clearCart();
             },
             child: Container(
               width: 230.w,
               height: 55.h,
-              // margin: EdgeInsets.only(bottom: 20.h),
               decoration: BoxDecoration(
                 color: Constants.primaryColor,
                 borderRadius: BorderRadius.circular(50.r),
               ),
               child: Center(
                 child: Text(
-                  l10n.swipeForPayment,
+                  l10n.placeOrder,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,

@@ -13,10 +13,33 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  GlobalKey<AnimatedListState> cartListKey = GlobalKey();
+  List<CartItemModel> _cart = [];
+
+  @override
+  void initState() {
+    loadCart();
+    super.initState();
+  }
+
+  void loadCart() {
+    BlocProvider.of<CartCubit>(context, listen: false).cart.forEach((element) {
+      final index = BlocProvider.of<CartCubit>(context, listen: false)
+          .cart
+          .indexOf(element);
+      _cart.add(element);
+      cartListKey.currentState?.insertItem(index);
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final _cartCubit = BlocProvider.of<CartCubit>(context, listen: true);
     return Padding(
       padding:
           EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h, bottom: 10.h),
@@ -24,19 +47,46 @@ class _CartScreenState extends State<CartScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${_cartCubit.cart.length} Items in cart',
+            '${context.watch<CartCubit>().cart.length} Items in cart',
             style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
           ),
           SizedBox(
             height: 15.h,
           ),
           Expanded(
-            child: AnimatedList(
-              shrinkWrap: true,
-              key: _cartCubit.cartListKey,
-              initialItemCount: _cartCubit.cart.length,
-              itemBuilder: (context, index, animation) =>
-                  CartItem(cartItem: _cartCubit.cart[index]),
+            child: BlocConsumer<CartCubit, CartState>(
+              listener: (context, state) {
+                if (state is RemovedCartItem) {
+                  final removedItem = state.product;
+                  final indexOfItem = _cart.indexWhere(
+                    (item) =>
+                        item.product.uid == removedItem.product.uid &&
+                        removedItem.selectedColor == item.selectedColor,
+                  );
+                  _cart.removeAt(indexOfItem);
+                  cartListKey.currentState?.removeItem(
+                    indexOfItem,
+                    (context, animation) => SizeTransition(
+                      sizeFactor: animation,
+                      child: CartItem(cartItem: removedItem),
+                    ),
+                  );
+                }
+              },
+              builder: (context, state) {
+                return AnimatedList(
+                  shrinkWrap: true,
+                  key: cartListKey,
+                  initialItemCount: _cart.length,
+                  itemBuilder: (context, index, animation) => SizeTransition(
+                    sizeFactor: animation,
+                    child: CartItem(
+                      cartItem: _cart[index],
+                    ),
+                  ),
+                );
+              },
+              // child:
             ),
           ),
           Container(
@@ -52,7 +102,7 @@ class _CartScreenState extends State<CartScreen> {
                   children: [
                     Text('${l10n.subTotal} :'),
                     Text(
-                      '\$${context.read<CartCubit>().cartTotal.toString()}',
+                      '\$${context.watch<CartCubit>().cartTotal.toString()}',
                       // r'$250',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -66,7 +116,7 @@ class _CartScreenState extends State<CartScreen> {
                     duration: const Duration(milliseconds: 400),
                     height: 55.h,
                     decoration: BoxDecoration(
-                      color: _cartCubit.cart.isNotEmpty
+                      color: _cart.isNotEmpty
                           ? Constants.primaryColor
                           : Colors.grey,
                       borderRadius: BorderRadius.circular(10.r),
@@ -76,7 +126,7 @@ class _CartScreenState extends State<CartScreen> {
                       clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.circular(10.r),
                       child: InkWell(
-                        onTap: _cartCubit.cart.isNotEmpty
+                        onTap: _cart.isNotEmpty
                             ? () {
                                 Navigator.of(context).pushNamed('/checkout');
                               }

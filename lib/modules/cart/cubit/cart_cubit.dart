@@ -8,7 +8,7 @@ part 'cart_state.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(InitialCart());
   List<CartItemModel> cart = [];
-  final GlobalKey<AnimatedListState> cartListKey = GlobalKey();
+  static final GlobalKey<AnimatedListState> cartListKey = GlobalKey();
   int cartTotal = 0;
 
   void _findAndAnimateDifferences(
@@ -54,13 +54,17 @@ class CartCubit extends Cubit<CartState> {
     newProduct.count = newProduct.quantity + 1;
     cart[foundProductIndex] = newProduct;
     cartTotal += cartItem.product.price;
-    emit(IncrementedQuantityItem([...cart]));
+    emit(IncrementedQuantityItem(cartItem.copyWith()));
   }
 
   void removeProductFromCart(CartItemModel cartItem) {
-    final foundProduct = cart.indexOf(cartItem);
+    final foundProduct = cart.indexWhere(
+      (item) =>
+          item.product.uid == cartItem.product.uid &&
+          cartItem.selectedColor == item.selectedColor,
+    );
     cart.removeAt(foundProduct);
-    emit(RemovedCartItem([...cart]));
+    emit(RemovedCartItem(cartItem));
   }
 
   void decrementQuantity(CartItemModel cartItem) {
@@ -69,11 +73,21 @@ class CartCubit extends Cubit<CartState> {
     newProduct.count = newProduct.quantity - 1;
     cart[foundProductIndex] = newProduct;
     if (newProduct.count < 1) {
-      final oldCart = [...cart];
-      cart.removeAt(foundProductIndex);
-      _findAndAnimateDifferences(cart, oldCart: oldCart);
+      // final oldCart = [...cart];
+      // cart.removeAt(foundProductIndex);
+      removeProductFromCart(cartItem);
+      // _findAndAnimateDifferences(cart, oldCart: oldCart);
     }
     cartTotal -= cartItem.product.price;
-    emit(DecrementedQuantityItem([...cart]));
+    // emit(DecrementedQuantityItem([...cart]));
+    emit(DecrementedQuantityItem(cartItem.copyWith()));
+  }
+
+  void clearCart() {
+    _findAndAnimateDifferences([], oldCart: cart);
+    cart.clear();
+    cartTotal = 0;
+
+    emit(ClearedClart());
   }
 }
