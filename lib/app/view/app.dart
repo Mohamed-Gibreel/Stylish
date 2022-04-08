@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,7 +54,10 @@ class App extends StatelessWidget {
           theme: ThemeData(
             fontFamily: 'Gordita',
             scaffoldBackgroundColor: const Color(0xFFFBFBFD),
-            appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+            appBarTheme: const AppBarTheme(
+              color: Color(0xFF13B9FF),
+              systemOverlayStyle: SystemUiOverlayStyle.dark,
+            ),
             colorScheme: ColorScheme.fromSwatch(
               accentColor: const Color(0xFF13B9FF),
             ),
