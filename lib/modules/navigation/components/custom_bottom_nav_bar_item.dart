@@ -24,13 +24,10 @@ class _CustomBottomNavBarItemState extends State<CustomBottomNavBarItem> {
     int? indicatorValue;
     switch (type) {
       case 'favourite':
-        indicatorValue = BlocProvider.of<FavouriteCubit>(context, listen: true)
-            .favourites
-            .length;
+        indicatorValue = context.watch<FavouriteCubit>().favourites.length;
         break;
       case 'cart':
-        indicatorValue =
-            BlocProvider.of<CartCubit>(context, listen: true).cart.length;
+        indicatorValue = context.watch<CartCubit>().cart.length;
         break;
     }
     return Column(

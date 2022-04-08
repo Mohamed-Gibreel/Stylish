@@ -380,7 +380,7 @@ class CheckoutScreen extends StatelessWidget {
                 '/completedOrder',
                 // (route) => false,
               );
-              BlocProvider.of<CartCubit>(context).clearCart();
+              context.read<CartCubit>().clearCart();
             },
             child: Container(
               width: 230.w,

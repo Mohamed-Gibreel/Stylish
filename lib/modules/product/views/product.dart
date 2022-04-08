@@ -55,8 +55,7 @@ class _ProductScreenState extends State<ProductScreen>
   void didChangeDependencies() {
     product = widget.product;
     _tabController = TabController(length: product.colors.length, vsync: this);
-    isLiked =
-        BlocProvider.of<FavouriteCubit>(context).favourites.contains(product);
+    isLiked = context.read<FavouriteCubit>().favourites.contains(product);
     mapColors();
     if (mounted && isLiked) setState(() {});
     super.didChangeDependencies();
@@ -79,7 +78,8 @@ class _ProductScreenState extends State<ProductScreen>
         quantity: 1,
         selectedColor: colorOptions.first.productColor,
       );
-      isInCart = BlocProvider.of<CartCubit>(context)
+      isInCart = context
+          .read<CartCubit>()
           .cart
           .where(
             (item) =>
@@ -95,10 +95,9 @@ class _ProductScreenState extends State<ProductScreen>
   Future<bool> onLikeButtonTapped(bool isLiked) async {
     final addFavourite = !isLiked;
     if (addFavourite) {
-      BlocProvider.of<FavouriteCubit>(context).addProductToFavorites(product);
+      context.read<FavouriteCubit>().addProductToFavorites(product);
     } else {
-      BlocProvider.of<FavouriteCubit>(context)
-          .removeProductFromFavorites(product);
+      context.read<FavouriteCubit>().removeProductFromFavorites(product);
     }
     return !isLiked;
   }
@@ -127,8 +126,9 @@ class _ProductScreenState extends State<ProductScreen>
                 cartItem.selectedColor = selectedColor.productColor;
               }
             }
-            BlocProvider.of<CartCubit>(context).addProductToCart(cartItem);
-            isInCart = BlocProvider.of<CartCubit>(context)
+            context.read<CartCubit>().addProductToCart(cartItem);
+            isInCart = context
+                .read<CartCubit>()
                 .cart
                 .where(
                   (item) =>
@@ -177,6 +177,7 @@ class _ProductScreenState extends State<ProductScreen>
 
   @override
   Widget build(BuildContext context) {
+    isLiked = context.read<FavouriteCubit>().favourites.contains(product);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomAppBar(
@@ -188,20 +189,27 @@ class _ProductScreenState extends State<ProductScreen>
         actionButtons: [
           Padding(
             padding: EdgeInsets.only(right: 25.w),
-            child: LikeButton(
-              isLiked: isLiked,
-              onTap: onLikeButtonTapped,
-              size: 25,
-              padding: EdgeInsets.zero,
-              likeCountPadding: EdgeInsets.zero,
-              likeBuilder: (bool isLiked) {
-                return isLiked
-                    ? SvgPicture.asset('assets/products/heart.svg')
-                    : const Icon(
-                        CupertinoIcons.heart_fill,
-                        color: Colors.grey,
-                      );
-              },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              child: LikeButton(
+                isLiked: isLiked,
+                onTap: onLikeButtonTapped,
+                size: 25.w,
+                padding: EdgeInsets.zero,
+                likeCountPadding: EdgeInsets.zero,
+                likeBuilder: (bool isLiked) {
+                  return isLiked
+                      ? SvgPicture.asset('assets/products/heart.svg')
+                      : const Icon(
+                          CupertinoIcons.heart_fill,
+                          color: Colors.grey,
+                        );
+                },
+              ),
             ),
           )
         ],
@@ -333,17 +341,17 @@ class _ProductScreenState extends State<ProductScreen>
                                       cartItem = cartItem.copyWith(
                                         selectedColor: colorOption.productColor,
                                       );
-                                      isInCart =
-                                          BlocProvider.of<CartCubit>(context)
-                                              .cart
-                                              .where(
-                                                (item) =>
-                                                    item.product.uid ==
-                                                        cartItem.product.uid &&
-                                                    item.selectedColor ==
-                                                        cartItem.selectedColor,
-                                              )
-                                              .isNotEmpty;
+                                      isInCart = context
+                                          .read<CartCubit>()
+                                          .cart
+                                          .where(
+                                            (item) =>
+                                                item.product.uid ==
+                                                    cartItem.product.uid &&
+                                                item.selectedColor ==
+                                                    cartItem.selectedColor,
+                                          )
+                                          .isNotEmpty;
                                       if (mounted) setState(() {});
                                     },
                                     child: Container(

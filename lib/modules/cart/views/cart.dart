@@ -23,10 +23,8 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void loadCart() {
-    BlocProvider.of<CartCubit>(context, listen: false).cart.forEach((element) {
-      final index = BlocProvider.of<CartCubit>(context, listen: false)
-          .cart
-          .indexOf(element);
+    context.read<CartCubit>().cart.forEach((element) {
+      final index = context.read<CartCubit>().cart.indexOf(element);
       _cart.add(element);
       cartListKey.currentState?.insertItem(index);
     });

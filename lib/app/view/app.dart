@@ -51,6 +51,7 @@ class App extends StatelessWidget {
         splitScreenMode: true,
         designSize: const Size(375, 812),
         builder: () => MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             fontFamily: 'Gordita',
             scaffoldBackgroundColor: const Color(0xFFFBFBFD),
@@ -108,24 +109,6 @@ class App extends StatelessWidget {
             }
             return null;
           },
-          // routes: {
-          // '/': (context) => const Onboarding(),
-          // '/secondOnboarding': (context) => const SecondOnboarding(),
-          // '/thirdOnboarding': (context) => const ThirdOnboarding(),
-          // '/login': (context) => const LoginScreen(),
-          // '/signUp': (context) => const SignUpScreen(),
-          // '/landingPage': (context) => const LandingPage(),
-          // '/searchPage': (context) => const SearchPage(),
-          // '/productPage': (context) => const ProductScreen(),
-          // '/checkout': (context) => const CheckoutScreen(),
-          // '/completedOrder': (context) => const CompletedOrder(),
-          // '/settingsPage': (context) => const SettingsScreen(),
-          // '/myOrdersPage': (context) => const MyOrdersScreen(),
-          // '/favouritesPage': (context) => const FavouriteScreen(
-          //       newPage: true,
-          //     ),
-          // '/myWalletPage': (context) => const MyWalletScreen()
-          // },
         ),
       ),
     );

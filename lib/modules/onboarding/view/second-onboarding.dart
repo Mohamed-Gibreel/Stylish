@@ -13,7 +13,6 @@ class SecondOnboarding extends StatefulWidget {
 class _SecondOnboardingState extends State<SecondOnboarding> {
   @override
   void dispose() {
-    // BlocProvider.of<NavigationCubit>(context).close();
     super.dispose();
   }
 

@@ -78,7 +78,8 @@ class CompletedOrder extends StatelessWidget {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () {
-                      BlocProvider.of<NavigationCubit>(context)
+                      context
+                          .read<NavigationCubit>()
                           .setNavBarItem(NavigationItem.home);
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         '/landingPage',
@@ -111,7 +112,8 @@ class CompletedOrder extends StatelessWidget {
                   clipBehavior: Clip.hardEdge,
                   child: InkWell(
                     onTap: () {
-                      BlocProvider.of<NavigationCubit>(context)
+                      context
+                          .read<NavigationCubit>()
                           .setNavBarItem(NavigationItem.home);
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         '/landingPage',

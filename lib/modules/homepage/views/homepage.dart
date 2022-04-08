@@ -73,7 +73,7 @@ class Homepage extends StatelessWidget {
                     if (state is FilterLoadingInProgess) {
                       return const Text('Loading');
                     } else {
-                      final state = BlocProvider.of<FilterCubit>(context);
+                      final state = context.read<FilterCubit>();
                       return Row(
                         children: state.filters
                             .map(
@@ -86,17 +86,17 @@ class Homepage extends StatelessWidget {
                                         ? null
                                         : () {
                                             if (filter.isSelected == true) {
-                                              BlocProvider.of<ProductCubit>(
-                                                context,
-                                              ).removeFilter();
+                                              context
+                                                  .read<ProductCubit>()
+                                                  .removeFilter();
                                             } else {
-                                              BlocProvider.of<ProductCubit>(
-                                                context,
-                                              ).filterProducts(filter.name);
+                                              context
+                                                  .read<ProductCubit>()
+                                                  .filterProducts(filter.name);
                                             }
-                                            BlocProvider.of<FilterCubit>(
-                                              context,
-                                            ).selectFilter(filter);
+                                            context
+                                                .read<FilterCubit>()
+                                                .selectFilter(filter);
                                           },
                                     child: FilterCard(
                                       filterImage: filter.filterImage,

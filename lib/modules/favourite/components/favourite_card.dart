@@ -23,20 +23,17 @@ class _FavouriteCardState extends State<FavouriteCard> {
   Future<bool> onLikeButtonTapped(bool isLiked) async {
     final addFavourite = !isLiked;
     if (addFavourite) {
-      BlocProvider.of<FavouriteCubit>(context)
-          .addProductToFavorites(widget.product);
+      context.read<FavouriteCubit>().addProductToFavorites(widget.product);
     } else {
-      BlocProvider.of<FavouriteCubit>(context)
-          .removeProductFromFavorites(widget.product);
+      context.read<FavouriteCubit>().removeProductFromFavorites(widget.product);
     }
     return !isLiked;
   }
 
   @override
   void didChangeDependencies() {
-    isLiked = BlocProvider.of<FavouriteCubit>(context)
-        .favourites
-        .contains(widget.product);
+    isLiked =
+        context.read<FavouriteCubit>().favourites.contains(widget.product);
     if (mounted && isLiked) setState(() {});
     super.didChangeDependencies();
   }

@@ -34,19 +34,23 @@ class CustomBottomAppBar extends StatelessWidget {
               onTap: (index) {
                 switch (index) {
                   case 0:
-                    BlocProvider.of<NavigationCubit>(context)
+                    context
+                        .read<NavigationCubit>()
                         .setNavBarItem(NavigationItem.home);
                     break;
                   case 1:
-                    BlocProvider.of<NavigationCubit>(context)
+                    context
+                        .read<NavigationCubit>()
                         .setNavBarItem(NavigationItem.favourite);
                     break;
                   case 2:
-                    BlocProvider.of<NavigationCubit>(context)
+                    context
+                        .read<NavigationCubit>()
                         .setNavBarItem(NavigationItem.cart);
                     break;
                   case 3:
-                    BlocProvider.of<NavigationCubit>(context)
+                    context
+                        .read<NavigationCubit>()
                         .setNavBarItem(NavigationItem.profile);
                     break;
                 }
