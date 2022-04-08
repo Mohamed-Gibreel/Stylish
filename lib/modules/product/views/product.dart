@@ -188,27 +188,20 @@ class _ProductScreenState extends State<ProductScreen>
         actionButtons: [
           Padding(
             padding: EdgeInsets.only(right: 25.w),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-              ),
-              child: LikeButton(
-                isLiked: isLiked,
-                onTap: onLikeButtonTapped,
-                size: 25.w,
-                padding: EdgeInsets.zero,
-                likeCountPadding: EdgeInsets.zero,
-                likeBuilder: (bool isLiked) {
-                  return isLiked
-                      ? SvgPicture.asset('assets/products/heart.svg')
-                      : const Icon(
-                          CupertinoIcons.heart_fill,
-                          color: Colors.grey,
-                        );
-                },
-              ),
+            child: LikeButton(
+              isLiked: isLiked,
+              onTap: onLikeButtonTapped,
+              size: 25,
+              padding: EdgeInsets.zero,
+              likeCountPadding: EdgeInsets.zero,
+              likeBuilder: (bool isLiked) {
+                return isLiked
+                    ? SvgPicture.asset('assets/products/heart.svg')
+                    : const Icon(
+                        CupertinoIcons.heart_fill,
+                        color: Colors.grey,
+                      );
+              },
             ),
           )
         ],
