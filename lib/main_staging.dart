@@ -19,5 +19,12 @@ Future<void> main() async {
     await FlutterDisplayMode.setHighRefreshRate();
   }
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.black,
+    ),
+  );
   await bootstrap(() => const App());
 }
