@@ -29,10 +29,10 @@ class IncrementedQuantityItem extends CartState {
 }
 
 class DecrementedQuantityItem extends CartState {
-  DecrementedQuantityItem(this.products);
-  final CartItemModel products;
+  DecrementedQuantityItem(this.product);
+  final CartItemModel product;
   @override
-  List<Object?> get props => [products];
+  List<Object?> get props => [product];
 }
 
 class ClearedClart extends CartState {

@@ -115,8 +115,9 @@ class CartItem extends StatelessWidget {
                             color: Colors.transparent,
                             child: InkWell(
                               onTap: () {
-                                context
-                                    .read<CartCubit>()
+                                BlocProvider.of<CartCubit>(context)
+                                    // context
+                                    //     .read<CartCubit>()
                                     .incrementQuantity(cartItem);
                               },
                               child: const Icon(

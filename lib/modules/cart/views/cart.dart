@@ -70,6 +70,24 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   );
                 }
+                if (state is IncrementedQuantityItem) {
+                  final incrementedItem = state.product;
+                  final indexOfItem = _cart.indexWhere(
+                    (item) =>
+                        item.product.uid == incrementedItem.product.uid &&
+                        item.selectedColor == incrementedItem.selectedColor,
+                  );
+                  _cart[indexOfItem] = incrementedItem;
+                }
+                if (state is DecrementedQuantityItem) {
+                  final decrementedItem = state.product;
+                  final indexOfItem = _cart.indexWhere(
+                    (item) =>
+                        item.product.uid == decrementedItem.product.uid &&
+                        item.selectedColor == decrementedItem.selectedColor,
+                  );
+                  _cart[indexOfItem] = decrementedItem;
+                }
               },
               builder: (context, state) {
                 return AnimatedList(
