@@ -39,7 +39,6 @@
 - [About the Project](#star2-about-the-project)
   * [Tech Stack](#space_invader-tech-stack)
 - [Getting Started](#toolbox-getting-started)
-  * [Prerequisites](#bangbang-prerequisites)
   * [Run Locally](#running-run-locally)
 - [Roadmap](#compass-roadmap)
 - [Contributing](#wave-contributing)
@@ -53,7 +52,16 @@
 ## :star2: About the Project
 
 <div align="center"> 
-  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
+  <img src="https://i.imgur.com/v6olCtg.png" alt="screenshot" height="400"/>
+  <img src="https://i.imgur.com/0aS9o3C.png" alt="screenshot" height="400"/>
+  <img src="https://i.imgur.com/GAiTUFy.png" alt="screenshot" height="400"/>
+  <img src="https://i.imgur.com/OuMuK1f.png" alt="screenshot" height="400"/>
+  <img src="https://i.imgur.com/MkjFVOT.png" alt="screenshot" height="400"/>
+  <img src="https://i.imgur.com/a9jGwza.png" alt="screenshot" height="400"/>
+  <img src="https://i.imgur.com/t3IoVtG.png" alt="screenshot" height="400"/>
+  <img src="https://i.imgur.com/PqfHhOQ.png" alt="screenshot" height="400"/>
+  <img src="https://i.imgur.com/j9FpErN.png" alt="screenshot" height="400"/>
+  
 </div>
 
 
@@ -70,15 +78,6 @@
 
 <!-- Getting Started -->
 ## :toolbox: Getting Started
-
-<!-- Prerequisites -->
-### :bangbang: Prerequisites
-
-This project uses BLoC for state mangement.
-
-```bash
- flutter pub get
-```
 
 <!-- Run Locally -->
 ### :running: Run Locally
