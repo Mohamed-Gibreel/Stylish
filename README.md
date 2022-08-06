@@ -69,7 +69,7 @@
 ### :space_invader: Tech Stack
 
 <details>
-  <summary>Client</summary>
+  <summary>Front End</summary>
   <ul>
     <li><a href="https://flutter.dev">Flutter</a></li>
     <li><a href="https://bloclibrary.dev/#/">BLoC State Management</a></li>
