@@ -20,9 +20,13 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
         leadingWidgetCb: () {
           Navigator.of(context).pop();
         },
-        title: const Text(
+        title: Text(
           'My Wallets',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.normal,
+          ),
         ),
       ),
       body: Column(
@@ -53,7 +57,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
             ),
           ),
           SizedBox(
-            height: 30.h,
+            height: 20.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +94,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 50.h,
+                  height: 20.h,
                 ),
                 Text(
                   'Recent transactions',
@@ -100,7 +104,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 10.h,
                 ),
               ],
             ),

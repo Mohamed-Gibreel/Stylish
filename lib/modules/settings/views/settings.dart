@@ -72,14 +72,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       padding: EdgeInsets.only(top: 5.h),
                       child: Text(
                         item.name,
-                        style: TextStyle(fontSize: 14.sp),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 if (!item.isRadio)
-                  const Icon(
+                  Icon(
                     Icons.arrow_forward_ios_rounded,
+                    size: 18.w,
                   ),
                 if (item.isRadio)
                   Switch.adaptive(
@@ -106,9 +109,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         leadingWidgetCb: () => Navigator.of(context).pop(),
         title: Padding(
           padding: EdgeInsets.only(top: 5.h),
-          child: const Text(
+          child: Text(
             'Settings',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.normal,
+            ),
           ),
         ),
       ),

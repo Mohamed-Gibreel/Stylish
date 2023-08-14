@@ -89,9 +89,13 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     return widget.newPage
         ? Scaffold(
             appBar: CustomAppBar(
-              title: const Text(
+              title: Text(
                 'Favourite',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
               leadingWidgetIcon: Icons.arrow_back_ios_new,
               leadingWidgetCb: () {

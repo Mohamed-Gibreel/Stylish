@@ -46,7 +46,7 @@ class ProductCard extends StatelessWidget {
                       product.name,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 12.sp,
+                        fontSize: 14.sp,
                       ),
                     ),
                   ),
@@ -55,7 +55,7 @@ class ProductCard extends StatelessWidget {
                   r'$' + product.price.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 12.sp,
+                    fontSize: 14.sp,
                   ),
                 ),
               ],

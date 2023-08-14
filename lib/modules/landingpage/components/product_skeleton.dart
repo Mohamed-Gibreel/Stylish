@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProdcutSkeleton extends StatelessWidget {
-  const ProdcutSkeleton({
+class ProductSkeleton extends StatelessWidget {
+  const ProductSkeleton({
     Key? key,
   }) : super(key: key);
 

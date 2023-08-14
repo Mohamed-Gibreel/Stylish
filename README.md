@@ -7,7 +7,6 @@
     A user-friendly e-commerce app made in flutter! 
   </p>
 
-  
 <!-- Badges -->
 <p>
   <a href="https://github.com/Louis3797/awesome-readme-template/graphs/contributors">
@@ -34,21 +33,22 @@
 <br />
 
 <!-- Table of Contents -->
+
 # :notebook_with_decorative_cover: Table of Contents
 
-- [About the Project](#star2-about-the-project)
-  * [Tech Stack](#space_invader-tech-stack)
-- [Getting Started](#toolbox-getting-started)
-  * [Run Locally](#running-run-locally)
-- [Roadmap](#compass-roadmap)
-- [Contributing](#wave-contributing)
-  * [Code of Conduct](#scroll-code-of-conduct)
-- [License](#warning-license)
-- [Contact](#handshake-contact)
-- [Acknowledgements](#gem-acknowledgements)
-  
+-   [About the Project](#star2-about-the-project)
+    -   [Tech Stack](#space_invader-tech-stack)
+-   [Getting Started](#toolbox-getting-started)
+    -   [Run Locally](#running-run-locally)
+-   [Roadmap](#compass-roadmap)
+-   [Contributing](#wave-contributing)
+    -   [Code of Conduct](#scroll-code-of-conduct)
+-   [License](#warning-license)
+-   [Contact](#handshake-contact)
+-   [Acknowledgements](#gem-acknowledgements)
 
 <!-- About the Project -->
+
 ## :star2: About the Project
 
 <div align="center"> 
@@ -64,8 +64,8 @@
   
 </div>
 
-
 <!-- TechStack -->
+
 ### :space_invader: Tech Stack
 
 <details>
@@ -77,9 +77,11 @@
 </details>
 
 <!-- Getting Started -->
+
 ## :toolbox: Getting Started
 
 <!-- Run Locally -->
+
 ### :running: Run Locally
 
 Clone the project
@@ -102,51 +104,51 @@ Install dependencies
 
 Run the application
 
-
 ```bash
   flutter run --flavor development --target lib/main_development.dart
 ```
 
 <!-- Roadmap -->
+
 ## :compass: Roadmap
 
-* [x] List all products
-* [x] Filter products
-* [x] Add product to favourites list
-* [x] View favourites list
-* [x] Add product to cart
-* [x] View cart
-* [x] Checkout cart
-* [ ] Add authentication (maybe ...)
-* [ ] Implement search functionality
-* [ ] Create a backend with a database to fetch products from db
+-   [x] List all products
+-   [x] Filter products
+-   [x] Add product to favourites list
+-   [x] View favourites list
+-   [x] Add product to cart
+-   [x] View cart
+-   [x] Checkout cart
+-   [ ] Add authentication (maybe ...)
+-   [ ] Implement search functionality
+-   [ ] Create a backend with a database to fetch products from DB
 
 <!-- Contributing -->
+
 ## :wave: Contributing
 
 <a href="https://github.com/Mohamed-Gibreel/Stylish/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Mohamed-Gibreel/Stylish" />
 </a>
 
-
 Contributions are always welcome!
 
 See `contributing.md` for ways to get started.
 
-
 <!-- Code of Conduct -->
+
 ### :scroll: Code of Conduct
 
 Please read the [Code of Conduct](https://github.com/Mohamed-Gibreel/Stylish/blob/master/CODE_OF_CONDUCT.md)
 
-
 <!-- License -->
+
 ## :warning: License
 
 Distributed under the no License. See LICENSE.txt for more information.
 
-
 <!-- Contact -->
+
 ## :handshake: Contact
 
 Mohamed Gibreel - [@LinkedIn](https://www.linkedin.com/in/mohamedgibreel/) - m.adilgibreel@gmail.com
@@ -154,9 +156,10 @@ Mohamed Gibreel - [@LinkedIn](https://www.linkedin.com/in/mohamedgibreel/) - m.a
 Project Link: [https://github.com/Mohamed-Gibreel/Stylish](https://github.com/Mohamed-Gibreel/Stylish)
 
 <!-- Acknowledgments -->
+
 ## :gem: Acknowledgements
 
 Use this section to mention useful resources and libraries that you have used in your projects.
 
- - [Flutter](https://flutter.dev)
- - [Flutter BLoC](https://pub.dev/packages/flutter_bloc)
+-   [Flutter](https://flutter.dev)
+-   [Flutter BLoC](https://pub.dev/packages/flutter_bloc)

@@ -173,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     'Forgot password?',
                     style:
-                        TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
+                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
                   ),
                 ),
                 SizedBox(
@@ -230,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       'Or',
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
+                        fontSize: 14.sp,
                       ),
                     ),
                     SizedBox(

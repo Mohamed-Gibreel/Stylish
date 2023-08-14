@@ -114,7 +114,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           l10n.newArrival,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 12.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -133,7 +133,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           l10n.topTrending,
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 12.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -151,7 +151,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           l10n.featuredProducts,
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 12.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
                           ),
                         ),

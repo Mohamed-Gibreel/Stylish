@@ -154,12 +154,11 @@ class Homepage extends StatelessWidget {
                       height: 190.h,
                       child: Row(
                         children: [
-                          const ProdcutSkeleton(),
+                          const ProductSkeleton(),
                           SizedBox(
                             width: 10.w,
                           ),
-                          const ProdcutSkeleton(),
-                          // ProdcutSkeleton(),
+                          const ProductSkeleton(),
                         ],
                       ),
                     ),
@@ -177,10 +176,7 @@ class Homepage extends StatelessWidget {
                               child: child,
                             );
                           },
-
                           duration: const Duration(milliseconds: 200),
-
-                          // child: _widgetOptions.elementAt(_selectedIndex)),
                           child: state.products.isEmpty
                               ? const Center(child: Text('No products to show'))
                               : ListView.builder(

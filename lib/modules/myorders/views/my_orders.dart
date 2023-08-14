@@ -37,9 +37,13 @@ class _MyOrdersScreenState extends State<MyOrdersScreen>
         },
         title: Padding(
           padding: EdgeInsets.only(top: 5.h),
-          child: const Text(
+          child: Text(
             'My Orders',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.normal,
+            ),
           ),
         ),
       ),

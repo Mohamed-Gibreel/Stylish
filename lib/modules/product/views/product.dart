@@ -302,6 +302,7 @@ class _ProductScreenState extends State<ProductScreen>
                         Text(
                           'A Henley shirt is a collarless pullover shirt, by a round neckline and a placket about 3 to 5 inches (8 to 13 cm) long and usually having 2–5 buttons.',
                           style: TextStyle(
+                            fontSize: 14.sp,
                             color: Colors.black.withOpacity(.5),
                           ),
                         ),
@@ -311,6 +312,7 @@ class _ProductScreenState extends State<ProductScreen>
                         Text(
                           'Colors',
                           style: TextStyle(
+                            fontSize: 16.sp,
                             color: Colors.black.withOpacity(.5),
                             // fontWeight: FontWeight.w500,
                           ),
@@ -385,7 +387,7 @@ class _ProductScreenState extends State<ProductScreen>
                           Text(
                             'No colors available',
                             style: TextStyle(
-                              fontSize: 12.sp,
+                              fontSize: 14.sp,
                             ),
                           ),
                         SizedBox(
@@ -422,7 +424,7 @@ class _ProductScreenState extends State<ProductScreen>
                       child: Text(
                         'Out of stock :(',
                         style: TextStyle(
-                          fontSize: 12.sp,
+                          fontSize: 14.sp,
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                         ),

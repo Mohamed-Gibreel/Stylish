@@ -387,7 +387,7 @@ class CheckoutScreen extends StatelessWidget {
               height: 55.h,
               decoration: BoxDecoration(
                 color: Constants.primaryColor,
-                borderRadius: BorderRadius.circular(50.r),
+                borderRadius: BorderRadius.circular(10.r),
               ),
               child: Center(
                 child: Text(

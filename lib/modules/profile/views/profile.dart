@@ -103,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
                   Text(
                     'm.adilgibreel@gmail.com',
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 14.sp,
                       color: Colors.black.withOpacity(.5),
                     ),
                   ),
@@ -159,7 +159,7 @@ class ProfileScreen extends StatelessWidget {
                           Text(
                             'Progress Order',
                             style: TextStyle(
-                              fontSize: 12.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -211,7 +211,7 @@ class ProfileScreen extends StatelessWidget {
                           Text(
                             'Promocodes',
                             style: TextStyle(
-                              fontSize: 12.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -263,7 +263,7 @@ class ProfileScreen extends StatelessWidget {
                           Text(
                             'Reviews',
                             style: TextStyle(
-                              fontSize: 12.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
